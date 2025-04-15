@@ -32,9 +32,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     container: {
-        marginTop: 10,
         maxWidth: "40%",
-        marginLeft: "5%",
         borderWidth: 1,
         borderRadius: 20,
         borderColor: "black",
