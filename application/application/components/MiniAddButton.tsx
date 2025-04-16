@@ -3,8 +3,7 @@ import {View, TouchableOpacity, StyleSheet} from "react-native";
 export default function MiniAddButton(){
     return(
         <View>
-            <TouchableOpacity style={styles.container}>
-            </TouchableOpacity>
+            <TouchableOpacity style={styles.container}/>
         </View>
     )
 }

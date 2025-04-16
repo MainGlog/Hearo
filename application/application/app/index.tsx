@@ -4,21 +4,25 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import ScaleScreen from "@/app/Scales";
 import BottomNavBar from "@/components/BottomNavBar";
 import {FontAwesome} from "@expo/vector-icons";
+import AddToRoutineModal from "@/components/AddToRoutineModal";
+import Exercise from "@/models/Exercise";
+import {Stack} from 'expo-router';
 
 export type RootStackParamList = {
     Home: undefined;
     Scales: undefined;
+    Modal: [Exercise, boolean];
 }
 
 const Tab = createBottomTabNavigator({
     tabBar: (props) => <BottomNavBar/>,
     screens: {
-        Scales: ScaleScreen
+        Scales: ScaleScreen,
+        Modal: AddToRoutineModal
     },
     color: 'black'
 })
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Index() {
   return (
     <Tab.Navigator screenOptions={{

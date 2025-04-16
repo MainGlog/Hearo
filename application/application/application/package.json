@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@primer/octicons-react": "^19.15.1",
-    "react-native-vector-icons": "^10.2.0"
-  }
-}
