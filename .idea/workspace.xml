@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="testing copy push">
+      <change afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/.expo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/.expo/devices.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/.expo/types/router.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/app/Scales.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/app/_layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/app/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/fonts/SpaceMono-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/adaptive-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/audio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/partial-react-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/react-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/react-logo@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/react-logo@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/scales/Screenshot_17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/assets/images/splash-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/components/AddToRoutineButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/components/AddToRoutineModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/components/BottomNavBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/components/MiniAddButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/components/ScaleContainer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/models/Chord.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/models/Exercise.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/models/Interval.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/models/Key.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/models/Note.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/models/Routine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/models/Scale.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Fix" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;lbrooks81&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/lbrooks81/Ear-Training-AppFix.git&quot;,
+    &quot;accountId&quot;: &quot;c64ebc53-17de-457a-a67f-6128a77c494c&quot;
+  }
+}</component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\tools\php83\php.exe" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2vlfqjW1ymvzhgjFGq6j2AALHHt" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Glog/Desktop/School/Year Two/Term 3/Capstone Project/CopyCopy",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.android (1).executor": "Run",
+    "npm.android.executor": "Run",
+    "ts.external.directory.path": "C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Glog\Desktop\School\Year Two\Term 3\Capstone Project\EarTrainingApp\application" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.android (1)">
+    <configuration name="android (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/application/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="android" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="android" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/application/application/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="android" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.android (1)" />
+        <item itemvalue="npm.android" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PS-242.23726.107" />
+        <option value="bundled-php-predefined-a98d8de5180a-90914f2295cb-com.jetbrains.php.sharedIndexes-PS-242.23726.107" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="" />
+      <created>1744724774015</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744724774015</updated>
+      <workItem from="1744724775173" duration="987000" />
+      <workItem from="1744726072196" duration="16000" />
+      <workItem from="1744726156641" duration="3730000" />
+      <workItem from="1744896022102" duration="2240000" />
+      <workItem from="1744898412839" duration="4117000" />
+    </task>
+    <task id="LOCAL-00001" summary="testing copy push">
+      <option name="closed" value="true" />
+      <created>1744724927232</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744724927232</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="testing copy push" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing copy push" />
+  </component>
+</project>
