@@ -15,6 +15,7 @@ export default function LargeAddButton({exercise} : Props){
             <TouchableOpacity
                 onPress={() => {
                     setModalVisible(!modalVisible);
+                    console.log(exercise.options.randomOptions.numberOfNotes + " button pressed");
                 }}>
                 <Text style={styles.label}>Add to Routine</Text>
                 {/*/ Add custom icon here /*/}
@@ -33,7 +34,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 1,
         marginTop: 10,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        maxWidth: "40%",
     },
     label: {
         textAlign: "center",

@@ -4,11 +4,18 @@ import {RootStackParamList} from "@/app/index";
 import ScaleContainer from "../components/ScaleContainer";
 import BottomNavBar from "@/components/BottomNavBar";
 import Scale from "@/models/Scale";
+import Note from "@/models/Note";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
 
+
+const note = new Note(
+    'C', 4, 'filePathHere', null
+)
+const notes: Note[] = [note];
+
 const scale = new Scale(
-    "Major", require('@/assets/images/scales/Screenshot_17.png')
+    "Major", require('@/assets/images/scales/Screenshot_17.png'), notes
 )
 
 export default function ScaleScreen()

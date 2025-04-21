@@ -46,8 +46,7 @@ export default function Index({navigation}: BottomTabBarProps) {
             }}/>
             <Tab.Screen name="ScaleDetails" component={ScalesDetailsScreen} options={{
                 headerShown: false,
-                // this screen should not render on the bottom navigation bar
-
+                // TODO this screen should not render on the bottom navigation bar
             }}/>
         </Tab.Navigator>
     );

@@ -21,15 +21,3 @@ export default function AddToRoutineButton({isMiniButton, exercise}: Props) {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        borderRadius: 20,
-        borderWidth: 1,
-        marginTop: 10,
-        paddingHorizontal: 10
-    },
-    label: {
-        textAlign: "center",
-    }
-})

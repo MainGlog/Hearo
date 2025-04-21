@@ -4,47 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="testing copy push">
-      <change afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/.expo/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/.expo/devices.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/.expo/types/router.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/app/Scales.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/app/_layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/app/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/fonts/SpaceMono-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/adaptive-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/audio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/partial-react-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/react-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/react-logo@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/react-logo@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/scales/Screenshot_17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/assets/images/splash-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/components/AddToRoutineButton.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/components/AddToRoutineModal.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/components/BottomNavBar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/components/MiniAddButton.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/components/ScaleContainer.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/models/Chord.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/models/Exercise.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/models/Interval.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/models/Key.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/models/Note.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/models/Routine.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/models/Scale.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" />
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button">
+      <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/MiniAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/MiniAddButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Scale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Scale.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +138,7 @@
       <workItem from="1744726072196" duration="16000" />
       <workItem from="1744726156641" duration="3730000" />
       <workItem from="1744896022102" duration="2240000" />
-      <workItem from="1744898412839" duration="4117000" />
+      <workItem from="1744898412839" duration="12208000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -181,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744724927232</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button">
+      <option name="closed" value="true" />
+      <created>1744902964328</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744902964328</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +164,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="testing copy push" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing copy push" />
+    <MESSAGE value="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button" />
   </component>
 </project>
