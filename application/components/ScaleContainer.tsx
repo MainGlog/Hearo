@@ -5,22 +5,20 @@ import Scale from "@/models/Scale";
 import Exercise from "@/models/Exercise";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
 
-const scale: Scale = new Scale();
 
-// @ts-ignore
-export default function ScaleContainer({scaleName, scaleImage}) {
+export default function ScaleContainer(scale: Scale) {
     return(
         <>
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.title}>
-                        {scaleName} Scale
+                        {scale.name} Scale
                     </Text>
                     <FontAwesome name={"volume-up"} size={24} style={{marginRight: 20}}/>
                 </View>
-                <Image style={styles.image} source={scaleImage}></Image>
+                <Image style={styles.image} source={scale.imageFilePath}></Image>
                 <View style={styles.buttonWrapper}>
-                    <ViewDetailsButton/>
+                    <ViewDetailsButton scale={scale}/>
                     {/*/ View that displays "View Details" and routes to a specified page /*/}
                     <AddToRoutineButton
                         isMiniButton={true}

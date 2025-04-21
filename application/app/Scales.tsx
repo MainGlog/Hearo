@@ -3,8 +3,13 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
 import ScaleContainer from "../components/ScaleContainer";
 import BottomNavBar from "@/components/BottomNavBar";
+import Scale from "@/models/Scale";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
+
+const scale = new Scale(
+    "Major", require('@/assets/images/scales/Screenshot_17.png')
+)
 
 export default function ScaleScreen()
 {
@@ -17,34 +22,28 @@ export default function ScaleScreen()
                 <Text style={styles.categoryTitle}>Basic Scales</Text>
                 <View style={styles.categoryContainer}>
                     <ScaleContainer
-                        scaleName = "Major"
-                        scaleImage = {require("../assets/images/scales/Screenshot_17.png")}
+                        {...scale}
                     />
                     <ScaleContainer
-                        scaleName = "Major"
-                        scaleImage = {require("../assets/images/scales/Screenshot_17.png")}
+                        {...scale}
                     />
                 </View>
                 <Text style={styles.categoryTitle}>Modes</Text>
                 <View style={styles.categoryContainer}>
                     <ScaleContainer
-                        scaleName = "Major"
-                        scaleImage = {require("../assets/images/scales/Screenshot_17.png")}
+                        {...scale}
                     />
                     <ScaleContainer
-                        scaleName = "Major"
-                        scaleImage = {require("../assets/images/scales/Screenshot_17.png")}
+                        {...scale}
                     />
                 </View>
                 <Text style={styles.categoryTitle}>Exotic Scales</Text>
                 <View style={styles.categoryContainer}>
                     <ScaleContainer
-                        scaleName = "Major"
-                        scaleImage = {require("../assets/images/scales/Screenshot_17.png")}
+                        {...scale}
                     />
                     <ScaleContainer
-                        scaleName = "Major"
-                        scaleImage = {require("../assets/images/scales/Screenshot_17.png")}
+                        {...scale}
                     />
                 </View>
             </View>

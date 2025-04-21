@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator({
     screens: {
         Scales: ScaleScreen,
         Modal: AddToRoutineModal,
-        ScalesDetails: ScalesDetailsScreen
+        ScaleDetails: ScalesDetailsScreen
     },
     color: 'black'
 })
@@ -43,7 +43,12 @@ export default function Index({navigation}: BottomTabBarProps) {
                 headerShown: false,
                 tabBarLabel: 'Scales',
                 tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>
-            }}></Tab.Screen>
+            }}/>
+            <Tab.Screen name="ScaleDetails" component={ScalesDetailsScreen} options={{
+                headerShown: false,
+                // this screen should not render on the bottom navigation bar
+
+            }}/>
         </Tab.Navigator>
     );
 }
