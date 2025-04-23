@@ -6,12 +6,13 @@ import {useState} from 'react';
 import AddToRoutineButton from '@/components/AddToRoutineButton';
 import Exercise from '@/models/Exercise';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
+import Note from "@/models/Note";
 
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 //@ts-ignore
 export default function ScalesDetailsScreen({route}){
-    const scale = new Scale(route.params.name, route.params.imageFilePath);
+    const scale = new Scale(route.params.name, route.params.imageFilePath, route.params.notes as Note[]);
 
     const [ascendingButtonActive, setAscendingButtonActive] = useState(false);
     const [randomButtonActive, setRandomButtonActive] = useState(false);
@@ -32,27 +33,25 @@ export default function ScalesDetailsScreen({route}){
             numberOfOctaves: 2,
         },
         customOptions: {
-            notesToInclude: [],
+            notesToInclude: [Note],
             order: 'ascending',
         }
     }
 
 
-    // TODO figure out why notes aren't passing properly
-    let notesAsKeyValue: any[] =
-    [
-        { label: scale.notes[0].name, value: scale.notes[0] }
-    ];
 
-    scale.notes.map((note) => {notesAsKeyValue.push({
-        label: note.name,
-        value: note
-    })});
+    let notesAsKeyValue: any[] = scale.notes.map((note, index) => ({
+        key: index.toString(),
+        value: note.name
+    }));
 
-    for (let note of notesAsKeyValue)
-    {
-        console.log(note.label + ' - ' + note.value);
-    }
+
+   /* for (let i = 0; i < scale.notes.length; i++) {
+        notesAsKeyValue.push({ key: i.toString(), value: scale.notes[i].name })
+        console.log(notesAsKeyValue[i].key);
+    }*/
+
+
 
     return (
         <View>
@@ -140,19 +139,28 @@ export default function ScalesDetailsScreen({route}){
                 <View style={styles.optionContainer}>
                     <Text style={styles.heading}>Custom Selection Options</Text>
                     <View style={styles.optionRow}>
-                        <View>
                         <MultiSelect
                             style={styles.optionButton}
                             data={notesAsKeyValue}
+                            mode={"modal"}
+                            placeholder={'Notes to Include'}
+                            placeholderStyle={styles.optionLabel}
                             onChange={() => {
 
                             }}
-                            labelField={''}
-                            valueField={''}
-                        />
+                            visibleSelectedItem={false}
+                            onConfirmSelectItem={(item) => {
+                                // Clear the list first
+                                options.customOptions.notesToInclude.splice(0, 1);
 
-                        </View>
+                                // Add selected notes to the list
+                                options.customOptions.notesToInclude.push(item);
+                            }}
+                            labelField={'value'}
+                            valueField={'key'}
+                        />
                         <TouchableOpacity
+                            // This should give a menu where users can drag around the notes in the included list
                             style={styles.optionButton}
                             onPress={() => {
 

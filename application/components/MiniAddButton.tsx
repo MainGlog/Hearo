@@ -12,15 +12,9 @@ export default function MiniAddButton({exercise} : Props){
 
     return(
         <View>
-            <TouchableOpacity
-                style={styles.container}
-                onPress={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            />
             <AddToRoutineModal
                 exercise={exercise}
-                isVisible={modalVisible}
+                buttonSize={'mini'}
             />
         </View>
     )

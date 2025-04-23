@@ -1,15 +1,16 @@
+import Sound from "@/models/Sound";
+
 export default class Note {
     name: string = ''
-    octave: number = 0
-    filePath: string = ''
     enharmonic: string | null = ''
+    sound: Sound | null = null
 
-    constructor(name: string, octave: number, filePath: string, enharmonic: string | null) {
+    constructor(name: string, enharmonic: string | null, sound: Sound | null) {
         this.name = name;
-        this.octave = octave;
-        this.filePath = filePath;
-        if (enharmonic)
-        {
+        if (sound) {
+            this.sound = sound
+        }
+        if (enharmonic) {
             this.enharmonic = enharmonic;
         }
     }

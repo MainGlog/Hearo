@@ -1,8 +1,9 @@
-import {View, StyleSheet, FlatList, Text, Pressable, Modal} from "react-native";
+import {View, StyleSheet, FlatList, Text, Pressable, Modal, TouchableOpacity} from "react-native";
 import {SafeAreaView, SafeAreaProvider} from "react-native-safe-area-context";
 import Routine from "@/models/Routine";
 import Exercise from "@/models/Exercise";
 import {FontAwesome} from "@expo/vector-icons";
+import {MultiSelect} from "react-native-element-dropdown";
 
 // @ts-ignore
 const routines: Routine[] = [
@@ -14,63 +15,84 @@ const routines: Routine[] = [
     new Routine(6, "Routine 6", []),
 ];
 
+const routinesAsJSONArray: any[] = routines.map((routine) => ({
+    id: routine.id.toString(),
+    name: routine.name,
+    exercises: routine.exercises
+}))
+
+for (let routine of routines) {
+
+}
+
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
 type Props = {
     exercise: Exercise | null,
-    isVisible: boolean
+    buttonSize: string
 }
 
-export default function AddToRoutineModal({exercise, isVisible} : Props){
-
+export default function AddToRoutineModal({exercise, buttonSize} : Props) {
     return(
-        <SafeAreaProvider>
-            <SafeAreaView>
-                <Modal
-                    visible={isVisible}
-                    transparent={true}
-                    style={styles.modal}
-                >
-                    <View style={styles.container}>
-                        <Text style={styles.headingText}>
-                            Add to Routine
-                        </Text>
-                        <FlatList
-                            data={routines}
-                            renderItem={({item}) => (
-                                <View style={styles.routineContainer}>
-                                    <Text style={styles.routineText}>{item.name}</Text>
-                                    <Pressable
-                                        onPress={() => {
-                                            if (exercise) {
-                                                item.exercises.push(exercise!)
-                                            }
-                                        }}
-                                    >
-                                        <FontAwesome style={styles.icon} name={"plus"} size={20} color="black" />
-                                    </Pressable>
-                                </View>
-                            )}
-                        >
-                        </FlatList>
-                        <Pressable
-                            onPress={() => {
-                                isVisible = !isVisible
-                                console.log(isVisible)
-                            }}
-                            style={styles.saveButton}
-                        >
-                            <Text style={styles.saveButtonText}>Save</Text>
-                        </Pressable>
-                    </View>
-                </Modal>
-            </SafeAreaView>
-        </SafeAreaProvider>
+        <MultiSelect
+            data={routinesAsJSONArray}
+            labelField={'id'}
+            valueField={'name'}
+            visibleSelectedItem={false}
+            placeholder={''}
+            style={buttonSize === 'mini' ? styles.mini : styles.large}
+            containerStyle={styles.container}
+            mode={'modal'}
+            onChange={(selectedItems: string[]) => {
+                // Create a routine array based on the names of the selected items
+                const itemsAsRoutineArray = selectedItems.map((item) => {
+                    return routines.find((routine) => routine.name === item);
+                })
+
+                // Add the exercise to the exercise arrays in the selected routines
+                if (itemsAsRoutineArray && exercise) {
+                    for (let item of itemsAsRoutineArray) {
+                        item!.exercises.push(exercise!);
+                    }
+                }
+            }}
+            renderLeftIcon={() => (
+                <FontAwesome style={styles.icon} name={"plus"} size={15} color="grey" />
+                )
+            }
+            renderRightIcon={() => null}
+            flatListProps={{
+
+            }}
+            iconStyle={
+                styles.icon
+                // Find a way to style this dynamically, making the plus sign change based on whether the item is selected
+            }
+        >
+        </MultiSelect>
     )
 }
 
 const styles = StyleSheet.create({
     modal: {
-
+        zIndex: 10,
+        elevation: 10
+    },
+    mini: {
+        borderRadius: 20,
+        borderWidth: 2,
+        borderColor: "grey",
+        width: 20,
+        height: 20,
+        marginTop: 15,
+        marginLeft: 10,
+        backgroundColor: 'lightgreen'
+    },
+    large: {
+        borderRadius: 20,
+        borderWidth: 1,
+        marginTop: 10,
+        paddingHorizontal: 10,
+        maxWidth: "40%",
     },
     container: {
         borderRadius: 20,
@@ -95,7 +117,8 @@ const styles = StyleSheet.create({
         marginLeft: "15%"
     },
     icon: {
-        marginRight: "15%",
+        marginLeft: 2,
+        marginTop: 1,
         alignContent: "center"
     },
     saveButton: {

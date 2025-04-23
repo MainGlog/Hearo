@@ -10,7 +10,7 @@ interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "
 
 
 const note = new Note(
-    'C', 4, 'filePathHere', null
+    'C', 'B#', null
 )
 const notes: Note[] = [note];
 

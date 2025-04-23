@@ -1,5 +1,4 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import ScalesScreen from "@/app/Scales";
 import {BottomTabBarProps, createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import ScaleScreen from "@/app/Scales";
 import BottomNavBar from "@/components/BottomNavBar";
@@ -8,12 +7,13 @@ import AddToRoutineModal from "@/components/AddToRoutineModal";
 import Exercise from "@/models/Exercise";
 import Scale from "@/models/Scale";
 import ScalesDetailsScreen from "@/app/ScalesDetails";
+import HomeScreen from "@/app/Home";
 
 export type RootStackParamList = {
     Home: undefined;
     Scales: undefined;
     ScaleDetails: Scale;
-    Modal: [Exercise, boolean];
+    Modal: [Exercise | null, boolean];
 }
 
 
@@ -27,9 +27,17 @@ const Tab = createBottomTabNavigator({
     color: 'black'
 })
 
-export default function Index({navigation}: BottomTabBarProps) {
+// const Stack = createNativeStackNavigator<RootStackParamList>();
 
+export default function Index() {
     return (
+        /*<Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
+            <Stack.Screen name="Scales" component={ScaleScreen}></Stack.Screen>
+            <Stack.Screen name="Modal" component={AddToRoutineModal}></Stack.Screen>
+            <Stack.Screen name="ScaleDetails" component={ScalesDetailsScreen}></Stack.Screen>
+        </Stack.Navigator>
+*/
         <Tab.Navigator screenOptions={{
             tabBarActiveTintColor: 'black',
             tabBarInactiveTintColor: 'light blue',
@@ -39,7 +47,7 @@ export default function Index({navigation}: BottomTabBarProps) {
             },
             headerShown: false,
         }}>
-            <Tab.Screen name="Scales" component={ScalesScreen} options={{
+            <Tab.Screen name="Scales" component={ScaleScreen} options={{
                 headerShown: false,
                 tabBarLabel: 'Scales',
                 tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>

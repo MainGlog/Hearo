@@ -21,7 +21,7 @@ export default function LargeAddButton({exercise} : Props){
                 {/*/ Add custom icon here /*/}
                 <AddToRoutineModal
                     exercise={exercise}
-                    isVisible={modalVisible}
+                    buttonSize={'large'}
                 />
                 {/*/ isVisible does not pass to AddToRoutineModal /*/}
             </TouchableOpacity>

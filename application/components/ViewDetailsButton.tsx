@@ -14,13 +14,11 @@ type Props = {
 export default function ViewDetailsButton({scale}: Props){
     const navigation = useNavigation<NativeStackScreenProps<RootStackParamList, 'ScaleDetails'>['navigation']>();
 
-
     return (
         <TouchableOpacity
             style={styles.container}
             onPress={() => {
                 navigation.navigate("ScaleDetails", {...scale})
-                // TODO figure out how to navigate to the details screen
             }}
         >
             <Text style={styles.label}>View Details</Text>
