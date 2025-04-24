@@ -9,22 +9,13 @@ type Props = {
 
 
 export default function LargeAddButton({exercise} : Props){
-    const [modalVisible, setModalVisible] = useState(false);
     return(
         <View style={styles.container}>
-            <TouchableOpacity
-                onPress={() => {
-                    setModalVisible(!modalVisible);
-                    console.log(exercise.options.randomOptions.numberOfNotes + " button pressed");
-                }}>
-                <Text style={styles.label}>Add to Routine</Text>
-                {/*/ Add custom icon here /*/}
-                <AddToRoutineModal
-                    exercise={exercise}
-                    buttonSize={'large'}
-                />
-                {/*/ isVisible does not pass to AddToRoutineModal /*/}
-            </TouchableOpacity>
+            <Text style={styles.label}>Add to Routine</Text>
+            <AddToRoutineModal
+                exercise={exercise}
+                buttonSize={'large'}
+            />
         </View>
     )
 }

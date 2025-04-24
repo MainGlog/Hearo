@@ -52,6 +52,10 @@ export default function Index() {
                 tabBarLabel: 'Scales',
                 tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>
             }}/>
+            <Tab.Screen name="Home" component={HomeScreen} options={{
+                headerShown: false,
+                tabBarLabel: 'Home'
+            }}/>
             <Tab.Screen name="ScaleDetails" component={ScalesDetailsScreen} options={{
                 headerShown: false,
                 // TODO this screen should not render on the bottom navigation bar

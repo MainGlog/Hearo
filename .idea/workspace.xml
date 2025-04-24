@@ -4,14 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button">
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="- Created layout for scale details page&#10;- Random notes options are working">
+      <change afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/components/NavBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/models/Sound.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/MiniAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/MiniAddButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Scale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Scale.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Note.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +29,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
       </list>
     </option>
@@ -90,19 +96,9 @@
       <recent name="C:\Users\Glog\Desktop\School\Year Two\Term 3\Capstone Project\EarTrainingApp\application" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.android (1)">
-    <configuration name="android (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/application/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="android" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="android" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/application/application/package.json" />
+      <package-json value="$PROJECT_DIR$/application/package.json" />
       <command value="run" />
       <scripts>
         <script value="android" />
@@ -113,7 +109,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.android (1)" />
         <item itemvalue="npm.android" />
       </list>
     </recent_temporary>
@@ -138,7 +133,7 @@
       <workItem from="1744726072196" duration="16000" />
       <workItem from="1744726156641" duration="3730000" />
       <workItem from="1744896022102" duration="2240000" />
-      <workItem from="1744898412839" duration="12208000" />
+      <workItem from="1744898412839" duration="39237000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -156,7 +151,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744902964328</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- Got navigation between the main page and details page working&#10;- Got dynamic image rendering to work&#10;- Fixed styling issues in the scale container">
+      <option name="closed" value="true" />
+      <created>1745200788941</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745200788941</updated>
+    </task>
+    <task id="LOCAL-00004" summary="- Created layout for scale details page&#10;- Random notes options are working">
+      <option name="closed" value="true" />
+      <created>1745251934956</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745251934956</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,6 +176,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="testing copy push" />
     <MESSAGE value="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button" />
+    <MESSAGE value="- Got navigation between the main page and details page working&#10;- Got dynamic image rendering to work&#10;- Fixed styling issues in the scale container" />
+    <MESSAGE value="- Created layout for scale details page&#10;- Random notes options are working" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Created layout for scale details page&#10;- Random notes options are working" />
   </component>
 </project>

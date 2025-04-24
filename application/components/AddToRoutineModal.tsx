@@ -21,9 +21,7 @@ const routinesAsJSONArray: any[] = routines.map((routine) => ({
     exercises: routine.exercises
 }))
 
-for (let routine of routines) {
-
-}
+let selectedRoutines: Routine[] = [];
 
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
 type Props = {
@@ -35,23 +33,43 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
     return(
         <MultiSelect
             data={routinesAsJSONArray}
-            labelField={'id'}
-            valueField={'name'}
+            labelField={'name'}
+            valueField={'id'}
+            // TODO conditional styling based on whether an item has been selected, get the icon to change as well
+            renderItem={(item: any, selected?: boolean) => (
+                <View style={[styles.routineContainer, selectedRoutines[0] === item && styles.selectedItemTop,
+                    selectedRoutines[selectedRoutines.length - 1]  === item && styles.selectedItemBottom,
+                    selected && styles.selectedItem]}>
+                    <Text style={styles.routineText}>{item.name}</Text>
+                    <FontAwesome style={{marginRight: 5}} name={"plus"} size={15} color="grey" />
+                </View>
+            )}
             visibleSelectedItem={false}
             placeholder={''}
             style={buttonSize === 'mini' ? styles.mini : styles.large}
             containerStyle={styles.container}
             mode={'modal'}
             onChange={(selectedItems: string[]) => {
-                // Create a routine array based on the names of the selected items
-                const itemsAsRoutineArray = selectedItems.map((item) => {
-                    return routines.find((routine) => routine.name === item);
+                // Add routine to the running array based on the names of the selected items
+                selectedItems.map((item) => {
+                    if(item.includes("Create New Routine")) {
+                        // TODO Create New Routine Logic
+                    }
+
+                    const routine = routines.find((routine) => routine.name === item);
+                    if (routine) {
+                        if (selectedRoutines.includes(routine)){
+                            // Prevents duplicate entries
+                            return;
+                        }
+                        selectedRoutines.push(routine)
+                    }
                 })
 
                 // Add the exercise to the exercise arrays in the selected routines
-                if (itemsAsRoutineArray && exercise) {
-                    for (let item of itemsAsRoutineArray) {
-                        item!.exercises.push(exercise!);
+                if (selectedRoutines && exercise) {
+                    for (let routine of selectedRoutines) {
+                        routine!.exercises.push(exercise!);
                     }
                 }
             }}
@@ -68,6 +86,7 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
                 // Find a way to style this dynamically, making the plus sign change based on whether the item is selected
             }
         >
+
         </MultiSelect>
     )
 }
@@ -100,16 +119,16 @@ const styles = StyleSheet.create({
         marginHorizontal: "auto",
         marginVertical: "auto",
         minWidth: "60%",
+
     },
     headingText: {
         textAlign: "center",
         borderBottomWidth: 1,
     },
     routineContainer: {
-        borderBottomWidth: 1,
         flexDirection: "row",
-        paddingVertical: 3,
-        justifyContent: "space-between"
+        paddingVertical: 10,
+        justifyContent: "space-between",
     },
     routineText: {
         fontSize: 15,
@@ -131,5 +150,32 @@ const styles = StyleSheet.create({
     },
     saveButtonText: {
         textAlign: "center"
+    },
+    selectedItem: {
+        backgroundColor: '#acefff',
+        flexDirection: "row",
+        paddingVertical: 3,
+        justifyContent: "space-between"
+    },
+    selectedItemTop: {
+        backgroundColor: '#acefff',
+        flexDirection: "row",
+        paddingVertical: 3,
+        justifyContent: "space-between",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    selectedItemBottom: {
+        backgroundColor: '#acefff',
+        flexDirection: "row",
+        paddingVertical: 3,
+        justifyContent: "space-between",
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20
+    },
+    selectedText: {
+        fontSize: 20,
+        color: 'black',
+        textAlign: 'center'
     }
 });

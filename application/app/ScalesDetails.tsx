@@ -1,12 +1,13 @@
-import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, Keyboard} from 'react-native';
 import Scale from '@/models/Scale';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@/app/index';
-import {useState} from 'react';
+import {createRef, useState} from 'react';
 import AddToRoutineButton from '@/components/AddToRoutineButton';
 import Exercise from '@/models/Exercise';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import Note from "@/models/Note";
+import DismissKeyboard from "@/components/DismissKeyboard";
 
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
@@ -38,8 +39,6 @@ export default function ScalesDetailsScreen({route}){
         }
     }
 
-
-
     let notesAsKeyValue: any[] = scale.notes.map((note, index) => ({
         key: index.toString(),
         value: note.name
@@ -54,141 +53,148 @@ export default function ScalesDetailsScreen({route}){
 
 
     return (
-        <View>
-            <Text style={styles.title}>{scale!.name} Scale</Text>
-            <View style={styles.imageContainer}>
-                <Image style={styles.imageContainer} source={scale!.imageFilePath}></Image>
-            </View>
-            <View style={styles.descriptionContainer}>
-                <Text style={styles.descriptionText}>
-                    {/*{scale!.description}*/}
-                </Text>
-            </View>
-
-            <View style={styles.listeningModesContainer}>
-                <Text style={styles.heading}>Listening Modes</Text>
-                <View style={styles.modeSelectionContainer}>
-                    <TouchableOpacity
-                        style={[styles.modeContainer, {backgroundColor: ascendingButtonActive ? 'lightblue' : 'transparent'}]}
-                        onPress={() => {
-                            setButtonActivity('ascending');
-                            options.listeningMode = 'ascending';
-                        }}
-                    >
-                        <Text style={styles.modeSelectionText}>Ascending & Descending (Default)</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles.modeContainer, {backgroundColor: randomButtonActive ? 'lightblue' : 'transparent'}]}
-                        onPress={() => {
-                            setButtonActivity('random');
-                            options.listeningMode = 'random';
-                        }}
-
-                    >
-                        <Text style={styles.modeSelectionText}>Random Notes</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles.modeContainer, {backgroundColor: customButtonActive ? 'lightblue' : 'transparent'}]}
-                        onPress={() => {
-                            setButtonActivity('custom');
-                            options.listeningMode = 'custom';
-                        }}
-                    >
-                        <Text style={styles.modeSelectionText}>Custom Selection</Text>
-                    </TouchableOpacity>
+        <DismissKeyboard>
+            <View>
+                <Text style={styles.title}>{scale!.name} Scale</Text>
+                <View style={styles.imageContainer}>
+                    <Image style={styles.imageContainer} source={scale!.imageFilePath}></Image>
                 </View>
-            </View>
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.descriptionText}>
+                        {/*{scale!.description}*/}
+                    </Text>
+                </View>
 
-            {randomButtonActive ?
-                <View style={styles.optionContainer}>
-                    <Text style={styles.heading}>Random Notes Options</Text>
-                    <View style={styles.optionRow}>
-                        <View>
-                            <Text style={styles.optionLabel}>Number of Notes</Text>
-                            <TextInput
-                                style={styles.optionButton}
-                                placeholder={'Number of Notes'}
-                                inputMode={'numeric'}
-                                maxLength={2}
-                                onChange={numberOfNotes => {
-                                    options.randomOptions.numberOfNotes = Number(numberOfNotes.nativeEvent.text);
-                                }}
-                            />
-
-                        </View>
-                        <View>
-                            <Text style={styles.optionLabel}>Number of Octaves</Text>
-                            <TextInput
-                                style={styles.optionButton}
-                                placeholder={'Number of Octaves'}
-                                inputMode={'numeric'}
-                                maxLength={2}
-                                onChange={numberOfOctaves => {
-                                    options.randomOptions.numberOfOctaves = Number(numberOfOctaves.nativeEvent.text);
-                                }}
-                            />
-                        </View>
-                    </View>
-                </View> : null
-            }
-
-
-            {customButtonActive ?
-                <View style={styles.optionContainer}>
-                    <Text style={styles.heading}>Custom Selection Options</Text>
-                    <View style={styles.optionRow}>
-                        <MultiSelect
-                            style={styles.optionButton}
-                            data={notesAsKeyValue}
-                            mode={"modal"}
-                            placeholder={'Notes to Include'}
-                            placeholderStyle={styles.optionLabel}
-                            onChange={() => {
-
-                            }}
-                            visibleSelectedItem={false}
-                            onConfirmSelectItem={(item) => {
-                                // Clear the list first
-                                options.customOptions.notesToInclude.splice(0, 1);
-
-                                // Add selected notes to the list
-                                options.customOptions.notesToInclude.push(item);
-                            }}
-                            labelField={'value'}
-                            valueField={'key'}
-                        />
+                <View style={styles.listeningModesContainer}>
+                    <Text style={styles.heading}>Listening Modes</Text>
+                    <View style={styles.modeSelectionContainer}>
                         <TouchableOpacity
-                            // This should give a menu where users can drag around the notes in the included list
-                            style={styles.optionButton}
+                            style={[styles.modeContainer, {backgroundColor: ascendingButtonActive ? 'lightblue' : 'transparent'}]}
                             onPress={() => {
-
+                                setButtonActivity('ascending');
+                                options.listeningMode = 'ascending';
                             }}
                         >
-                            <Text>Order</Text>
+                            <Text style={styles.modeSelectionText}>Ascending & Descending (Default)</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[styles.modeContainer, {backgroundColor: randomButtonActive ? 'lightblue' : 'transparent'}]}
+                            onPress={() => {
+                                setButtonActivity('random');
+                                options.listeningMode = 'random';
+                            }}
+
+                        >
+                            <Text style={styles.modeSelectionText}>Random Notes</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[styles.modeContainer, {backgroundColor: customButtonActive ? 'lightblue' : 'transparent'}]}
+                            onPress={() => {
+                                setButtonActivity('custom');
+                                options.listeningMode = 'custom';
+                            }}
+                        >
+                            <Text style={styles.modeSelectionText}>Custom Selection</Text>
                         </TouchableOpacity>
                     </View>
-                </View> : null
-            }
+                </View>
 
-            <View style={styles.optionContainer}>
-                <Text style={styles.heading}>Options</Text>
-                <View style={styles.optionRow}>
-                    <TouchableOpacity
-                        style={styles.optionButton}
-                        onPress={() => {
+                {randomButtonActive ?
+                    <View style={styles.optionContainer}>
+                        <Text style={styles.heading}>Random Notes Options</Text>
+                        <View style={styles.optionRow}>
+                                <View>
+                                    <Text style={styles.optionLabel}>Number of Notes</Text>
+                                    <TextInput
+                                        style={styles.optionButton}
+                                        placeholder={'Number of Notes'}
+                                        inputMode={'numeric'}
+                                        maxLength={2}
+                                        onChange={numberOfNotes => {
+                                            options.randomOptions.numberOfNotes = Number(numberOfNotes.nativeEvent.text);
+                                        }}
+                                    />
+                                </View>
+                            <View>
+                                <Text style={styles.optionLabel}>Number of Octaves</Text>
+                                <TextInput
+                                    style={styles.optionButton}
+                                    placeholder={'Number of Octaves'}
+                                    inputMode={'numeric'}
+                                    maxLength={2}
+                                    onChange={numberOfOctaves => {
+                                        options.randomOptions.numberOfOctaves = Number(numberOfOctaves.nativeEvent.text);
+                                    }}
+                                />
+                            </View>
+                        </View>
+                    </View> : null
+                }
 
-                        }}
-                    >
-                        <Text>Time Per Note</Text>
-                    </TouchableOpacity>
+
+                {customButtonActive ?
+                    <View style={styles.optionContainer}>
+                        <Text style={styles.heading}>Custom Selection Options</Text>
+                        <View style={styles.optionRow}>
+                            <MultiSelect
+                                style={styles.optionButton}
+                                data={notesAsKeyValue}
+                                mode={"modal"}
+                                placeholder={'Notes to Include'}
+                                placeholderStyle={styles.optionLabel}
+                                onChange={() => {
+
+                                }}
+                                visibleSelectedItem={false}
+                                onConfirmSelectItem={(item) => {
+                                    // Clear the list first
+                                    options.customOptions.notesToInclude.splice(0, 1);
+
+                                    // Add selected notes to the list
+                                    options.customOptions.notesToInclude.push(item);
+                                }}
+                                labelField={'value'}
+                                valueField={'key'}
+                            />
+                            <TouchableOpacity
+                                // This should give a menu where users can drag around the notes in the included list
+                                style={styles.optionButton}
+                                onPress={() => {
+
+                                }}
+                            >
+                                <Text>Order</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View> : null
+                }
+
+                <View style={styles.optionContainer}>
+                    <Text style={styles.heading}>Options</Text>
+                    <Text style={styles.optionLabel}>Time Per Note (Seconds)</Text>
+
+                    <View style={styles.optionRow}>
+                        <TextInput
+                            style={styles.optionButton}
+                            placeholder={'Time per Note'}
+                            onSelectionChange={(input) => {
+                                /*if (isNaN(Number(input))) {
+                                    this.textInput.clear()
+                                }*/
+                                options.timePerNote = Number(input);
+                            }}
+                        >
+                            <Text style={styles.placeholderLabel}>Time per Note</Text>
+                        </TextInput>
+                    </View>
+                </View>
+                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                    <AddToRoutineButton exercise={exercise} isMiniButton={false}></AddToRoutineButton>
                 </View>
             </View>
-            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                <AddToRoutineButton exercise={exercise} isMiniButton={false}></AddToRoutineButton>
-            </View>
-        </View>
+        </DismissKeyboard>
     )
 
     function setButtonActivity(buttonName: String)
@@ -273,5 +279,9 @@ const styles = StyleSheet.create({
     optionLabel: {
         textAlign: 'center',
         fontSize: 16
+    },
+    placeholderLabel: {
+        textAlign: 'center',
+        color: 'grey'
     }
 });
