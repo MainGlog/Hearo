@@ -13,32 +13,34 @@ export type RootStackParamList = {
     Home: undefined;
     Scales: undefined;
     ScaleDetails: Scale;
-    Modal: [Exercise | null, boolean];
+    Modal: [Exercise | null, string];
+    NavBar: undefined;
 }
 
-
+/*
 const Tab = createBottomTabNavigator({
     tabBar: (props) => <BottomNavBar/>,
     screens: {
         Scales: ScaleScreen,
         Modal: AddToRoutineModal,
-        ScaleDetails: ScalesDetailsScreen
+        ScaleDetails: ScalesDetailsScreen,
+        NavBar: BottomNavBar
     },
     color: 'black'
-})
+})*/
 
-// const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Index() {
     return (
-        /*<Stack.Navigator>
+        <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
             <Stack.Screen name="Scales" component={ScaleScreen}></Stack.Screen>
             <Stack.Screen name="Modal" component={AddToRoutineModal}></Stack.Screen>
             <Stack.Screen name="ScaleDetails" component={ScalesDetailsScreen}></Stack.Screen>
         </Stack.Navigator>
-*/
-        <Tab.Navigator screenOptions={{
+
+        /*<Tab.Navigator screenOptions={{
             tabBarActiveTintColor: 'black',
             tabBarInactiveTintColor: 'light blue',
             tabBarActiveBackgroundColor: '#747474',
@@ -48,19 +50,17 @@ export default function Index() {
             headerShown: false,
         }}>
             <Tab.Screen name="Scales" component={ScaleScreen} options={{
-                headerShown: false,
+
                 tabBarLabel: 'Scales',
                 tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>
             }}/>
             <Tab.Screen name="Home" component={HomeScreen} options={{
-                headerShown: false,
                 tabBarLabel: 'Home'
             }}/>
             <Tab.Screen name="ScaleDetails" component={ScalesDetailsScreen} options={{
-                headerShown: false,
                 // TODO this screen should not render on the bottom navigation bar
             }}/>
-        </Tab.Navigator>
+        </Tab.Navigator>*/
     );
 }
 

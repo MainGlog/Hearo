@@ -1,6 +1,11 @@
 import {Text, View} from "react-native";
+import BottomNavBar from "@/components/BottomNavBar";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "@/app/index";
 
-export default function HomeScreen(){
+interface HomeScreenProps extends NativeStackScreenProps<RootStackParamList, 'NavBar'> {}
+
+export default function HomeScreen({route, navigation}: HomeScreenProps ){
     return (
         <View>
             <Text> Title </Text>
@@ -29,8 +34,8 @@ export default function HomeScreen(){
                 <View>
                     <Text>Create a new Routine</Text>
                 </View>
-
             </View>
+            <BottomNavBar navigation={navigation} route={route}/>
         </View>
     )
 }

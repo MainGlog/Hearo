@@ -54,7 +54,6 @@ export default function ScaleScreen()
                     />
                 </View>
             </View>
-            <BottomNavBar/>
         </>
     )
 }

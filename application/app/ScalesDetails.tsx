@@ -51,7 +51,7 @@ export default function ScalesDetailsScreen({route}){
     }*/
 
 
-
+    // TODO Key selector
     return (
         <DismissKeyboard>
             <View>

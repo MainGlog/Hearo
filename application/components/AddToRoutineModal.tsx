@@ -4,15 +4,17 @@ import Routine from "@/models/Routine";
 import Exercise from "@/models/Exercise";
 import {FontAwesome} from "@expo/vector-icons";
 import {MultiSelect} from "react-native-element-dropdown";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "@/app";
 
 // @ts-ignore
 const routines: Routine[] = [
-    new Routine(1, "Routine 1", []),
-    new Routine(2, "Routine 2", []),
-    new Routine(3, "Routine 3", []),
-    new Routine(4, "Routine 4", []),
-    new Routine(5, "Routine 5", []),
-    new Routine(6, "Routine 6", []),
+    new Routine(1, "Routine 1", [], 5),
+    new Routine(2, "Routine 2", [], 5),
+    new Routine(3, "Routine 3", [], 5),
+    new Routine(4, "Routine 4", [], 5),
+    new Routine(5, "Routine 5", [], 5),
+    new Routine(6, "Routine 6", [], 5),
 ];
 
 const routinesAsJSONArray: any[] = routines.map((routine) => ({
@@ -23,13 +25,28 @@ const routinesAsJSONArray: any[] = routines.map((routine) => ({
 
 let selectedRoutines: Routine[] = [];
 
+
+interface ModalProps extends NativeStackScreenProps<RootStackParamList, "Modal">{}
+
+
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
 type Props = {
-    exercise: Exercise | null,
+    exercise: Exercise,
     buttonSize: string
 }
 
-export default function AddToRoutineModal({exercise, buttonSize} : Props) {
+export default function AddToRoutineModal({route} : ModalProps) {
+
+    let exercise: Exercise | null = null;
+    let buttonSize: string = '';
+
+    if (route.params[0] && route.params[0] instanceof Exercise) {
+        exercise = route.params[0];
+    }
+    if (route.params[1] && typeof(route.params[1]) === 'string') {
+        buttonSize = route.params[1];
+    }
+
     return(
         <MultiSelect
             data={routinesAsJSONArray}
