@@ -8,8 +8,8 @@ export default class Routine {
         this.exerciseCount = exerciseCount;
     }
 
-    exerciseCount: number = 0;
-    id: number = 0;
-    name: string = '';
-    exercises: Exercise[] = [];
+    exerciseCount!: number;
+    id!: number;
+    name!: string;
+    exercises!: Exercise[];
 }

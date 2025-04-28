@@ -35,17 +35,7 @@ type Props = {
     buttonSize: string
 }
 
-export default function AddToRoutineModal({route} : ModalProps) {
-
-    let exercise: Exercise | null = null;
-    let buttonSize: string = '';
-
-    if (route.params[0] && route.params[0] instanceof Exercise) {
-        exercise = route.params[0];
-    }
-    if (route.params[1] && typeof(route.params[1]) === 'string') {
-        buttonSize = route.params[1];
-    }
+export default function AddToRoutineModal({exercise, buttonSize} : Props) {
 
     return(
         <MultiSelect

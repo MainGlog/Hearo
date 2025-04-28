@@ -25,12 +25,12 @@ export default class Exercise {
         this.options = options;
     }
 
-    type: string = "";
-    name: string = "";
+    type!: string;
+    name!: string;
 
-    chord: Chord | null = null;
-    notes: Note[] | null = null;
-    scale: Scale | null = null;
+    chord!: Chord | null;
+    notes!: Note[] | null;
+    scale!: Scale | null;
 
     options: any = {
         listeningMode: 'ascending', // ascending & descending, random, custom

@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="- Created layout for scale details page&#10;- Random notes options are working">
-      <change afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/app/Chords.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/app/Notes.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
@@ -13,8 +15,13 @@
       <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/BottomNavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/BottomNavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Chord.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Chord.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Exercise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Exercise.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Key.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Key.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Note.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/Routine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Routine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Scale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Scale.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Sound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Sound.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +34,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>

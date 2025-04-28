@@ -8,12 +8,24 @@ import Exercise from '@/models/Exercise';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import Note from "@/models/Note";
 import DismissKeyboard from "@/components/DismissKeyboard";
+import Key from "@/models/Key";
 
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
+// This is a placeholder until I work out the database connection
+// It will eventually be replaced by the notes array in the database that will be globally available to all components who import it
+const notes: Note[] = [
+    new Note(0, 'C', 'B#', null)
+];
+// Same thing as the notes array
+const keys: Key[] = [
+    new Key(0, 'C', 'Major', null, null, null, null, 'A', null)
+]
+
 //@ts-ignore
-export default function ScalesDetailsScreen({route}){
-    const scale = new Scale(route.params.name, route.params.imageFilePath, route.params.notes as Note[]);
+export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
+    const scale = new Scale(route.params.name, route.params.imageFilePath, route.params.notes as Note[],
+        route.params.quality, route.params.key as Key);
 
     const [ascendingButtonActive, setAscendingButtonActive] = useState(false);
     const [randomButtonActive, setRandomButtonActive] = useState(false);
@@ -55,7 +67,33 @@ export default function ScalesDetailsScreen({route}){
     return (
         <DismissKeyboard>
             <View>
-                <Text style={styles.title}>{scale!.name} Scale</Text>
+                <View style={styles.topBar}>
+                    <TouchableOpacity
+                        // Back Button
+                        onPress={() => {
+                            // TODO Navigate to Scales page
+                        }}
+                    />
+                    <Text style={styles.title}>{scale!.name} Scale</Text>
+                    <Dropdown
+                        // Button to select the key or root note for the scale
+                        style={styles.optionButton}
+                        data={notes}
+                        mode={'modal'}
+                        placeholder={'Root Note'}
+                        placeholderStyle={styles.optionLabel}
+                        labelField={'name'}
+                        valueField={'id'}
+                        value={null}
+                        onChange={(note) => {
+                            if (exercise.scale) {
+                                exercise.scale.key = keys
+                                    .find(k => k.name === note.name && scale.quality === k.quality)!;
+                            }
+                        }}
+                    />
+                </View>
+
                 <View style={styles.imageContainer}>
                     <Image style={styles.imageContainer} source={scale!.imageFilePath}></Image>
                 </View>
@@ -159,7 +197,7 @@ export default function ScalesDetailsScreen({route}){
                                 valueField={'key'}
                             />
                             <TouchableOpacity
-                                // This should give a menu where users can drag around the notes in the included list
+                                // TODO This should give a menu where users can drag around the notes in the included list
                                 style={styles.optionButton}
                                 onPress={() => {
 
@@ -185,13 +223,14 @@ export default function ScalesDetailsScreen({route}){
                                 }*/
                                 options.timePerNote = Number(input);
                             }}
+                            inputMode={'numeric'}
                         >
                             <Text style={styles.placeholderLabel}>Time per Note</Text>
                         </TextInput>
                     </View>
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <AddToRoutineButton exercise={exercise} isMiniButton={false}></AddToRoutineButton>
+                    <AddToRoutineButton exercise={exercise} isMiniButton={false}/>
                 </View>
             </View>
         </DismissKeyboard>
@@ -222,6 +261,10 @@ export default function ScalesDetailsScreen({route}){
 
 
 const styles = StyleSheet.create({
+    topBar: {
+      flexDirection: "row",
+        justifyContent: "space-around"
+    },
     imageContainer: {
         maxWidth: '99%',
         maxHeight: 125
@@ -272,7 +315,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 10,
         marginBottom: 20,
-        minWidth: '33%',
+        minWidth: '20%',
         textAlign: 'center',
         alignContent: 'center'
     },

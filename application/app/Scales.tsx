@@ -2,20 +2,21 @@ import {View, Text, StyleSheet, Modal} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
 import ScaleContainer from "../components/ScaleContainer";
-import BottomNavBar from "@/components/BottomNavBar";
 import Scale from "@/models/Scale";
 import Note from "@/models/Note";
+import Key from "@/models/Key";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
 
 
 const note = new Note(
-    'C', 'B#', null
+    0, 'C', 'B#', null
 )
 const notes: Note[] = [note];
 
 const scale = new Scale(
-    "Major", require('@/assets/images/scales/Screenshot_17.png'), notes
+    "Major", require('@/assets/images/scales/Screenshot_17.png'), notes, "Major",
+    new Key(0, 'C', 'Major', null, null, null, null, 'A', null)
 )
 
 export default function ScaleScreen()
