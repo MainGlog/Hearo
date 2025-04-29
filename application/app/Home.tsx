@@ -1,10 +1,17 @@
-import {Text, View, StyleSheet, TouchableOpacity} from "react-native";
+import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
+import { getNotes } from "@/services/NoteService"
+import Note from "@/models/Note";
 
 interface HomeScreenProps extends NativeStackScreenProps<RootStackParamList, 'Home'> {}
 
+
 export default function HomeScreen({navigation}: HomeScreenProps){
+    // @ts-ignore
+    const notes: Note[] = getNotes();
+    console.log(notes);
+
     return (
         <View>
             <Text style={styles.title}> Hearo </Text>
@@ -61,7 +68,6 @@ export default function HomeScreen({navigation}: HomeScreenProps){
                     <Text>Your Routines
 
                         // TODO map routines into blocks
-
                     </Text>
                 </View>
                 <View>

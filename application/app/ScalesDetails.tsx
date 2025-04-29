@@ -9,22 +9,15 @@ import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import Note from "@/models/Note";
 import DismissKeyboard from "@/components/DismissKeyboard";
 import Key from "@/models/Key";
+import App from "@/services/ApiService";
+import keys from "@/services/ApiService";
+import notes from "@/services/ApiService";
 
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
-// This is a placeholder until I work out the database connection
-// It will eventually be replaced by the notes array in the database that will be globally available to all components who import it
-const notes: Note[] = [
-    new Note(0, 'C', 'B#', null)
-];
-// Same thing as the notes array
-const keys: Key[] = [
-    new Key(0, 'C', 'Major', null, null, null, null, 'A', null)
-]
-
 //@ts-ignore
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
-    const scale = new Scale(route.params.name, route.params.imageFilePath, route.params.notes as Note[],
+    const scale = new Scale(route.params.id, route.params.name, route.params.imageFilePath, route.params.notes as Note[],
         route.params.quality, route.params.key as Key);
 
     const [ascendingButtonActive, setAscendingButtonActive] = useState(false);

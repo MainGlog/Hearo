@@ -76,7 +76,7 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
                 // Add the exercise to the exercise arrays in the selected routines
                 if (selectedRoutines && exercise) {
                     for (let routine of selectedRoutines) {
-                        routine!.exercises.push(exercise!);
+                        routine.exercises!.push(exercise!);
                     }
                 }
             }}
@@ -90,7 +90,7 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
             }}
             iconStyle={
                 styles.icon
-                // Find a way to style this dynamically, making the plus sign change based on whether the item is selected
+                // TODO Find a way to style this dynamically, making the plus sign change based on whether the item is selected
             }
         >
 
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
         marginHorizontal: "auto",
         marginVertical: "auto",
         minWidth: "60%",
-
     },
     headingText: {
         textAlign: "center",

@@ -4,24 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="- Created layout for scale details page&#10;- Random notes options are working">
-      <change afterPath="$PROJECT_DIR$/application/app/Chords.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/app/Notes.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" afterDir="false" />
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Added Root Note selector to Scales Details page&#10;Added structure to Home page">
+      <change afterPath="$PROJECT_DIR$/application/services/ApiService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/ChordService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/ExerciseService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/IntervalService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/KeyService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/NoteService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/RoutineService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/services/SoundService.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Chord.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Chord.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Exercise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Exercise.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Key.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Key.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Note.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/Routine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Routine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Scale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Scale.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Sound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Sound.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,22 +73,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Glog/Desktop/School/Year Two/Term 3/Capstone Project/CopyCopy&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.android (1).executor&quot;: &quot;Run&quot;,
-    &quot;npm.android.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Glog/Desktop/School/Year Two/Term 3/Capstone Project/CopyCopy",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.android (1).executor": "Run",
+    "npm.android.executor": "Run",
+    "npm.ios.executor": "Run",
+    "ts.external.directory.path": "C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -142,6 +145,7 @@
       <workItem from="1745847773234" duration="132000" />
       <workItem from="1745848132453" duration="1566000" />
       <workItem from="1745850781667" duration="2371000" />
+      <workItem from="1745933420137" duration="2449000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -175,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745251934956</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added Root Note selector to Scales Details page&#10;Added structure to Home page">
+      <option name="closed" value="true" />
+      <created>1745860786415</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745860786415</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +198,7 @@
     <MESSAGE value="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button" />
     <MESSAGE value="- Got navigation between the main page and details page working&#10;- Got dynamic image rendering to work&#10;- Fixed styling issues in the scale container" />
     <MESSAGE value="- Created layout for scale details page&#10;- Random notes options are working" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Created layout for scale details page&#10;- Random notes options are working" />
+    <MESSAGE value="Added Root Note selector to Scales Details page&#10;Added structure to Home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Root Note selector to Scales Details page&#10;Added structure to Home page" />
   </component>
 </project>
