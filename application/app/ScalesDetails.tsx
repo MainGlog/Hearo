@@ -44,17 +44,17 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
         }
     }
 
-    let notesAsKeyValue: any[] = scale.notes.map((note, index) => ({
+    /*let notesAsKeyValue: any[] = scale.notes.map((note, index) => ({
         key: index.toString(),
         value: note.name
-    }));
+    }));*/
 
+    let notesAsKeyValue: any[];
 
-   /* for (let i = 0; i < scale.notes.length; i++) {
+    for (let i = 0; i < scale.notes.length; i++) {
         notesAsKeyValue.push({ key: i.toString(), value: scale.notes[i].name })
         console.log(notesAsKeyValue[i].key);
-    }*/
-
+    }
 
     // TODO Key selector
     return (
