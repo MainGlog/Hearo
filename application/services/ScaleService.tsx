@@ -2,27 +2,39 @@ import axios from "axios";
 import Scale from "@/models/Scale";
 export let scales: Scale[];
 
-const apiUrl = "http://localhost:7290"
-export default function ScaleService() {
-    const getScales = async () => {
-        const configObject = {
-            method: 'get',
-            url: `${apiUrl}/scale/GetAllScales}`
-        };
-        const response = await axios(configObject);
-        return response.data;
+const apiUrl = "http://10.0.2.2:5028"
+
+export const getAllScales = async (): Promise<Scale[]> => {
+    return axios
+        .get(`${apiUrl}/v1/Scale/GetAllScales`, {
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(async (response) => {
+            const scales = await response.data;
+            console.log(scales[0]);
+            return scales as Scale[];
+        })
+        .catch((error) => {
+            console.error(error);
+            return [];
+        })
+}
+
+export const getScaleById = async (id: number): Promise<Scale | void> => {
+    return axios
+        .get(`${apiUrl}/v1/Scale/GetScaleById?=${id}`, {
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(async (response) => {
+            const scale = await response.data;
+            return scale as Scale;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }
 
-    const getScaleById = async (id: number) => {
-        const configObject = {
-            method: 'get',
-            url: `${apiUrl}/scale/GetScaleById?id=${id}`
-        };
-        const response = await axios(configObject);
-        return response.data;
-    }
-
-    const updateScale = async (scale: Scale) => {
+export const updateScale = async (scale: Scale) => {
         axios
             .get(`${apiUrl}/scale/UpdateScale?scale=${scale}`)
             .then((response) => {
@@ -34,4 +46,3 @@ export default function ScaleService() {
                 }
             })
     }
-}

@@ -5,8 +5,7 @@ import ScaleContainer from "../components/ScaleContainer";
 import Scale from "@/models/Scale";
 import Note from "@/models/Note";
 import Key from "@/models/Key";
-import notes from "@/services/ApiService"
-import scales from "@/services/ScaleService"
+import { notes, scales } from "@/app/Data"
 import keys from "@/services/ApiService"
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
@@ -23,8 +22,10 @@ const scale = new Scale(0,
     new Key(0, 'C', 'Major', null, null, null, null, 'A', null)
 )
 
+
 export default function ScaleScreen()
 {
+    console.log("Printing Major Scale: " + scales.find(s => s.name.includes("Major")));
     return(
         <>
             <View>
@@ -34,10 +35,10 @@ export default function ScaleScreen()
                 <Text style={styles.categoryTitle}>Basic Scales</Text>
                 <View style={styles.categoryContainer}>
                     <ScaleContainer
-                        {...scale}
+                        {...scales.find(s => s.quality === "Major")}
                     />
                     <ScaleContainer
-                        {...scale}
+                        {...scales.find(s => s.quality === "Minor")}
                     />
                 </View>
                 <Text style={styles.categoryTitle}>Modes</Text>

@@ -12,6 +12,8 @@ import ChordsScreen from "@/app/Chords";
 import NotesScreen from "@/app/Notes";
 import RoutineBuilderScreen from "@/app/RoutineBuilder";
 import TrainingScreen from "@/app/Training";
+import {useEffect} from "react";
+import {getAllNotes} from "@/services/NoteService";
 
 export type RootStackParamList = {
     Home: undefined;

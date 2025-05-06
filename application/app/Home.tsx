@@ -1,32 +1,10 @@
 import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
-import {getNoteById, getNotes} from "@/services/NoteService"
-import Note from "@/models/Note";
-import {useEffect} from "react";
-
 interface HomeScreenProps extends NativeStackScreenProps<RootStackParamList, 'Home'> {}
 
 
 export default function HomeScreen({navigation}: HomeScreenProps){
-    // @ts-ignore used to please the async call on the UseEffect function
-
-    // Initializes the notes [] on app creation
-    // Testing purposes only, remove after APIs are tested
-    useEffect(() => {
-
-    const fetchNotes = async () => {
-            try {
-                const notes: Note[] = await getNotes();
-                console.log(notes[0]);
-            } catch (error) {
-                console.error("Failed to retrieve Notes array from API endpoint. " + error);
-            }
-        }
-    fetchNotes();
-    }, []);
-
-
     return (
         <View>
             <Text style={styles.title}> Hearo </Text>

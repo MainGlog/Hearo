@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Did a tiny bit of work on the home and routine building page, started trying to work with my APIs">
+      <change afterPath="$PROJECT_DIR$/application/app/Data.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Note.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/services/NoteService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/NoteService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/ScaleService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +140,7 @@
       <workItem from="1745933420137" duration="5654000" />
       <workItem from="1746119264677" duration="2717000" />
       <workItem from="1746147266748" duration="6759000" />
+      <workItem from="1746537453593" duration="10183000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -187,6 +195,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="testing copy push" />

@@ -13,3 +13,4 @@ export default class Note {
         if (enharmonic) this.enharmonic = enharmonic;
     }
 }
+
