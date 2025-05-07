@@ -24,10 +24,28 @@ export const getAllNotes = async (): Promise<Note[]> => {
 
     return axios
         .get(`${apiUrl}/v1/Note/GetAllNotes`, {
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            responseType: "json"
         })
         .then(async (response) => {
-            const notes = await response.data;
+            const notes: Note[] = [];
+            console.log(response.data);
+            for (const key in response.data)
+            {
+                console.log("Key: " + key);
+                if(response.data.hasOwnProperty(key)) {
+                    const note = response.data[key];
+                    notes.push({
+                        id: note.id,
+                        name: note.name,
+                        sound: note.sound,
+                        enharmonic: note.enharmonic
+                    } as Note)
+                }
+            }
+
+
+            console.log('Printing notes array:');
             console.log(notes);
             return notes as Note[];
         })

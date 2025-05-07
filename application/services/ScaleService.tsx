@@ -7,11 +7,13 @@ const apiUrl = "http://10.0.2.2:5028"
 export const getAllScales = async (): Promise<Scale[]> => {
     return axios
         .get(`${apiUrl}/v1/Scale/GetAllScales`, {
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            responseType: "json"
         })
         .then(async (response) => {
             const scales = await response.data;
-            console.log(scales[0]);
+            JSON.parse(scales);
+            console.log(scales);
             return scales as Scale[];
         })
         .catch((error) => {

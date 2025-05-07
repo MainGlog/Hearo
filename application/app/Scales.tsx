@@ -10,22 +10,10 @@ import keys from "@/services/ApiService"
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
 
-
-const note = new Note(
-    0, 'C', 'B#', null
-)
-
-
-
-const scale = new Scale(0,
-    "Major", require('@/assets/images/scales/Screenshot_17.png'), notes, "Major",
-    new Key(0, 'C', 'Major', null, null, null, null, 'A', null)
-)
-
-
 export default function ScaleScreen()
 {
     console.log("Printing Major Scale: " + scales.find(s => s.name.includes("Major")));
+
     return(
         <>
             <View>
@@ -43,21 +31,21 @@ export default function ScaleScreen()
                 </View>
                 <Text style={styles.categoryTitle}>Modes</Text>
                 <View style={styles.categoryContainer}>
-                    <ScaleContainer
+                    {/*<ScaleContainer
                         {...scale}
                     />
                     <ScaleContainer
                         {...scale}
-                    />
+                    />*/}
                 </View>
                 <Text style={styles.categoryTitle}>Exotic Scales</Text>
                 <View style={styles.categoryContainer}>
-                    <ScaleContainer
+                    {/*<ScaleContainer
                         {...scale}
                     />
                     <ScaleContainer
                         {...scale}
-                    />
+                    />*/}
                 </View>
             </View>
         </>
