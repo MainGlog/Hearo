@@ -8,7 +8,7 @@ export default class Scale {
     imageFilePath!: string;
     notes!: Note[];
 
-    key!: Key;
+    key!: Key | undefined;
     constructor(id: number, name: string, quality: string, root: Note,
                 imageFilePath: string, notes: Note[] = [], key: Key) {
         this.id = id;

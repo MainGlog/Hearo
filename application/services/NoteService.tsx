@@ -30,7 +30,9 @@ export const getAllNotes = async (): Promise<Note[]> => {
         .then(async (response) => {
             const notes: Note[] = [];
             console.log(response.data);
-            for (const key in response.data)
+            return JSON.parse(response.data) as Note[];
+
+            /*for (const key in response.data)
             {
                 console.log("Key: " + key);
                 if(response.data.hasOwnProperty(key)) {
@@ -42,7 +44,7 @@ export const getAllNotes = async (): Promise<Note[]> => {
                         enharmonic: note.enharmonic
                     } as Note)
                 }
-            }
+            }*/
 
 
             console.log('Printing notes array:');

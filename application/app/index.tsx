@@ -61,16 +61,28 @@ export default function Index() {
             },
             headerShown: false,
         }}>
-            <Tab.Screen name="Home" component={HomeScreen} options={{
-                tabBarLabel: 'Home'
-            }}/>
-            <Tab.Screen name="Scales" component={ScaleScreen} options={{
-                tabBarLabel: 'Scales',
-                tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>
-            }}/>
-            <Tab.Screen name="ScaleDetails" component={ScalesDetailsScreen} options={{
-                // TODO this screen should not render on the bottom navigation bar
-            }}/>
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen as React.ComponentType<any>}
+                options={{
+                    tabBarLabel: 'Home'
+                }}
+            />
+            <Tab.Screen
+                name="Scales"
+                component={ScaleScreen}
+                options={{
+                    tabBarLabel: 'Scales',
+                    tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>
+                }}
+            />
+            <Tab.Screen
+                name="ScaleDetails"
+                component={ScalesDetailsScreen as React.ComponentType<any>}
+                options={{
+                    tabBarButton: () => null // This hides the tab from the bottom bar
+                }}
+            />
         </Tab.Navigator>
     );
 }

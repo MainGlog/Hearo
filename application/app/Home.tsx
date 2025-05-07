@@ -1,10 +1,10 @@
 import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
-interface HomeScreenProps extends NativeStackScreenProps<RootStackParamList, 'Home'> {}
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 
-export default function HomeScreen({navigation}: HomeScreenProps){
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     return (
         <View>
             <Text style={styles.title}> Hearo </Text>
@@ -84,6 +84,7 @@ export default function HomeScreen({navigation}: HomeScreenProps){
         </View>
     )
 }
+export default HomeScreen;
 
 const styles = StyleSheet.create({
     title: {

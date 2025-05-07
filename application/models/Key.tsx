@@ -1,4 +1,14 @@
 export default class Key {
+    id!: number;
+    name!: string;
+    quality!: string;
+    flatsCount!: number | null;
+    doubleFlatsCount!: number | null;
+    sharpsCount!: number | null;
+    doubleSharpsCount!: number | null;
+    relativeMinor!: string | null;
+    relativeMajor!: string | null;
+
     constructor(id: number, name: string, quality: string,
                 flatsCount: number | null, doubleFlatsCount: number | null,
                 sharpsCount: number | null, doubleSharpsCount: number | null,
@@ -13,15 +23,4 @@ export default class Key {
         if (relativeMinor) this.relativeMinor = relativeMinor;
         if (relativeMajor) this.relativeMajor = relativeMajor;
     }
-
-
-    id!: number;
-    name!: string;
-    quality!: string;
-    flatsCount!: number | null;
-    doubleFlatsCount!: number | null;
-    sharpsCount!: number | null;
-    doubleSharpsCount!: number | null;
-    relativeMinor!: string | null;
-    relativeMajor!: string | null;
 }

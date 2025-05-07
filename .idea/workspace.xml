@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Did a tiny bit of work on the home and routine building page, started trying to work with my APIs">
-      <change afterPath="$PROJECT_DIR$/application/models/Enharmonic.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/eas.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/.expo/devices.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/devices.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Note.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Key.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Key.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/Scale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Scale.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Sound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Sound.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/services/NoteService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/NoteService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/ScaleService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +54,9 @@
     &quot;accountId&quot;: &quot;c64ebc53-17de-457a-a67f-6128a77c494c&quot;
   }
 }</component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/application/package.json" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\tools\php83\php.exe" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -76,6 +82,7 @@
     &quot;npm.android (1).executor&quot;: &quot;Run&quot;,
     &quot;npm.android.executor&quot;: &quot;Run&quot;,
     &quot;npm.ios.executor&quot;: &quot;Run&quot;,
+    &quot;npm.web.executor&quot;: &quot;Run&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -94,7 +101,7 @@
       <recent name="C:\Users\Glog\Desktop\School\Year Two\Term 3\Capstone Project\EarTrainingApp\application" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.android">
     <configuration name="android" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/application/package.json" />
       <command value="run" />
@@ -105,9 +112,20 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="web" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/application/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="web" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.android" />
+        <item itemvalue="npm.web" />
       </list>
     </recent_temporary>
   </component>
@@ -140,6 +158,8 @@
       <workItem from="1746147266748" duration="6759000" />
       <workItem from="1746537453593" duration="10217000" />
       <workItem from="1746564066530" duration="7894000" />
+      <workItem from="1746625563758" duration="1487000" />
+      <workItem from="1746628088187" duration="5627000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -214,5 +234,16 @@
     <MESSAGE value="Added Root Note selector to Scales Details page&#10;Added structure to Home page" />
     <MESSAGE value="Did a tiny bit of work on the home and routine building page, started trying to work with my APIs" />
     <option name="LAST_COMMIT_MESSAGE" value="Did a tiny bit of work on the home and routine building page, started trying to work with my APIs" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/application/models/Scale.tsx</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
