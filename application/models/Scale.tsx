@@ -4,20 +4,20 @@ export default class Scale {
     id!: number;
     name!: string;
     quality!: string;
-    root!: Note;
-    imageFilePath!: string;
-    notes!: Note[];
+    rootId!: number;
+    keyId!: number;
 
-    key!: Key | undefined;
-    constructor(id: number, name: string, quality: string, root: Note,
-                imageFilePath: string, notes: Note[] = [], key: Key) {
+    imageFilePath!: string;
+
+    constructor(id: number, name: string, quality: string,
+                rootId: number, keyId: number, imageFilePath: string) {
         this.id = id;
         this.name = name;
         this.quality = quality;
-        this.root = root;
+        this.rootId = rootId;
+        this.keyId = keyId;
         this.imageFilePath = imageFilePath;
-        this.notes = notes;
-        this.key = key;
+
     }
     static returnImageFilePath(imageFilePath: string){
         return `require(${imageFilePath})`;

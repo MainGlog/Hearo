@@ -3,6 +3,26 @@ import Note from "@/models/Note";
 import Scale from "@/models/Scale";
 
 export default class Exercise {
+    type!: string;
+    name!: string;
+
+    chord!: Chord | null;
+    notes!: Note[] | null;
+    scale!: Scale | null;
+
+    options: any = {
+        listeningMode: 'ascending', // ascending & descending, random, custom
+        timePerNote: 0, // seconds
+        randomOptions: {
+            numberOfNotes: 0,
+            numberOfOctaves: 0,
+        },
+        customOptions: {
+            notesToInclude: [],
+            order: ''
+        }
+    }
+
     constructor(type: string, name: string,
                 chord: Chord | null = null,
                 notes: Note[] | null = null,
@@ -23,25 +43,5 @@ export default class Exercise {
                 break;
         }
         this.options = options;
-    }
-
-    type!: string;
-    name!: string;
-
-    chord!: Chord | null;
-    notes!: Note[] | null;
-    scale!: Scale | null;
-
-    options: any = {
-        listeningMode: 'ascending', // ascending & descending, random, custom
-        timePerNote: 0, // seconds
-        randomOptions: {
-            numberOfNotes: 0,
-            numberOfOctaves: 0,
-        },
-        customOptions: {
-            notesToInclude: [],
-            order: ''
-        }
     }
 }

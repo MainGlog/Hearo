@@ -1,6 +1,12 @@
 import Exercise from "@/models/Exercise";
 
 export default class Routine {
+    id!: number;
+    name!: string;
+    exercises!: Exercise[] | null;
+    exerciseCount!: number;
+    timeToGuess!: number;
+
     constructor(id: number, name: string,
                 exercises: Exercise[] | null, exerciseCount: number, timeToGuess: number) {
         this.id = id;
@@ -9,9 +15,4 @@ export default class Routine {
         this.exerciseCount = exerciseCount;
         this.timeToGuess = timeToGuess;
     }
-    id!: number;
-    name!: string;
-    exercises!: Exercise[] | null;
-    exerciseCount!: number;
-    timeToGuess!: number;
 }

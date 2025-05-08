@@ -1,10 +1,5 @@
 import axios from "axios";
 import Note from "@/models/Note";
-import fs from "react-native-fs";
-
-
-
-export let notes: Note[];
 const apiUrl = "http://10.0.2.2:5028"
 
 export const getAllNotes = async (): Promise<Note[]> => {
@@ -28,31 +23,15 @@ export const getAllNotes = async (): Promise<Note[]> => {
             responseType: "json"
         })
         .then(async (response) => {
-            const notes: Note[] = [];
-            console.log(response.data);
-            return JSON.parse(response.data) as Note[];
-
-            /*for (const key in response.data)
-            {
-                console.log("Key: " + key);
-                if(response.data.hasOwnProperty(key)) {
-                    const note = response.data[key];
-                    notes.push({
-                        id: note.id,
-                        name: note.name,
-                        sound: note.sound,
-                        enharmonic: note.enharmonic
-                    } as Note)
-                }
-            }*/
-
-
-            console.log('Printing notes array:');
-            console.log(notes);
-            return notes as Note[];
+            let notes: Note[] = [];
+            notes = response.data.$values.map((note: any) => ({
+                id: note.noteId,
+                name: note.noteName,
+            }));
+            return notes as Note[]
         })
         .catch((error) => {
-            console.error(error);
+            console.error(error);0
             return [];
         })
     }
@@ -75,7 +54,7 @@ export const updateNote = async (note: Note) => {
     axios
         .get(`${apiUrl}/v1/Note/UpdateNote?note=${note}`)
         .then((response) => {
-            let existingNote: Note = notes.find((s) => s.id === note.id)!;
+            // TODO
         })
         .catch((error) => {
             if(error.response) {

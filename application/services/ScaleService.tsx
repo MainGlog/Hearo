@@ -1,6 +1,5 @@
 import axios from "axios";
 import Scale from "@/models/Scale";
-export let scales: Scale[];
 
 const apiUrl = "http://10.0.2.2:5028"
 
@@ -11,9 +10,15 @@ export const getAllScales = async (): Promise<Scale[]> => {
             responseType: "json"
         })
         .then(async (response) => {
-            const scales = await response.data;
-            JSON.parse(scales);
-            console.log(scales);
+            let scales: Scale[] = [];
+
+            scales = response.data.$values.map((scale: any) => ({
+                id: scale.scaleId,
+                name: scale.scaleName,
+                quality: scale.scaleQuality,
+                root: scale.scaleRoot,
+                keyId: scale.keyId
+            }));
             return scales as Scale[];
         })
         .catch((error) => {
@@ -40,7 +45,7 @@ export const updateScale = async (scale: Scale) => {
         axios
             .get(`${apiUrl}/scale/UpdateScale?scale=${scale}`)
             .then((response) => {
-                let existingScale: Scale = scales.find((s) => s.id === scale.id)!;
+                // TODO
             })
             .catch((error) => {
                 if(error.response) {
