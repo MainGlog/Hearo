@@ -1,6 +1,6 @@
 import {getAllNotes} from "@/services/NoteService";
 import Note from "@/models/Note";
-import {getAllScales} from "@/services/ScaleService";
+import {getAllScales, getIntervalsByScaleId} from "@/services/ScaleService";
 import Scale from "@/models/Scale";
 import {getAllKeys} from "@/services/KeyService";
 import Key from "@/models/Key";
@@ -8,8 +8,20 @@ import Interval from "@/models/Interval";
 import {getAllIntervals} from "@/services/IntervalService";
 import {getAllChords} from "@/services/ChordService";
 import Chord from "@/models/Chord";
-export let notes: Note[] = [];
-const fetchNotes = async() => {
+export async function getIntervalsById(id: number) {
+    let intervals: Interval[] = [];
+    await getIntervalsByScaleId(id)
+        .then((response) => {
+            if (response) intervals = response
+        })
+        .catch((error) => {
+            console.error("Failed to retrieve Intervals array. " + error)
+        })
+    return intervals;
+}
+
+export async function fetchNotes(): Promise<Note[]> {
+    let notes: Note[] = [];
     await getAllNotes()
         .then((response) => {
             notes = response
@@ -19,10 +31,9 @@ const fetchNotes = async() => {
         });
     return notes;
 }
-// fetchNotes();
 
-export let scales: Scale[] = [];
-const fetchScales = async() => {
+export async function fetchScales(): Promise<Scale[]> {
+    let scales: Scale[] = [];
     await getAllScales()
         .then((response) => {
             scales = response
@@ -32,10 +43,10 @@ const fetchScales = async() => {
         });
     return scales;
 }
-// fetchScales();
 
-export let keys: Key[] = []
-const fetchKeys = async() => {
+
+export async function fetchKeys(): Promise<Key[]> {
+    let keys: Key[] = []
     await getAllKeys()
         .then((response) => {
             keys = response
@@ -46,9 +57,8 @@ const fetchKeys = async() => {
     return keys;
 }
 
-// fetchKeys();
-export let intervals: Interval[] = []
-const fetchIntervals = async() => {
+export async function fetchIntervals(): Promise<Interval[]> {
+    let intervals: Interval[] = []
     await getAllIntervals()
         .then((response) => {
             intervals = response
@@ -58,10 +68,9 @@ const fetchIntervals = async() => {
         });
     return intervals;
 }
-// fetchIntervals();
 
-export let chords: Chord[] = []
-const fetchChords = async() => {
+export async function fetchChords(): Promise<Chord[]> {
+    let chords: Chord[] = []
     await getAllChords()
         .then((response) => {
             chords = response
@@ -71,5 +80,4 @@ const fetchChords = async() => {
         });
     return chords;
 }
-fetchChords()
-    .then((data) => console.log("Printing an attribute of Chords[0]: " + data[0].notation));
+

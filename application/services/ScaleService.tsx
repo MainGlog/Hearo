@@ -1,5 +1,6 @@
 import axios from "axios";
 import Scale from "@/models/Scale";
+import Interval from "@/models/Interval";
 
 const apiUrl = "http://10.0.2.2:5028"
 
@@ -24,6 +25,20 @@ export const getAllScales = async (): Promise<Scale[]> => {
         .catch((error) => {
             console.error(error);
             return [];
+        })
+}
+
+export const getIntervalsByScaleId = async (id: number): Promise<Interval[] | void> => {
+    return axios
+        .get(`${apiUrl}/v1/Scale/GetIntervalsByScaleId?=${id}`, {
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(async (response) => {
+            const intervals = await response.data;
+            return intervals as Interval[];
+        })
+        .catch((error) => {
+            console.error(error)
         })
 }
 

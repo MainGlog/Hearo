@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Fixed the app from not working randomly, thanks kc&#10;npx expo start&#10;s">
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="APIS ARE WORKING!!! \o/">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Data.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Data.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Chord.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Chord.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Exercise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Exercise.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Interval.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Interval.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Note.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Routine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Routine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/Scale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Scale.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Sound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Sound.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/ChordService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ChordService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/IntervalService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/IntervalService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/KeyService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/KeyService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/NoteService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/NoteService.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/services/ScaleService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +156,8 @@
       <workItem from="1746628088187" duration="7428000" />
       <workItem from="1746644043200" duration="1785000" />
       <workItem from="1746657700268" duration="6000" />
-      <workItem from="1746710267093" duration="5544000" />
+      <workItem from="1746710267093" duration="8192000" />
+      <workItem from="1746901707004" duration="8900000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -223,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746634032181</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="APIS ARE WORKING!!! \o/">
+      <option name="closed" value="true" />
+      <created>1746716267808</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746716267808</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,6 +248,7 @@
     <MESSAGE value="Added Root Note selector to Scales Details page&#10;Added structure to Home page" />
     <MESSAGE value="Did a tiny bit of work on the home and routine building page, started trying to work with my APIs" />
     <MESSAGE value="Fixed the app from not working randomly, thanks kc&#10;npx expo start&#10;s" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed the app from not working randomly, thanks kc&#10;npx expo start&#10;s" />
+    <MESSAGE value="APIS ARE WORKING!!! \o/" />
+    <option name="LAST_COMMIT_MESSAGE" value="APIS ARE WORKING!!! \o/" />
   </component>
 </project>

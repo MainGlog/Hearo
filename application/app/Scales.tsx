@@ -5,13 +5,25 @@ import ScaleContainer from "../components/ScaleContainer";
 import Scale from "@/models/Scale";
 import Note from "@/models/Note";
 import Key from "@/models/Key";
-import { notes, scales } from "@/app/Data"
+import {fetchNotes, fetchScales} from "@/app/Data"
 import keys from "@/services/ApiService"
+import {useEffect, useState} from "react";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
 
 export default function ScaleScreen()
 {
+    const [notes, setNotes] = useState<Note[]>([]);
+    const [scales, setScales] = useState<Scale[]>([]);
+
+    useEffect(() => {
+        const loadData = async() => {
+            setNotes(await fetchNotes());
+            setScales(await fetchScales());
+        }
+        loadData();
+    }, [])
+
     console.log("Printing Major Scale: " + scales.find(s => s.name.includes("Major")));
 
     return(
@@ -23,20 +35,23 @@ export default function ScaleScreen()
                 <Text style={styles.categoryTitle}>Basic Scales</Text>
                 <View style={styles.categoryContainer}>
                     <ScaleContainer
-                        {...scales.find(s => s.quality === "Major")}
+                        {...scales.find(s => s.quality === "Major"
+                        && s.name === "C Major")!}
                     />
                     <ScaleContainer
-                        {...scales.find(s => s.quality === "Minor")}
+                        {...scales.find(s => s.quality === "Minor"
+                        && s.name === "C Minor")!}
                     />
                 </View>
                 <Text style={styles.categoryTitle}>Modes</Text>
                 <View style={styles.categoryContainer}>
-                    {/*<ScaleContainer
-                        {...scale}
+                    <ScaleContainer
+                        {...scales.find(s => s.quality === "Major"
+                        && s.name === "D Dorian")!}
                     />
                     <ScaleContainer
-                        {...scale}
-                    />*/}
+                        {...scales.find(s => s.quality === "Minor")!}
+                    />
                 </View>
                 <Text style={styles.categoryTitle}>Exotic Scales</Text>
                 <View style={styles.categoryContainer}>

@@ -2,23 +2,43 @@ import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, Keyboard} fr
 import Scale from '@/models/Scale';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@/app/index';
-import {createRef, useState} from 'react';
+import {createRef, useEffect, useState} from 'react';
 import AddToRoutineButton from '@/components/AddToRoutineButton';
 import Exercise from '@/models/Exercise';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import Note from "@/models/Note";
 import DismissKeyboard from "@/components/DismissKeyboard";
 import Key from "@/models/Key";
-import App from "@/services/ApiService";
-import keys from "@/services/ApiService";
-import notes from "@/services/ApiService";
+import {fetchKeys, fetchNotes} from "@/app/Data";
+import {getIntervalsByScaleId} from "@/services/ScaleService";
+import Interval from "@/models/Interval";
+import {getAllKeys} from "@/services/KeyService";
+import {getAllNotes} from "@/services/NoteService";
 
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
-//@ts-ignore
-export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
-    const scale = new Scale(route.params.id, route.params.name, route.params.imageFilePath, route.params.notes as Note[],
-        route.params.quality, route.params.key as Key);
+export default async function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
+    const scale = new Scale(route.params.id, route.params.name, route.params.quality,
+        route.params.keyId, route.params.rootId, route.params.imageFilePath);
+
+    const [notes, setNotes] = useState<Note[]>([]);
+    const [keys, setKeys] = useState<Key[]>([]);
+    const [intervals, setIntervals] = useState<Interval[] | void>([]);
+
+    useEffect(() => {
+        const fetchData = async() => {
+            setIntervals(await getIntervalsByScaleId(scale.id));
+            setKeys(await getAllKeys());
+            setNotes(await getAllNotes());
+        }
+        fetchData()
+    }, []);
+
+    let scaleNotes: Note[] = [];
+
+    intervals!.map((i: Interval) => {
+        scaleNotes.push(notes.find((n) => n.id = i.intervalNoteId)!)
+    })
 
     const [ascendingButtonActive, setAscendingButtonActive] = useState(false);
     const [randomButtonActive, setRandomButtonActive] = useState(false);
@@ -44,17 +64,17 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
         }
     }
 
-    /*let notesAsKeyValue: any[] = scale.notes.map((note, index) => ({
+    let notesAsKeyValue: any[] = scaleNotes.map((note, index) => ({
         key: index.toString(),
         value: note.name
-    }));*/
+    }));
 
-    let notesAsKeyValue: any[];
+    /*let notesAsKeyValue: any[];
 
     for (let i = 0; i < scale.notes.length; i++) {
         notesAsKeyValue.push({ key: i.toString(), value: scale.notes[i].name })
         console.log(notesAsKeyValue[i].key);
-    }
+    }*/
 
     // TODO Key selector
     return (
@@ -71,7 +91,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
                     <Dropdown
                         // Button to select the key or root note for the scale
                         style={styles.optionButton}
-                        data={notes}
+                        data={scaleNotes}
                         mode={'modal'}
                         placeholder={'Root Note'}
                         placeholderStyle={styles.optionLabel}
@@ -80,15 +100,14 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
                         value={null}
                         onChange={(note) => {
                             if (exercise.scale) {
-                                exercise.scale.key = keys
-                                    .find(k => k.name === note.name && scale.quality === k.quality)!;
+                                exercise.scale.keyId = keys.find((k) => k.quality === exercise.scale!.quality)?.id!
                             }
                         }}
                     />
                 </View>
 
                 <View style={styles.imageContainer}>
-                    <Image style={styles.imageContainer} source={scale!.imageFilePath}></Image>
+                    <Image style={styles.imageContainer} source={Scale.returnImageFilePath(scale.imageFilePath) as any}></Image>
                 </View>
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.descriptionText}>
@@ -115,7 +134,6 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
                                 setButtonActivity('random');
                                 options.listeningMode = 'random';
                             }}
-
                         >
                             <Text style={styles.modeSelectionText}>Random Notes</Text>
                         </TouchableOpacity>
@@ -136,18 +154,18 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
                     <View style={styles.optionContainer}>
                         <Text style={styles.heading}>Random Notes Options</Text>
                         <View style={styles.optionRow}>
-                                <View>
-                                    <Text style={styles.optionLabel}>Number of Notes</Text>
-                                    <TextInput
-                                        style={styles.optionButton}
-                                        placeholder={'Number of Notes'}
-                                        inputMode={'numeric'}
-                                        maxLength={2}
-                                        onChange={numberOfNotes => {
-                                            options.randomOptions.numberOfNotes = Number(numberOfNotes.nativeEvent.text);
-                                        }}
-                                    />
-                                </View>
+                            <View>
+                                <Text style={styles.optionLabel}>Number of Notes</Text>
+                                <TextInput
+                                    style={styles.optionButton}
+                                    placeholder={'Number of Notes'}
+                                    inputMode={'numeric'}
+                                    maxLength={2}
+                                    onChange={numberOfNotes => {
+                                        options.randomOptions.numberOfNotes = Number(numberOfNotes.nativeEvent.text);
+                                    }}
+                                />
+                            </View>
                             <View>
                                 <Text style={styles.optionLabel}>Number of Octaves</Text>
                                 <TextInput
@@ -229,14 +247,12 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps){
         </DismissKeyboard>
     )
 
-    function setButtonActivity(buttonName: String)
-    {
+    function setButtonActivity(buttonName: String) {
         listeningModeButtonStates['ascending'](false);
         listeningModeButtonStates['random'](false);
         listeningModeButtonStates['custom'](false);
 
-        switch (buttonName)
-        {
+        switch (buttonName) {
             case 'ascending':
                 setAscendingButtonActive(true);
                 break;

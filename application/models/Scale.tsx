@@ -6,7 +6,6 @@ export default class Scale {
     quality!: string;
     rootId!: number;
     keyId!: number;
-
     imageFilePath!: string;
 
     constructor(id: number, name: string, quality: string,
@@ -17,7 +16,6 @@ export default class Scale {
         this.rootId = rootId;
         this.keyId = keyId;
         this.imageFilePath = imageFilePath;
-
     }
     static returnImageFilePath(imageFilePath: string){
         return `require(${imageFilePath})`;
