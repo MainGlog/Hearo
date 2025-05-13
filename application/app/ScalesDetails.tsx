@@ -117,6 +117,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                         valueField={'key'}
                         value={null}
                         onChange={(note) => {
+                            // TODO whenever this changes, the API needs to refresh with new notes data to reflect the new key
                             if (exercise.scale) {
                                 exercise.scale.keyId = keys.find((k) => k.quality === exercise.scale!.quality
                                 && k.name.includes(note.name))?.id!

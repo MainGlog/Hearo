@@ -49,7 +49,7 @@ export default function RoutineBuilderScreen() {
                 }}
             />
 
-            <View style={{flexDirection: "row"}}>
+            <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
                 <TouchableOpacity
                     style={styles.optionButton}
                     onPress={() => {
@@ -66,7 +66,7 @@ export default function RoutineBuilderScreen() {
                         // TODO save routine to database
                     }}
                 >
-                    <Text>Save</Text>re
+                    <Text style={{textAlign: "center"}}>Save</Text>
                 </TouchableOpacity>
             </View>
         </View>
