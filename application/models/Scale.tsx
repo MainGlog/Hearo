@@ -4,12 +4,12 @@ export default class Scale {
     id!: number;
     name!: string;
     quality!: string;
-    rootId!: number;
+    rootId!: string;
     keyId!: number;
     imageFilePath!: string;
 
     constructor(id: number, name: string, quality: string,
-                rootId: number, keyId: number, imageFilePath: string) {
+                rootId: string, keyId: number, imageFilePath: string) {
         this.id = id;
         this.name = name;
         this.quality = quality;

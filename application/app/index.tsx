@@ -30,6 +30,7 @@ export type RootStackParamList = {
 
 const Tab = createBottomTabNavigator({
     screens: {
+        Home: HomeScreen,
         Scales: ScaleScreen,
         Modal: AddToRoutineModal,
         ScaleDetails: ScalesDetailsScreen,

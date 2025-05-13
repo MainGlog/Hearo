@@ -2,7 +2,7 @@ import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, Keyboard} fr
 import Scale from '@/models/Scale';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@/app/index';
-import {createRef, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import AddToRoutineButton from '@/components/AddToRoutineButton';
 import Exercise from '@/models/Exercise';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
@@ -12,37 +12,67 @@ import Key from "@/models/Key";
 import {fetchKeys, fetchNotes} from "@/app/Data";
 import {getIntervalsByScaleId} from "@/services/ScaleService";
 import Interval from "@/models/Interval";
-import {getAllKeys} from "@/services/KeyService";
-import {getAllNotes} from "@/services/NoteService";
-
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
-export default async function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
+export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     const scale = new Scale(route.params.id, route.params.name, route.params.quality,
-        route.params.keyId, route.params.rootId, route.params.imageFilePath);
+        route.params.rootId, route.params.keyId, route.params.imageFilePath);
 
     const [notes, setNotes] = useState<Note[]>([]);
     const [keys, setKeys] = useState<Key[]>([]);
     const [intervals, setIntervals] = useState<Interval[] | void>([]);
+    let scaleNotes: Note[] = [];
+    const [scaleNotesAsKeyValue, setScaleNotesAsKeyValue] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchData = async() => {
-            setIntervals(await getIntervalsByScaleId(scale.id));
-            setKeys(await getAllKeys());
-            setNotes(await getAllNotes());
+            try {
+                const [intervalsData, keysData, notesData] = await Promise.all([
+                    getIntervalsByScaleId(scale.id),
+                    fetchKeys(),
+                    fetchNotes()
+                ]);
+
+                setIntervals(intervalsData);
+                setKeys(keysData);
+                setNotes(notesData);
+            }
+            catch (error) {
+                console.error("Error retrieving data: " + error);
+            }
+            finally {
+                // For some reason, the response gives A the id of 11 despite the API response giving it 0
+                const A = notes.find((n) => n.name === "A");
+                A!.id = 0;
+
+                // TODO update database to replace scaleRoot (String representation of the root note)
+                //  with rootId (foreign key for note)
+                scaleNotes.push(notes.find((n) => n.name === scale.rootId)!);
+
+                intervals!.map((i: Interval, index: number) => {
+                    const note = notes.find((n) => n.id === i.intervalNoteId)!;
+                    scaleNotes.push(note);
+                });
+
+                setScaleNotesAsKeyValue(scaleNotes.map((note, index) => ({
+                    key: index.toString(),
+                    value: note.name
+                })));
+            }
         }
-        fetchData()
+        fetchData();
     }, []);
 
-    let scaleNotes: Note[] = [];
-
-    intervals!.map((i: Interval) => {
-        scaleNotes.push(notes.find((n) => n.id = i.intervalNoteId)!)
-    })
+    let notesAsKeyValue: any[] = notes.map((note, index) => ({
+        key: index.toString(),
+        value: note.name
+    }));
 
     const [ascendingButtonActive, setAscendingButtonActive] = useState(false);
     const [randomButtonActive, setRandomButtonActive] = useState(false);
     const [customButtonActive, setCustomButtonActive] = useState(false);
+    const [timePerNoteText, setTimePerNoteText] = useState('');
+
 
     const listeningModeButtonStates = {
         'ascending': setAscendingButtonActive,
@@ -64,18 +94,6 @@ export default async function ScalesDetailsScreen({route}: ScalesDetailsScreenPr
         }
     }
 
-    let notesAsKeyValue: any[] = scaleNotes.map((note, index) => ({
-        key: index.toString(),
-        value: note.name
-    }));
-
-    /*let notesAsKeyValue: any[];
-
-    for (let i = 0; i < scale.notes.length; i++) {
-        notesAsKeyValue.push({ key: i.toString(), value: scale.notes[i].name })
-        console.log(notesAsKeyValue[i].key);
-    }*/
-
     // TODO Key selector
     return (
         <DismissKeyboard>
@@ -87,20 +105,21 @@ export default async function ScalesDetailsScreen({route}: ScalesDetailsScreenPr
                             // TODO Navigate to Scales page
                         }}
                     />
-                    <Text style={styles.title}>{scale!.name} Scale</Text>
+                    <Text style={styles.title}>{scale!.name.split(' ')[1]} Scale</Text>
                     <Dropdown
                         // Button to select the key or root note for the scale
                         style={styles.optionButton}
-                        data={scaleNotes}
+                        data={notesAsKeyValue}
                         mode={'modal'}
                         placeholder={'Root Note'}
                         placeholderStyle={styles.optionLabel}
-                        labelField={'name'}
-                        valueField={'id'}
+                        labelField={'value'}
+                        valueField={'key'}
                         value={null}
                         onChange={(note) => {
                             if (exercise.scale) {
-                                exercise.scale.keyId = keys.find((k) => k.quality === exercise.scale!.quality)?.id!
+                                exercise.scale.keyId = keys.find((k) => k.quality === exercise.scale!.quality
+                                && k.name.includes(note.name))?.id!
                             }
                         }}
                     />
@@ -188,8 +207,8 @@ export default async function ScalesDetailsScreen({route}: ScalesDetailsScreenPr
                         <Text style={styles.heading}>Custom Selection Options</Text>
                         <View style={styles.optionRow}>
                             <MultiSelect
-                                style={styles.optionButton}
-                                data={notesAsKeyValue}
+                                style={{...styles.optionButton, minWidth: '35%'}}
+                                data={scaleNotesAsKeyValue}
                                 mode={"modal"}
                                 placeholder={'Notes to Include'}
                                 placeholderStyle={styles.optionLabel}
@@ -228,16 +247,10 @@ export default async function ScalesDetailsScreen({route}: ScalesDetailsScreenPr
                         <TextInput
                             style={styles.optionButton}
                             placeholder={'Time per Note'}
-                            onSelectionChange={(input) => {
-                                /*if (isNaN(Number(input))) {
-                                    this.textInput.clear()
-                                }*/
-                                options.timePerNote = Number(input);
-                            }}
+                            onChangeText={setTimePerNoteText}
+                            value={timePerNoteText}
                             inputMode={'numeric'}
-                        >
-                            <Text style={styles.placeholderLabel}>Time per Note</Text>
-                        </TextInput>
+                        />
                     </View>
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
@@ -331,9 +344,5 @@ const styles = StyleSheet.create({
     optionLabel: {
         textAlign: 'center',
         fontSize: 16
-    },
-    placeholderLabel: {
-        textAlign: 'center',
-        color: 'grey'
     }
 });

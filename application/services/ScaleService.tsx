@@ -17,7 +17,7 @@ export const getAllScales = async (): Promise<Scale[]> => {
                 id: scale.scaleId,
                 name: scale.scaleName,
                 quality: scale.scaleQuality,
-                root: scale.scaleRoot,
+                rootId: scale.scaleRoot,
                 keyId: scale.keyId
             }));
             return scales as Scale[];
@@ -30,11 +30,21 @@ export const getAllScales = async (): Promise<Scale[]> => {
 
 export const getIntervalsByScaleId = async (id: number): Promise<Interval[] | void> => {
     return axios
-        .get(`${apiUrl}/v1/Scale/GetIntervalsByScaleId?=${id}`, {
+        .get(`${apiUrl}/v1/Scale/GetIntervalsByScaleId?scaleId=${id}`, {
             headers: {"Content-Type": "application/json"}
         })
         .then(async (response) => {
-            const intervals = await response.data;
+            let intervals: Interval[] = [];
+
+            intervals = response.data.$values.map((interval: any) => ({
+                id: interval.intervalId,
+                quality: interval.intervalQuality,
+                size: interval.intervalSize,
+                semitonesFromRoot: interval.intervalSemitonesFromRoot,
+                rootNoteId: interval.rootNoteId,
+                intervalNoteId: interval.intervalNoteId
+            }));
+
             return intervals as Interval[];
         })
         .catch((error) => {

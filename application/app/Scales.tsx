@@ -17,14 +17,23 @@ export default function ScaleScreen()
     const [scales, setScales] = useState<Scale[]>([]);
 
     useEffect(() => {
+        // TODO this takes < 10 seconds to fetch
         const loadData = async() => {
-            setNotes(await fetchNotes());
-            setScales(await fetchScales());
+            try {
+                const [notesData, scalesData] = await Promise.all([
+                    fetchNotes(),
+                    fetchScales()
+                ]);
+
+                setNotes(notesData);
+                setScales(scalesData);
+            }
+            catch (error) {
+                console.error("Error retrieving notes and scales from API:" + error);
+            }
         }
         loadData();
     }, [])
-
-    console.log("Printing Major Scale: " + scales.find(s => s.name.includes("Major")));
 
     return(
         <>
