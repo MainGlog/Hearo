@@ -1,0 +1,101 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "MUSICContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "Server",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "CHORD",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CHORD_INTERVAL",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENHARMONIC",
+         "ObjectType": 0
+      },
+      {
+         "Name": "EXERCISE_NOTES",
+         "ObjectType": 0
+      },
+      {
+         "Name": "INTERVAL",
+         "ObjectType": 0
+      },
+      {
+         "Name": "KEY",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NOTE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NOTE_ENHARMONIC",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ROUTINE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SCALE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SCALE_EXERCISE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SCALE_EXERCISE_ROUTINE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SCALE_NOTE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SOUND",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": true,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}

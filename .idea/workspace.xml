@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Scale Details Updated:&#10;- Key selector works&#10;- Note selection in custom options works&#10;- Placeholder no longer needs to be deleted in the time per note selection field">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Routine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Routine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/RoutineService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/RoutineService.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Created stuff for the routines" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -159,7 +153,7 @@
       <workItem from="1746901707004" duration="9568000" />
       <workItem from="1747056366859" duration="6675000" />
       <workItem from="1747063627829" duration="9121000" />
-      <workItem from="1747153398652" duration="267000" />
+      <workItem from="1747153398652" duration="315000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -233,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747147337334</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Created stuff for the routines">
+      <option name="closed" value="true" />
+      <created>1747154949506</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1747154949506</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +262,7 @@
     <MESSAGE value="Fixed the app from not working randomly, thanks kc&#10;npx expo start&#10;s" />
     <MESSAGE value="APIS ARE WORKING!!! \o/" />
     <MESSAGE value="Scale Details Updated:&#10;- Key selector works&#10;- Note selection in custom options works&#10;- Placeholder no longer needs to be deleted in the time per note selection field" />
-    <option name="LAST_COMMIT_MESSAGE" value="Scale Details Updated:&#10;- Key selector works&#10;- Note selection in custom options works&#10;- Placeholder no longer needs to be deleted in the time per note selection field" />
+    <MESSAGE value="Created stuff for the routines" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created stuff for the routines" />
   </component>
 </project>
