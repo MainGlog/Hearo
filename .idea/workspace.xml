@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Adjusted the ScaleNote model to WORK">
-      <change afterPath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" afterDir="false" />
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Added routine description and began working on the routine block component for the home page">
+      <change afterPath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Server/Controllers/RoutineController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Controllers/RoutineController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Server/Models/Routine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/Routine.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Routine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Routine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/RoutineService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/RoutineService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -160,7 +168,8 @@
       <workItem from="1747056366859" duration="6675000" />
       <workItem from="1747063627829" duration="9121000" />
       <workItem from="1747153398652" duration="315000" />
-      <workItem from="1747179043347" duration="7405000" />
+      <workItem from="1747179043347" duration="7706000" />
+      <workItem from="1747232012531" duration="7497000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -258,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747186473181</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added routine description and began working on the routine block component for the home page">
+      <option name="closed" value="true" />
+      <created>1747187863422</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1747187863422</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +305,7 @@
     <MESSAGE value="Created stuff for the routines" />
     <MESSAGE value="Made some modifications regarding routines, including getting their creation on the builder page to work" />
     <MESSAGE value="Adjusted the ScaleNote model to WORK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adjusted the ScaleNote model to WORK" />
+    <MESSAGE value="Added routine description and began working on the routine block component for the home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added routine description and began working on the routine block component for the home page" />
   </component>
 </project>

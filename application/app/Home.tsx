@@ -1,10 +1,27 @@
 import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
 import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
+import {useEffect, useState} from "react";
+import Routine from "@/models/Routine";
+import {getAllRoutines} from "@/services/RoutineService";
+import RoutineBlock from "@/components/RoutineBlock";
 type HomeScreenProps = BottomTabScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) => {
+    const [routines, setRoutines] = useState<Routine[]>([]);
+    useEffect(() => {
+        const loadData = async() => {
+            try {
+                const routinesData = await getAllRoutines();
+                setRoutines(routinesData);
+            }
+            catch (error) {
+                console.error("Error retrieving routines: " + error);
+            }
+        }
+        loadData();
+    }, [])
+
     return (
         <View>
             <Text style={styles.title}> Hearo </Text>
@@ -57,16 +74,28 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                         </View>
                     </View>
                 </View>
+                {routines ?
                 <View>
-                    {/*TODO map routines into blocks*/}
-                    <Text>Your Routines</Text>
-                    <View>
-
+                    <Text style={{...styles.containerTitle, marginVertical: 10}}>Your Routines</Text>
+                    <View style={{width: "100%"}}>
+                        <FlatList
+                            data={routines}
+                            horizontal={true}
+                            keyExtractor={(item) => item.id.toString()}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({item}: { item: Routine}) => (
+                            <View style={{marginHorizontal: 10}}>
+                                <RoutineBlock
+                                {...item}
+                                />
+                            </View>
+                        )}/>
                     </View>
-                </View>
+                </View> : null }
+
                 <View>
                     {/*TODO custom built routines*/}
-                    <Text> Routines for You</Text>
+                    <Text style={{...styles.containerTitle, marginVertical: 10}}> Routines for You</Text>
                 </View>
 
                 <View style={styles.buttonWrapper}>

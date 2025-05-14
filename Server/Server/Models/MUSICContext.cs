@@ -246,6 +246,10 @@ public partial class MUSICContext : DbContext
 
             entity.ToTable("ROUTINE");
 
+            entity.Property(e => e.RoutineDescription)
+                .HasMaxLength(256)
+                .HasColumnName("ROUTINE_DESCRIPTION");
+
             entity.Property(e => e.RoutineId)
                 .ValueGeneratedNever()
                 .HasColumnName("ROUTINE_ID");

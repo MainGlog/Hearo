@@ -1,7 +1,12 @@
 import Routine from "@/models/Routine";
-import {StyleSheet, View, Text} from "react-native";
+import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "@/app";
 
 export default function RoutineBlock(routine: Routine) {
+    const navigation = useNavigation<NativeStackScreenProps<RootStackParamList, 'Home'>['navigation']>();
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -9,10 +14,18 @@ export default function RoutineBlock(routine: Routine) {
                     {routine.name}
                 </Text>
             </View>
-            <View>
-                <Text>
-                    {routine.description}
-                </Text>
+            <Text style={styles.description}>
+                {routine.description}
+            </Text>
+            <View style={{flexDirection: "row", justifyContent: "center"}}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        navigation.navigate("RoutineDetails", {...routine});
+                    }}
+                >
+                    <Text>Train</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -20,24 +33,29 @@ export default function RoutineBlock(routine: Routine) {
 
 const styles = StyleSheet.create({
     title: {
-        marginLeft: 35,
-        flex: 2
+        flex: 2,
+        textAlign: "center"
     },
     header: {
         flexDirection: "row",
         marginVertical: 10,
     },
+    description: {
+      textAlign: "center"
+    },
     container: {
-        maxWidth: "40%",
+        width: 120,
         borderWidth: 1,
         borderRadius: 20,
         borderColor: "black",
-        maxHeight: 150
+        maxHeight: 200
     },
-    buttonWrapper: {
-        marginHorizontal: "auto",
-        flexDirection: "row",
-        alignContent: "center",
-        justifyContent: "space-evenly"
+    button: {
+        borderRadius: 20,
+        borderWidth: 1,
+        marginVertical: 10,
+        paddingHorizontal: 10,
+        minWidth: "60%"
     }
+
 })

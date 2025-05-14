@@ -53,6 +53,7 @@ namespace Server.Controllers
             existingRoutine.RoutineName = updatedRoutine.RoutineName;
             existingRoutine.RoutineExerciseCount = updatedRoutine.RoutineExerciseCount;
             existingRoutine.RoutineTimeToGuess = updatedRoutine.RoutineTimeToGuess;
+            existingRoutine.RoutineDescription = updatedRoutine.RoutineDescription;
 
             MUSICContext.SaveChanges();
             return Ok();
@@ -62,17 +63,21 @@ namespace Server.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult CreateRoutine([Required][FromBody] Routine newRoutine)
         {
-            if (!MUSICContext.Routines.Any()) // Check if the Routines table is empty  
-            {
-                newRoutine.RoutineId = 0;
-            }
-            else
-            {
-                newRoutine.RoutineId = MUSICContext.Routines.Max(k => k.RoutineId) + 1;
-            }
+            newRoutine.RoutineName = String.IsNullOrEmpty(newRoutine.RoutineName)
+            ? "New Routine"
+            : newRoutine.RoutineName.Trim();
+
+            newRoutine.RoutineDescription = String.IsNullOrEmpty(newRoutine.RoutineDescription)
+                ? String.Empty
+                : newRoutine.RoutineDescription.Trim();
+
+            // Ensure non-null string properties to avoid null assignment issues
+            newRoutine.RoutineName ??= string.Empty;
+            newRoutine.RoutineDescription ??= string.Empty;
 
             MUSICContext.Routines.Add(newRoutine);
             MUSICContext.SaveChanges();
+
             return CreatedAtAction(nameof(GetRoutineById), new { id = newRoutine.RoutineId }, newRoutine);
         }
 

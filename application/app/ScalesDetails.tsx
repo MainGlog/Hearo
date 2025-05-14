@@ -27,30 +27,25 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const [intervalsData, keysData, notesData] = await Promise.all([
-                    getIntervalsByScaleId(scale.id),
-                    fetchKeys(),
-                    fetchNotes()
-                ]);
+                const intervalsData = await getIntervalsByScaleId(scale.id);
+                const keysData = await fetchKeys();
+                const notesData = await fetchNotes();
 
                 setIntervals(intervalsData);
                 setKeys(keysData);
                 setNotes(notesData);
-            }
-            catch (error) {
-                console.error("Error retrieving data: " + error);
-            }
-            finally {
+
                 // For some reason, the response gives A the id of 11 despite the API response giving it 0
-                const A = notes.find((n) => n.name === "A");
+                const A = notesData.find((n) => n.name === "A");
                 A!.id = 0;
 
                 // TODO update database to replace scaleRoot (String representation of the root note)
                 //  with rootId (foreign key for note). This will require going into population script :(
-                scaleNotes.push(notes.find((n) => n.name === scale.rootId)!);
 
-                intervals!.map((i: Interval, index: number) => {
-                    const note = notes.find((n) => n.id === i.intervalNoteId)!;
+                scaleNotes.push(notesData.find((n) => n.name === scale.rootId)!);
+
+                intervalsData!.map((i: Interval) => {
+                    const note = notesData.find((n) => n.id === i.intervalNoteId)!;
                     scaleNotes.push(note);
                 });
 
@@ -58,10 +53,14 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                     key: index.toString(),
                     value: note.name
                 })));
+
+            }
+            catch (error) {
+                console.error("Error retrieving data: " + error);
             }
         }
         fetchData();
-    }, []);
+    }, [scale.id]);
 
     let notesAsKeyValue: any[] = notes.map((note, index) => ({
         key: index.toString(),

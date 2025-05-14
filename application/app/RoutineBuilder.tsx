@@ -6,18 +6,8 @@ import {createRoutine} from "@/services/RoutineService";
 export default function RoutineBuilderScreen() {
     let name: string;
     let exerciseCount: number;
+    let description: string;
     let timeToGuess: number;
-    let exercises: Exercise[];
-
-    // Required
-    // Name routine - Input Field
-    //
-    // Options
-    // Number of exercises to play
-    // Times to play each exercise
-    // Time to guess
-    //
-    // Button to add exercises
 
 
     return (
@@ -27,6 +17,14 @@ export default function RoutineBuilderScreen() {
                 placeholder="Name your Routine"
                 onChangeText={(text) => {
                     name = text;
+                }}
+            />
+
+            <TextInput
+                style={styles.optionButton}
+                placeholder="Routine Description"
+                onChangeText={(text) => {
+                    description = text;
                 }}
             />
 
@@ -63,12 +61,12 @@ export default function RoutineBuilderScreen() {
                 <TouchableOpacity
                     style={styles.optionButton}
                     onPress={() => {
-                        if (!name || !exerciseCount || !timeToGuess) {
+                        if (!name || !exerciseCount || !timeToGuess || !description) {
                             console.error("Please fill in all fields");
                             return;
                         }
-                        const routine = new Routine(name, exerciseCount, timeToGuess);
-                        createRoutine(routine)
+
+                        createRoutine(name, exerciseCount, timeToGuess, description)
                             .then(() => {
                                 console.log("Yippee!");
                             })

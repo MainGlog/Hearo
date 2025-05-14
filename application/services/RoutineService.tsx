@@ -1,7 +1,10 @@
 import axios from "axios";
 import Routine from "@/models/Routine";
 
-const apiUrl = "http://10.0.2.2:5028"
+const apiUrl = "http://10.0.2.2:5028";
+
+// Used to get the last ID of the routines during routine creation
+let routinesCache: Routine[] | null = null;
 
 export const getAllRoutines = async (): Promise<Routine[]> => {
     return axios
@@ -16,8 +19,11 @@ export const getAllRoutines = async (): Promise<Routine[]> => {
                 id: routine.routineId,
                 name: routine.routineName,
                 exerciseCount: routine.exerciseCount,
-                timeToGuess: routine.timeToGuess
+                timeToGuess: routine.timeToGuess,
+                description: routine.routineDescription
             }));
+
+            routinesCache = routines;
             return routines as Routine[];
         })
         .catch((error) => {
@@ -53,13 +59,20 @@ export const updateRoutine = async (routine: Routine) => {
         })
 }
 
-export const createRoutine = async (routine: Routine) => {
+export const createRoutine = async (
+    name: string,
+    exerciseCount: number,
+    timeToGuess: number,
+    description: string
+) => {
+    console.log(routinesCache!.length);
     await axios
         .post(`${apiUrl}/v1/Routine/CreateRoutine`, {
-            routineId: 0,
-            routineName: routine.name,
-            routineExerciseCount: routine.exerciseCount,
-            routineTimeToGuess: routine.timeToGuess
+            routineId: routinesCache ? routinesCache.length : 0,
+            routineName: name,
+            routineExerciseCount: exerciseCount,
+            routineTimeToGuess: timeToGuess,
+            routineDescription: description
         }, {
             headers: { 'Content-Type': 'application/json' }
         })
