@@ -35,7 +35,7 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
             try {
                 const routinesData = await fetchRoutines();
 
-                // setRoutines(routinesData);
+                setRoutines(routinesData);
             }
             catch (error) {
                 console.error("Error retrieving data: " + error);
@@ -50,7 +50,7 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
             }
         }
         fetchData();
-    })
+    }, [])
 
     return(
         <MultiSelect

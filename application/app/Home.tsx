@@ -60,6 +60,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                 <View>
                     {/*TODO map routines into blocks*/}
                     <Text>Your Routines</Text>
+                    <View>
+
+                    </View>
                 </View>
                 <View>
                     {/*TODO custom built routines*/}

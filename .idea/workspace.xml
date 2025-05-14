@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Created stuff for the routines" />
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Adjusted the ScaleNote model to WORK">
+      <change afterPath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -154,6 +160,7 @@
       <workItem from="1747056366859" duration="6675000" />
       <workItem from="1747063627829" duration="9121000" />
       <workItem from="1747153398652" duration="315000" />
+      <workItem from="1747179043347" duration="7405000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -235,7 +242,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747154949506</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Made some modifications regarding routines, including getting their creation on the builder page to work">
+      <option name="closed" value="true" />
+      <created>1747186440015</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1747186440015</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Adjusted the ScaleNote model to WORK">
+      <option name="closed" value="true" />
+      <created>1747186473181</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1747186473181</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,6 +286,8 @@
     <MESSAGE value="APIS ARE WORKING!!! \o/" />
     <MESSAGE value="Scale Details Updated:&#10;- Key selector works&#10;- Note selection in custom options works&#10;- Placeholder no longer needs to be deleted in the time per note selection field" />
     <MESSAGE value="Created stuff for the routines" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created stuff for the routines" />
+    <MESSAGE value="Made some modifications regarding routines, including getting their creation on the builder page to work" />
+    <MESSAGE value="Adjusted the ScaleNote model to WORK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusted the ScaleNote model to WORK" />
   </component>
 </project>
