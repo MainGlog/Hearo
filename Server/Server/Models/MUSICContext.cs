@@ -159,17 +159,24 @@ public partial class MUSICContext : DbContext
 
         modelBuilder.Entity<ScaleNote>(entity =>
         {
-            entity.HasKey(e => new { e.ScaleId, e.IntervalId }); // Composite primary key  
+            entity.HasKey(e => new { e.ScaleId, e.IntervalId });
+
+            entity.ToTable("SCALE_NOTE");
+
+            entity.HasIndex(e => e.IntervalId, "INTERVAL_ID");
+
+            entity.Property(e => e.ScaleId).HasColumnName("SCALE_ID");
+            entity.Property(e => e.IntervalId).HasColumnName("INTERVAL_ID");
 
             entity.HasOne(e => e.Scale)
                 .WithMany(s => s.ScaleNotes)
                 .HasForeignKey(e => e.ScaleId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasConstraintName("SCALE_NOTE_ibfk_1");
 
             entity.HasOne(e => e.Interval)
                 .WithMany(i => i.ScaleNotes)
                 .HasForeignKey(e => e.IntervalId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasConstraintName("SCALE_NOTE_ibfk_2");
         });
 
         modelBuilder.Entity<Key>(entity =>
@@ -274,26 +281,6 @@ public partial class MUSICContext : DbContext
             entity.HasOne(d => d.Key).WithMany(p => p.Scales)
                 .HasForeignKey(d => d.KeyId)
                 .HasConstraintName("SCALE_ibfk_1");
-
-            entity.HasMany(d => d.Intervals).WithMany(p => p.Scales)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ScaleNote",
-                    r => r.HasOne<Interval>().WithMany()
-                        .HasForeignKey("IntervalId")
-                        .HasConstraintName("SCALE_NOTE_ibfk_2"),
-                    l => l.HasOne<Scale>().WithMany()
-                        .HasForeignKey("ScaleId")
-                        .HasConstraintName("SCALE_NOTE_ibfk_1"),
-                    j =>
-                    {
-                        j.HasKey("ScaleId", "IntervalId")
-                            .HasName("PRIMARY")
-                            .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-                        j.ToTable("SCALE_NOTE");
-                        j.HasIndex(new[] { "IntervalId" }, "INTERVAL_ID");
-                        j.IndexerProperty<int>("ScaleId").HasColumnName("SCALE_ID");
-                        j.IndexerProperty<int>("IntervalId").HasColumnName("INTERVAL_ID");
-                    });
         });
 
         modelBuilder.Entity<ScaleExercise>(entity =>
