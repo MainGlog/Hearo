@@ -19,4 +19,6 @@ public partial class Routine
     public int? RoutineTimeToGuess { get; set; }
     [JsonIgnore]
     public virtual ICollection<ScaleExercise> ScaleExercises { get; set; } = new List<ScaleExercise>();
+    [JsonIgnore]
+    public virtual ICollection<SERoutine> SERoutines { get; set; } = new HashSet<SERoutine>();
 }

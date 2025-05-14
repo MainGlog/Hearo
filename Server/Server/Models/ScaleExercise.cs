@@ -25,4 +25,6 @@ public partial class ScaleExercise
     public virtual Scale? Scale { get; set; }
     [JsonIgnore]
     public virtual ICollection<Routine> Routines { get; set; } = new List<Routine>();
+    [JsonIgnore]
+    public virtual ICollection<SERoutine> SERoutines { get; set; } = new HashSet<SERoutine>();
 }

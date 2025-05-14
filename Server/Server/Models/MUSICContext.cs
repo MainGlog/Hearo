@@ -33,6 +33,7 @@ public partial class MUSICContext : DbContext
 
     public virtual DbSet<Sound> Sounds { get; set; }
     public virtual DbSet<ScaleNote> ScaleNotes { get; set; }
+    public virtual DbSet<SERoutine> SERoutines { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -157,6 +158,7 @@ public partial class MUSICContext : DbContext
         });
 
 
+        // NOT AUTO GENERATED
         modelBuilder.Entity<ScaleNote>(entity =>
         {
             entity.HasKey(e => new { e.ScaleId, e.IntervalId });
@@ -177,6 +179,30 @@ public partial class MUSICContext : DbContext
                 .WithMany(i => i.ScaleNotes)
                 .HasForeignKey(e => e.IntervalId)
                 .HasConstraintName("SCALE_NOTE_ibfk_2");
+        });
+
+        modelBuilder.Entity<SERoutine>(entity =>
+        {
+            entity.HasKey("ScaleExerciseId", "RoutineId").HasName("PRIMARY");
+
+            entity.ToTable("SCALE_EXERCISE_ROUTINE");
+
+            entity.HasIndex("RoutineId", "ROUTINE_ID");
+
+            entity.Property(e => e.ScaleExerciseId).HasColumnName("SCALE_EXERCISE_ID");
+            entity.Property(e => e.RoutineId).HasColumnName("ROUTINE_ID");
+
+            entity.HasOne(e => e.ScaleExercise)
+                .WithMany(e => e.SERoutines)
+                .HasForeignKey("ScaleExerciseId")
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_1");
+
+            entity.HasOne(e => e.Routine)
+                .WithMany(e => e.SERoutines)
+                .HasForeignKey("RoutineId")
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_2");
         });
 
         modelBuilder.Entity<Key>(entity =>
