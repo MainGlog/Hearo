@@ -52,9 +52,21 @@ export const updateRoutine = async (routine: Routine) => {
             }
         })
 }
-/*
 
 export const createRoutine = async (routine: Routine) => {
-    axios
-        .post(`${apiUrl}/routine/CreateRoutine?`)
-}*/
+    await axios
+        .post(`${apiUrl}/v1/Routine/CreateRoutine`, {
+            routineId: 0,
+            routineName: routine.name,
+            routineExerciseCount: routine.exerciseCount,
+            routineTimeToGuess: routine.timeToGuess
+        }, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(async (response) => {
+            return response.data as Routine
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}

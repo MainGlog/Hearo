@@ -6,22 +6,14 @@ import {FontAwesome} from "@expo/vector-icons";
 import {MultiSelect} from "react-native-element-dropdown";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app";
+import {getAllRoutines} from "@/services/RoutineService";
+import {useEffect, useState} from "react";
+import {fetchRoutines} from "@/app/Data";
 
 // @ts-ignore
-const routines: Routine[] = [
-    new Routine(1, "Routine 1", [], 5),
-    new Routine(2, "Routine 2", [], 5),
-    new Routine(3, "Routine 3", [], 5),
-    new Routine(4, "Routine 4", [], 5),
-    new Routine(5, "Routine 5", [], 5),
-    new Routine(6, "Routine 6", [], 5),
-];
 
-const routinesAsJSONArray: any[] = routines.map((routine) => ({
-    id: routine.id.toString(),
-    name: routine.name,
-    exercises: routine.exercises
-}))
+
+let routinesAsJSONArray: any[] = [];
 
 let selectedRoutines: Routine[] = [];
 
@@ -36,6 +28,29 @@ type Props = {
 }
 
 export default function AddToRoutineModal({exercise, buttonSize} : Props) {
+    const [routines, setRoutines] = useState<Routine[] | void>([]);
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const routinesData = await fetchRoutines();
+
+                // setRoutines(routinesData);
+            }
+            catch (error) {
+                console.error("Error retrieving data: " + error);
+            }
+            finally {
+                if (routines) {
+                    routinesAsJSONArray = routines!.map((routine) => ({
+                        id: routine.id.toString(),
+                        name: routine.name,
+                    }));
+                }
+            }
+        }
+        fetchData();
+    })
 
     return(
         <MultiSelect
@@ -44,7 +59,10 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
             valueField={'id'}
             // TODO conditional styling based on whether an item has been selected, get the icon to change as well
             renderItem={(item: any, selected?: boolean) => (
-                <View style={[styles.routineContainer, selectedRoutines[0] === item && styles.selectedItemTop,
+                // This SHOULD set the top and bottom items in the container to their appropriate styles if they exist
+                // A boolean followed by && will apply the style if the boolean is true
+                <View style={[styles.routineContainer,
+                    selectedRoutines[0] === item && styles.selectedItemTop,
                     selectedRoutines[selectedRoutines.length - 1]  === item && styles.selectedItemBottom,
                     selected && styles.selectedItem]}>
                     <Text style={styles.routineText}>{item.name}</Text>
@@ -63,7 +81,7 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
                         // TODO Create New Routine Logic
                     }
 
-                    const routine = routines.find((routine) => routine.name === item);
+                    const routine = routines!.find((routine) => routine.name === item);
                     if (routine) {
                         if (selectedRoutines.includes(routine)){
                             // Prevents duplicate entries
@@ -76,7 +94,7 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
                 // Add the exercise to the exercise arrays in the selected routines
                 if (selectedRoutines && exercise) {
                     for (let routine of selectedRoutines) {
-                        routine.exercises!.push(exercise!);
+                        // TODO
                     }
                 }
             }}

@@ -15,7 +15,7 @@ import Interval from "@/models/Interval";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
-    const scale = new Scale(route.params.id, route.params.name, route.params.quality,
+    let scale = new Scale(route.params.id, route.params.name, route.params.quality,
         route.params.rootId, route.params.keyId, route.params.imageFilePath);
 
     const [notes, setNotes] = useState<Note[]>([]);
@@ -46,7 +46,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                 A!.id = 0;
 
                 // TODO update database to replace scaleRoot (String representation of the root note)
-                //  with rootId (foreign key for note)
+                //  with rootId (foreign key for note). This will require going into population script :(
                 scaleNotes.push(notes.find((n) => n.name === scale.rootId)!);
 
                 intervals!.map((i: Interval, index: number) => {
@@ -94,7 +94,6 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         }
     }
 
-    // TODO Key selector
     return (
         <DismissKeyboard>
             <View>
@@ -108,19 +107,20 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                     <Text style={styles.title}>{scale!.name.split(' ')[1]} Scale</Text>
                     <Dropdown
                         // Button to select the key or root note for the scale
-                        style={styles.optionButton}
+                        style={{...styles.optionButton, minWidth: "25%"}}
                         data={notesAsKeyValue}
                         mode={'modal'}
-                        placeholder={'Root Note'}
+                        placeholder={'Select Key'}
                         placeholderStyle={styles.optionLabel}
                         labelField={'value'}
                         valueField={'key'}
-                        value={null}
+                        value={'C'}
                         onChange={(note) => {
-                            // TODO whenever this changes, the API needs to refresh with new notes data to reflect the new key
                             if (exercise.scale) {
-                                exercise.scale.keyId = keys.find((k) => k.quality === exercise.scale!.quality
-                                && k.name.includes(note.name))?.id!
+                                exercise.scale.keyId = keys
+                                    .find((k) => k.quality === exercise.scale!.quality
+                                        && k.name.includes(note.name))?.id!
+                                // TODO whenever this changes, the API needs to refresh with new notes data to reflect the new key
                             }
                         }}
                     />

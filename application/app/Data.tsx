@@ -8,6 +8,8 @@ import Interval from "@/models/Interval";
 import {getAllIntervals} from "@/services/IntervalService";
 import {getAllChords} from "@/services/ChordService";
 import Chord from "@/models/Chord";
+import Routine from "@/models/Routine";
+import {getAllRoutines} from "@/services/RoutineService";
 export async function getIntervalsById(id: number) {
     let intervals: Interval[] = [];
     await getIntervalsByScaleId(id)
@@ -20,11 +22,23 @@ export async function getIntervalsById(id: number) {
     return intervals;
 }
 
+export async function fetchRoutines(): Promise<Routine[]> {
+    let routines: Routine[] = [];
+    await getAllRoutines()
+        .then((response) => {
+            routines = response;
+        })
+        .catch((error) => {
+            console.error("Failed to retrieve routines array from API endpoint. " + error);
+        });
+    return routines;
+}
+
 export async function fetchNotes(): Promise<Note[]> {
     let notes: Note[] = [];
     await getAllNotes()
         .then((response) => {
-            notes = response
+            notes = response;
         })
         .catch((error) => {
             console.error("Failed to retrieve Notes array from API endpoint. " + error);

@@ -1,6 +1,7 @@
 import {View, TextInput, Text, TouchableOpacity, StyleSheet} from "react-native";
 import Routine from "@/models/Routine";
 import Exercise from "@/models/Exercise";
+import {createRoutine} from "@/services/RoutineService";
 
 export default function RoutineBuilderScreen() {
     let name: string;
@@ -62,8 +63,18 @@ export default function RoutineBuilderScreen() {
                 <TouchableOpacity
                     style={styles.optionButton}
                     onPress={() => {
-                        const routine = new Routine(0, name, null, exerciseCount, timeToGuess)
-                        // TODO save routine to database
+                        if (!name || !exerciseCount || !timeToGuess) {
+                            console.error("Please fill in all fields");
+                            return;
+                        }
+                        const routine = new Routine(name, exerciseCount, timeToGuess);
+                        createRoutine(routine)
+                            .then(() => {
+                                console.log("Yippee!");
+                            })
+                            .catch((error) => {
+                                console.error(":( " + error);
+                            });
                     }}
                 >
                     <Text style={{textAlign: "center"}}>Save</Text>

@@ -6,9 +6,8 @@ export default class Routine {
     exerciseCount!: number;
     timeToGuess!: number;
 
-    constructor(id: number, name: string,
+    constructor(name: string,
         exerciseCount: number, timeToGuess: number) {
-        this.id = id;
         this.name = name;
         this.exerciseCount = exerciseCount;
         this.timeToGuess = timeToGuess;
