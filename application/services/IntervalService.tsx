@@ -44,7 +44,7 @@ export const getIntervalById = async (id: number):Promise<Interval | void> => {
 
 export const getIntervalsByScaleId = async (id: number): Promise<Interval[] | void> => {
     return axios
-        .get(`${apiUrl}/v1/Scale/GetIntervalsByScaleId?scaleId=${id}`, {
+        .get(`${apiUrl}/v1/Interval/GetIntervalsByScaleId?scaleId=${id}`, {
             headers: {"Content-Type": "application/json"}
         })
         .then(async (response) => {

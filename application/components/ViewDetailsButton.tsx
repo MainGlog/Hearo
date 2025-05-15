@@ -18,7 +18,7 @@ export default function ViewDetailsButton({scale}: Props){
         <TouchableOpacity
             style={styles.container}
             onPress={() => {
-                navigation.navigate("ScaleDetails", {...scale})
+                navigation.navigate("ScaleDetails", scale);
             }}
         >
             <Text style={styles.label}>View Details</Text>

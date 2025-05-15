@@ -4,36 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Added the ScaleExerciseRoutine (ugly ahh name) entity to the DBContext&#10;&#10;Created an endpoint to get the scale exercises from the routine id">
-      <change afterPath="$PROJECT_DIR$/application/models/SERoutine.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/models/ScaleExercise.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/services/SERoutineService.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/services/ScaleExerciseService.tsx" afterDir="false" />
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Created some API endpoints for SERoutines, Scale Exercises, and Routines&#10;&#10;Found some issues with the navigation, still need to fix navigating to ScaleDetails, as the params do not pass correctly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Controllers/IntervalController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Controllers/IntervalController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Controllers/RoutineController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Controllers/RoutineController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Controllers/ScaleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Controllers/ScaleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Controllers/ScaleExerciseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Controllers/ScaleExerciseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Models/Routine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/Routine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Data.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Data.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineBuilder.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/MiniAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/MiniAddButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/ApiService.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/application/services/IntervalService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/IntervalService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/RoutineService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/RoutineService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/ScaleService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +167,9 @@
       <workItem from="1747179043347" duration="7706000" />
       <workItem from="1747232012531" duration="10222000" />
       <workItem from="1747266254969" duration="2468000" />
-      <workItem from="1747315025808" duration="6292000" />
+      <workItem from="1747315025808" duration="6606000" />
+      <workItem from="1747322144038" duration="38000" />
+      <workItem from="1747326307205" duration="2998000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -310,7 +291,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747242967665</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Created some API endpoints for SERoutines, Scale Exercises, and Routines&#10;&#10;Found some issues with the navigation, still need to fix navigating to ScaleDetails, as the params do not pass correctly">
+      <option name="closed" value="true" />
+      <created>1747321737070</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1747321737070</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -343,7 +332,8 @@
     <MESSAGE value="Added routine description and began working on the routine block component for the home page" />
     <MESSAGE value="Fixed the routines API call&#10;&#10;Fixed an issue with loading the scale notes in the details page&#10;&#10;Fixed an issue where only the first scale's notes would be displayed upon visiting other scale details page&#10;&#10;Added routines blocks to home page&#10;&#10;Adjusted the navbar to only render the desired items" />
     <MESSAGE value="Added the ScaleExerciseRoutine (ugly ahh name) entity to the DBContext&#10;&#10;Created an endpoint to get the scale exercises from the routine id" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the ScaleExerciseRoutine (ugly ahh name) entity to the DBContext&#10;&#10;Created an endpoint to get the scale exercises from the routine id" />
+    <MESSAGE value="Created some API endpoints for SERoutines, Scale Exercises, and Routines&#10;&#10;Found some issues with the navigation, still need to fix navigating to ScaleDetails, as the params do not pass correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created some API endpoints for SERoutines, Scale Exercises, and Routines&#10;&#10;Found some issues with the navigation, still need to fix navigating to ScaleDetails, as the params do not pass correctly" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

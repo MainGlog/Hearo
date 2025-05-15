@@ -15,7 +15,6 @@ import TrainingScreen from "@/app/Training";
 import Routine from "@/models/Routine";
 import RoutineDetails from "@/app/RoutineDetails";
 import RoutineDetailsScreen from "@/app/RoutineDetails";
-import {TouchableOpacity} from "react-native";
 
 export type RootStackParamList = {
     TabNavigator: undefined;
@@ -51,7 +50,42 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Index() {
     return (
-        <Tab.Navigator
+        <Tab.Navigator screenOptions={{
+            tabBarActiveTintColor: 'black',
+            tabBarInactiveTintColor: 'light blue',
+            tabBarActiveBackgroundColor: '#747474',
+            tabBarLabelStyle: {
+                fontSize: 10
+            },
+            headerShown: false,
+        }}>
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen as React.ComponentType<any>}
+                options={{
+                    tabBarLabel: 'Home'
+                }}
+            />
+            <Tab.Screen
+                name="Scales"
+                component={ScaleScreen}
+                options={{
+                    tabBarLabel: 'Scales',
+                    tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>
+                }}
+            />
+            <Tab.Screen
+                name="ScaleDetails"
+                component={ScalesDetailsScreen as React.ComponentType<any>}
+                options={{
+                    tabBarButton: () => null
+                }}
+            />
+        </Tab.Navigator>
+    );
+}
+/*
+<Tab.Navigator
             screenOptions={{
                 tabBarActiveTintColor: 'black',
                 tabBarInactiveTintColor: 'light blue',
@@ -110,7 +144,4 @@ export default function Index() {
                 }}
             />
         </Tab.Navigator>
-    );
-}
-
-
+ */

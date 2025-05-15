@@ -4,33 +4,9 @@ import {useNavigation} from "@react-navigation/native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app";
 
-export default function RoutineBlock(routine: Routine) {
-    const navigation = useNavigation<NativeStackScreenProps<RootStackParamList, 'Home'>['navigation']>();
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>
-                    {routine.name}
-                </Text>
-            </View>
-            <Text style={styles.description}>
-                {routine.description}
-            </Text>
-            <View style={{flexDirection: "row", justifyContent: "center"}}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => {
-                        navigation.navigate("RoutineDetails", {...routine});
-                    }}
-                >
-                    <Text>Train</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
+type Props = {
+    routine: Routine
 }
-
 const styles = StyleSheet.create({
     title: {
         flex: 2,
@@ -59,3 +35,30 @@ const styles = StyleSheet.create({
     }
 
 })
+
+export default function RoutineBlock({routine}: Props) {
+    const navigation = useNavigation<NativeStackScreenProps<RootStackParamList, 'Home'>['navigation']>();
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.title}>
+                    {routine.name}
+                </Text>
+            </View>
+            <Text style={styles.description}>
+                {routine.description}
+            </Text>
+            <View style={{flexDirection: "row", justifyContent: "center"}}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        navigation.navigate("RoutineDetails", {...routine});
+                    }}
+                >
+                    <Text>Train</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
+}

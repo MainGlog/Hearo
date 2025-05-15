@@ -20,7 +20,6 @@ export default function ScaleContainer(scale: Scale) {
                 <Image style={styles.image} source={scale.imageFilePath}></Image>
                 <View style={styles.buttonWrapper}>
                     <ViewDetailsButton scale={scale}/>
-                    {/*/ View that displays "View Details" and routes to a specified page /*/}
                     <AddToRoutineButton
                         isMiniButton={true}
                         scaleExercise={new ScaleExercise(0, 'ascending', 10, null, null, scale.id)}

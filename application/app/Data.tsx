@@ -78,7 +78,7 @@ export async function fetchIntervals(): Promise<Interval[]> {
             intervals = response
         })
         .catch((error) => {
-            console.error("Failed to retrieve Intervalss array from API endpoint. " + error);
+            console.error("Failed to retrieve Intervals array from API endpoint. " + error);
         });
     return intervals;
 }

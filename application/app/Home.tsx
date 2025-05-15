@@ -53,7 +53,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                         <View style={styles.buttonWrapper}>
                             <TouchableOpacity
                                 style={styles.containerButton}
-                                onPress={() => {navigation.navigate('ScalesStack')}}
+                                onPress={() => {navigation.navigate('Scales')}}
                             >
                                 <Text style={styles.buttonText}>Customize</Text>
                             </TouchableOpacity>
@@ -87,7 +87,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                             renderItem={({item}: { item: Routine}) => (
                             <View style={{marginHorizontal: 10}}>
                                 <RoutineBlock
-                                {...item}
+                                    routine={item}
                                 />
                             </View>
                         )}/>
