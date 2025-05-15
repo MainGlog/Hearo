@@ -6,7 +6,6 @@ import Scale from "@/models/Scale";
 import Note from "@/models/Note";
 import Key from "@/models/Key";
 import {fetchNotes, fetchScales} from "@/app/Data"
-import keys from "@/services/ApiService"
 import {useEffect, useState} from "react";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
@@ -17,7 +16,6 @@ export default function ScaleScreen()
     const [scales, setScales] = useState<Scale[]>([]);
 
     useEffect(() => {
-        // TODO this takes < 10 seconds to fetch
         const loadData = async() => {
             try {
                 const [notesData, scalesData] = await Promise.all([

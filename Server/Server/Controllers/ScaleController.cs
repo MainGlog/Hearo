@@ -34,25 +34,6 @@ namespace Server.Controllers
                 .FirstOrDefault(s => s.ScaleId == id);
         }
 
-        [HttpGet("GetIntervalsByScaleId")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IEnumerable<Interval> GetIntervalsByScaleId(int scaleId) 
-        {
-            // Return just the intervals
-            List<ScaleNote> ScaleNotes = MUSICContext.ScaleNotes
-                .Where((s) => s.ScaleId == scaleId).ToList();
-
-            List<Interval> Intervals = [];
-
-            foreach(ScaleNote sn in ScaleNotes)
-            {
-                Intervals.Add(sn.Interval);
-            }
-
-            return Intervals;
-        }
-
         [HttpPut("UpdateScale")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -6,7 +6,7 @@ namespace Server.Controllers
 {
     [ApiController]
     [Route("v1/[controller]")]
-    public class ScaleExerciseController : ControllerBase // Fix: Inherit from ControllerBase  
+    public class ScaleExerciseController : ControllerBase 
     {
         private readonly ILogger<ScaleExerciseController> _logger;
         private MUSICContext MUSICContext { get; init; }
@@ -27,15 +27,33 @@ namespace Server.Controllers
         [HttpGet("GetScaleExerciseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<ScaleExercise?> GetScaleExerciseById(int id) // Fix: Use ActionResult<T>  
+        public ActionResult<ScaleExercise?> GetScaleExerciseById(int id) 
         {
-            var scaleexercise = MUSICContext.ScaleExercises
+            ScaleExercise? scaleexercise = MUSICContext.ScaleExercises
                 .FirstOrDefault(k => k.ScaleExerciseId == id);
             if (scaleexercise == null)
             {
                 return NotFound();
             }
             return Ok(scaleexercise);
+        }
+
+        [HttpGet("GetRoutinesByScaleExerciseId")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IEnumerable<Routine?> GetRoutinesByScaleExerciseId(int scaleExerciseId)
+        {
+            List<SERoutine> SERoutines = MUSICContext.SERoutines
+                .Where((s) => s.ScaleExerciseId == scaleExerciseId).ToList();
+
+            List<Routine> Routines = [];
+
+            foreach (SERoutine ser in SERoutines)
+            {
+                Routines.Add(ser.Routine);
+            }
+
+            return Routines;
         }
 
         [HttpPut("UpdateScaleExercise")]
@@ -80,7 +98,7 @@ namespace Server.Controllers
             {
                 return NotFound();
             }
-            MUSICContext.Remove(scaleexerciseToDelete); // Fix: Use scaleexerciseToDelete instead of existingScaleExercise  
+            MUSICContext.Remove(scaleexerciseToDelete); 
             MUSICContext.SaveChanges();
             return Ok();
         }

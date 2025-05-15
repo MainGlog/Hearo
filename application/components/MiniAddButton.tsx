@@ -2,18 +2,20 @@ import {View, TouchableOpacity, StyleSheet} from "react-native";
 import AddToRoutineModal from "@/components/AddToRoutineModal";
 import Exercise from "@/models/Exercise";
 import {useState} from "react";
+import ScaleExercise from "@/models/ScaleExercise";
 
 type Props = {
-    exercise: Exercise
+    scaleExercise: ScaleExercise
 }
 
-export default function MiniAddButton({exercise} : Props){
+export default function MiniAddButton({scaleExercise} : Props){
     const [modalVisible, setModalVisible] = useState(false);
 
     return(
         <View>
             <AddToRoutineModal
-                exercise={exercise}
+                scaleExercise={scaleExercise}
+                chord={null}
                 buttonSize={'mini'}
             />
         </View>

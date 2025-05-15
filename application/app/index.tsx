@@ -12,11 +12,10 @@ import ChordsScreen from "@/app/Chords";
 import NotesScreen from "@/app/Notes";
 import RoutineBuilderScreen from "@/app/RoutineBuilder";
 import TrainingScreen from "@/app/Training";
-import {useEffect} from "react";
-import {getAllNotes} from "@/services/NoteService";
 import Routine from "@/models/Routine";
 import RoutineDetails from "@/app/RoutineDetails";
 import RoutineDetailsScreen from "@/app/RoutineDetails";
+import {TouchableOpacity} from "react-native";
 
 export type RootStackParamList = {
     TabNavigator: undefined;
@@ -33,17 +32,17 @@ export type RootStackParamList = {
 }
 
 
-const Tab = createBottomTabNavigator({
+export const Tab = createBottomTabNavigator({
     screens: {
         Home: HomeScreen,
         Scales: ScaleScreen,
-        Modal: AddToRoutineModal,
         ScaleDetails: ScalesDetailsScreen,
+        Modal: AddToRoutineModal,
         Chords: ChordsScreen,
         Notes: NotesScreen,
         RoutineBuilder: RoutineBuilderScreen,
         RoutineDetails: RoutineDetailsScreen,
-        Training: TrainingScreen
+        Training: TrainingScreen,
     },
     color: 'black'
 })
@@ -67,8 +66,7 @@ export default function Index() {
                 name="HomeStack"
                 options={{
                     tabBarLabel: 'Home',
-                    tabBarIcon: ({color}) => <FontAwesome color={color} name="home" size={24}/>,
-
+                    tabBarIcon: ({color}) => <FontAwesome color={color} name="home" size={24}/>
                 }}
             >
                 {() => (
@@ -83,7 +81,7 @@ export default function Index() {
                 name="ScalesStack"
                 options={{
                     tabBarLabel: 'Scales',
-                    tabBarIcon: ({color}) => <FontAwesome color={color} name="bar-chart" size={24}/>,
+                    tabBarIcon: ({color}) => <FontAwesome color={color} name="bar-chart" size={24}/>
                 }}
             >
                 {() => (

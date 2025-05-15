@@ -1,5 +1,6 @@
 import axios from "axios";
 import Routine from "@/models/Routine";
+import Interval from "@/models/Interval";
 
 const apiUrl = "http://10.0.2.2:5028";
 
@@ -46,6 +47,29 @@ export const getRoutineById = async (id: number): Promise<Routine | void> => {
         });
 }
 
+export const getRoutinesByScaleExerciseId = async (id: number): Promise<Routine[] | void> => {
+    return axios
+        .get(`${apiUrl}/v1/Routine/GetRoutinesByScaleExerciseId?scaleExerciseId=${id}`, {
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(async (response) => {
+            let routines: Routine[] = [];
+
+            routines = response.data.$values.map((routine: any) => ({
+                id: routine.routineId,
+                name: routine.routineName,
+                exerciseCount: routine.routineExerciseCount,
+                timeToGuess: routine.routineTimeToGuess,
+                description: routine.routineDescription
+            }));
+
+            return routines;
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+}
+
 export const updateRoutine = async (routine: Routine) => {
     axios
         .get(`${apiUrl}/routine/UpdateRoutine?routine=${routine}`)
@@ -80,6 +104,6 @@ export const createRoutine = async (
             return response.data as Routine
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Error creating Routine: " + error);
         });
 }

@@ -14,6 +14,8 @@ export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps
 
     // TODO fetch exercises for the routine and display them
 
+
+
     return (
         <View>
             <Text style={styles.header}>{routine.name}</Text>

@@ -68,10 +68,10 @@ export default function RoutineBuilderScreen() {
 
                         createRoutine(name, exerciseCount, timeToGuess, description)
                             .then(() => {
-                                console.log("Yippee!");
+                                console.log("Routine created successfully");
                             })
                             .catch((error) => {
-                                console.error(":( " + error);
+                                console.error("Error creating routine " + error);
                             });
                     }}
                 >

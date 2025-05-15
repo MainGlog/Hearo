@@ -2,18 +2,20 @@ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import AddToRoutineModal from "@/components/AddToRoutineModal";
 import Exercise from "@/models/Exercise";
 import {useState} from "react";
+import ScaleExercise from "@/models/ScaleExercise";
 
 type Props = {
-    exercise: Exercise
+    scaleExercise: ScaleExercise
 }
 
 
-export default function LargeAddButton({exercise} : Props){
+export default function LargeAddButton({scaleExercise} : Props){
     return(
         <View style={styles.container}>
             <Text style={styles.label}>Add to Routine</Text>
             <AddToRoutineModal
-                exercise={exercise}
+                scaleExercise={scaleExercise}
+                chord={null}
                 buttonSize={'large'}
             />
         </View>

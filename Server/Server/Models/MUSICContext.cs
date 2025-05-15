@@ -187,20 +187,20 @@ public partial class MUSICContext : DbContext
 
             entity.ToTable("SCALE_EXERCISE_ROUTINE");
 
-            entity.HasIndex("RoutineId", "ROUTINE_ID");
+            entity.HasIndex(e => e.RoutineId).HasDatabaseName("ROUTINE_ID");
 
             entity.Property(e => e.ScaleExerciseId).HasColumnName("SCALE_EXERCISE_ID");
             entity.Property(e => e.RoutineId).HasColumnName("ROUTINE_ID");
 
             entity.HasOne(e => e.ScaleExercise)
                 .WithMany(e => e.SERoutines)
-                .HasForeignKey("ScaleExerciseId")
+                .HasForeignKey(e => e.ScaleExerciseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_1");
 
             entity.HasOne(e => e.Routine)
                 .WithMany(e => e.SERoutines)
-                .HasForeignKey("RoutineId")
+                .HasForeignKey(e => e.RoutineId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_2");
         });
@@ -335,28 +335,6 @@ public partial class MUSICContext : DbContext
             entity.HasOne(d => d.Scale).WithMany(p => p.ScaleExercises)
                 .HasForeignKey(d => d.ScaleId)
                 .HasConstraintName("SCALE_EXERCISE_ibfk_1");
-
-            entity.HasMany(d => d.Routines).WithMany(p => p.ScaleExercises)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ScaleExerciseRoutine",
-                    r => r.HasOne<Routine>().WithMany()
-                        .HasForeignKey("RoutineId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_2"),
-                    l => l.HasOne<ScaleExercise>().WithMany()
-                        .HasForeignKey("ScaleExerciseId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_1"),
-                    j =>
-                    {
-                        j.HasKey("ScaleExerciseId", "RoutineId")
-                            .HasName("PRIMARY")
-                            .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-                        j.ToTable("SCALE_EXERCISE_ROUTINE");
-                        j.HasIndex(new[] { "RoutineId" }, "ROUTINE_ID");
-                        j.IndexerProperty<int>("ScaleExerciseId").HasColumnName("SCALE_EXERCISE_ID");
-                        j.IndexerProperty<int>("RoutineId").HasColumnName("ROUTINE_ID");
-                    });
         });
 
         modelBuilder.Entity<Sound>(entity =>

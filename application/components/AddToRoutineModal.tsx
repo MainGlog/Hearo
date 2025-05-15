@@ -1,14 +1,14 @@
-import {View, StyleSheet, FlatList, Text, Pressable, Modal, TouchableOpacity} from "react-native";
-import {SafeAreaView, SafeAreaProvider} from "react-native-safe-area-context";
+import {View, StyleSheet, Text,} from "react-native";
 import Routine from "@/models/Routine";
-import Exercise from "@/models/Exercise";
 import {FontAwesome} from "@expo/vector-icons";
 import {MultiSelect} from "react-native-element-dropdown";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app";
-import {getAllRoutines} from "@/services/RoutineService";
 import {useEffect, useState} from "react";
 import {fetchRoutines} from "@/app/Data";
+import Chord from "@/models/Chord";
+import ScaleExercise from "@/models/ScaleExercise";
+import {createSERoutine} from "@/services/SERoutineService";
 
 // @ts-ignore
 
@@ -23,11 +23,12 @@ interface ModalProps extends NativeStackScreenProps<RootStackParamList, "Modal">
 
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
 type Props = {
-    exercise: Exercise,
+    scaleExercise: ScaleExercise | null,
+    chord: Chord | null,
     buttonSize: string
 }
 
-export default function AddToRoutineModal({exercise, buttonSize} : Props) {
+export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
     const [routines, setRoutines] = useState<Routine[] | void>([]);
 
     useEffect(() => {
@@ -92,9 +93,18 @@ export default function AddToRoutineModal({exercise, buttonSize} : Props) {
                 })
 
                 // Add the exercise to the exercise arrays in the selected routines
-                if (selectedRoutines && exercise) {
+                if (selectedRoutines && scaleExercise) {
                     for (let routine of selectedRoutines) {
-                        // TODO
+                        // TODO Check if the routine already has the exercise
+
+                        createSERoutine(scaleExercise.id, routine.id)
+                            .then(() => {
+                                console.log("SERoutine successfully created.");
+                            })
+                            .catch((error) => {
+                                console.log("Error creating SERoutine: " + error);
+                            })
+
                     }
                 }
             }}

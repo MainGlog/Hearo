@@ -1,11 +1,11 @@
 import {getAllNotes} from "@/services/NoteService";
 import Note from "@/models/Note";
-import {getAllScales, getIntervalsByScaleId} from "@/services/ScaleService";
+import {getAllScales} from "@/services/ScaleService";
 import Scale from "@/models/Scale";
 import {getAllKeys} from "@/services/KeyService";
 import Key from "@/models/Key";
 import Interval from "@/models/Interval";
-import {getAllIntervals} from "@/services/IntervalService";
+import {getAllIntervals, getIntervalsByScaleId} from "@/services/IntervalService";
 import {getAllChords} from "@/services/ChordService";
 import Chord from "@/models/Chord";
 import Routine from "@/models/Routine";

@@ -28,30 +28,6 @@ export const getAllScales = async (): Promise<Scale[]> => {
         })
 }
 
-export const getIntervalsByScaleId = async (id: number): Promise<Interval[] | void> => {
-    return axios
-        .get(`${apiUrl}/v1/Scale/GetIntervalsByScaleId?scaleId=${id}`, {
-            headers: {"Content-Type": "application/json"}
-        })
-        .then(async (response) => {
-            let intervals: Interval[] = [];
-
-            intervals = response.data.$values.map((interval: any) => ({
-                id: interval.intervalId,
-                quality: interval.intervalQuality,
-                size: interval.intervalSize,
-                semitonesFromRoot: interval.intervalSemitonesFromRoot,
-                rootNoteId: interval.rootNoteId,
-                intervalNoteId: interval.intervalNoteId
-            }));
-
-            return intervals as Interval[];
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-}
-
 export const getScaleById = async (id: number): Promise<Scale | void> => {
     return axios
         .get(`${apiUrl}/v1/Scale/GetScaleById?=${id}`, {

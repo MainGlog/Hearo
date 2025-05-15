@@ -10,8 +10,9 @@ import Note from "@/models/Note";
 import DismissKeyboard from "@/components/DismissKeyboard";
 import Key from "@/models/Key";
 import {fetchKeys, fetchNotes} from "@/app/Data";
-import {getIntervalsByScaleId} from "@/services/ScaleService";
+import {getIntervalsByScaleId} from "@/services/IntervalService";
 import Interval from "@/models/Interval";
+import ScaleExercise from "@/models/ScaleExercise";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
@@ -80,6 +81,8 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     }
 
     const exercise = new Exercise('scale', 'Scale Exercise', null, null, scale);
+    let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
+
     const options = {
         listeningMode: 'ascending',
         timePerNote: 2,
@@ -141,7 +144,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                             style={[styles.modeContainer, {backgroundColor: ascendingButtonActive ? 'lightblue' : 'transparent'}]}
                             onPress={() => {
                                 setButtonActivity('ascending');
-                                options.listeningMode = 'ascending';
+                                scaleExercise.listeningMode = 'ascending';
                             }}
                         >
                             <Text style={styles.modeSelectionText}>Ascending & Descending (Default)</Text>
@@ -151,7 +154,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                             style={[styles.modeContainer, {backgroundColor: randomButtonActive ? 'lightblue' : 'transparent'}]}
                             onPress={() => {
                                 setButtonActivity('random');
-                                options.listeningMode = 'random';
+                                scaleExercise.listeningMode = 'random';
                             }}
                         >
                             <Text style={styles.modeSelectionText}>Random Notes</Text>
@@ -161,7 +164,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                             style={[styles.modeContainer, {backgroundColor: customButtonActive ? 'lightblue' : 'transparent'}]}
                             onPress={() => {
                                 setButtonActivity('custom');
-                                options.listeningMode = 'custom';
+                                scaleExercise.listeningMode = 'custom';
                             }}
                         >
                             <Text style={styles.modeSelectionText}>Custom Selection</Text>
@@ -181,7 +184,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                                     inputMode={'numeric'}
                                     maxLength={2}
                                     onChange={numberOfNotes => {
-                                        options.randomOptions.numberOfNotes = Number(numberOfNotes.nativeEvent.text);
+                                        scaleExercise.numberOfNotes = Number(numberOfNotes.nativeEvent.text);
                                     }}
                                 />
                             </View>
@@ -193,7 +196,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                                     inputMode={'numeric'}
                                     maxLength={2}
                                     onChange={numberOfOctaves => {
-                                        options.randomOptions.numberOfOctaves = Number(numberOfOctaves.nativeEvent.text);
+                                        scaleExercise.numberOfOctaves = Number(numberOfOctaves.nativeEvent.text);
                                     }}
                                 />
                             </View>
@@ -213,11 +216,13 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                                 placeholder={'Notes to Include'}
                                 placeholderStyle={styles.optionLabel}
                                 onChange={() => {
-
+                                    // TODO
                                 }}
                                 visibleSelectedItem={false}
                                 onConfirmSelectItem={(item) => {
                                     // Clear the list first
+                                    // TODO create EXERCISE_NOTES entity
+                                    //  Increment the note order by 1
                                     options.customOptions.notesToInclude.splice(0, 1);
 
                                     // Add selected notes to the list
@@ -254,7 +259,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                     </View>
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <AddToRoutineButton exercise={exercise} isMiniButton={false}/>
+                    <AddToRoutineButton scaleExercise={scaleExercise} isMiniButton={false}/>
                 </View>
             </View>
         </DismissKeyboard>

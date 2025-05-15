@@ -1,5 +1,6 @@
 import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {RootStackParamList} from "@/app/index";
+import Tab from "@/app/index";
 import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
 import {useEffect, useState} from "react";
 import Routine from "@/models/Routine";
@@ -52,7 +53,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                         <View style={styles.buttonWrapper}>
                             <TouchableOpacity
                                 style={styles.containerButton}
-                                onPress={() => {navigation.navigate('Scales')}}
+                                onPress={() => {navigation.navigate('ScalesStack')}}
                             >
                                 <Text style={styles.buttonText}>Customize</Text>
                             </TouchableOpacity>

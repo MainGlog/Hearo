@@ -4,6 +4,7 @@ import {FontAwesome} from "@expo/vector-icons";
 import Scale from "@/models/Scale";
 import Exercise from "@/models/Exercise";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
+import ScaleExercise from "@/models/ScaleExercise";
 
 
 export default function ScaleContainer(scale: Scale) {
@@ -22,7 +23,7 @@ export default function ScaleContainer(scale: Scale) {
                     {/*/ View that displays "View Details" and routes to a specified page /*/}
                     <AddToRoutineButton
                         isMiniButton={true}
-                        exercise={new Exercise("scale", "C Major", null, null, null)}
+                        scaleExercise={new ScaleExercise(0, 'ascending', 10, null, null, scale.id)}
                     />
                 </View>
             </View>
