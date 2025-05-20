@@ -1,6 +1,5 @@
 import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {RootStackParamList} from "@/app/index";
-import Tab from "@/app/index";
 import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
 import {useEffect, useState} from "react";
 import Routine from "@/models/Routine";
@@ -11,7 +10,7 @@ type HomeScreenProps = BottomTabScreenProps<RootStackParamList, 'Home'>;
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) => {
     const [routines, setRoutines] = useState<Routine[]>([]);
     useEffect(() => {
-        const loadData = async() => {
+        const fetchData = async() => {
             try {
                 const routinesData = await getAllRoutines();
                 setRoutines(routinesData);
@@ -20,7 +19,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                 console.error("Error retrieving routines: " + error);
             }
         }
-        loadData();
+        fetchData();
     }, [])
 
     return (
@@ -87,7 +86,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                             renderItem={({item}: { item: Routine}) => (
                             <View style={{marginHorizontal: 10}}>
                                 <RoutineBlock
-                                    routine={item}
+                                    {...item}
                                 />
                             </View>
                         )}/>

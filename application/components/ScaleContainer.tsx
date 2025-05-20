@@ -2,7 +2,6 @@ import {View, Text, StyleSheet, Image} from "react-native";
 import AddToRoutineButton from "../components/AddToRoutineButton";
 import {FontAwesome} from "@expo/vector-icons";
 import Scale from "@/models/Scale";
-import Exercise from "@/models/Exercise";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
 import ScaleExercise from "@/models/ScaleExercise";
 
@@ -19,7 +18,11 @@ export default function ScaleContainer(scale: Scale) {
                 </View>
                 <Image style={styles.image} source={scale.imageFilePath}></Image>
                 <View style={styles.buttonWrapper}>
-                    <ViewDetailsButton scale={scale}/>
+                    <ViewDetailsButton
+                        scale={scale}
+                        buttonLabel={"View Details"}
+                        navigationRoute={"ScaleDetails"}
+                    />
                     <AddToRoutineButton
                         isMiniButton={true}
                         scaleExercise={new ScaleExercise(0, 'ascending', 10, null, null, scale.id)}

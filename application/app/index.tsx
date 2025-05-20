@@ -59,19 +59,14 @@ export default function Index() {
             },
             headerShown: false,
         }}>
+
             <Tab.Screen
                 name="Home"
                 component={HomeScreen as React.ComponentType<any>}
                 options={{
-                    tabBarLabel: 'Home'
-                }}
-            />
-            <Tab.Screen
-                name="Scales"
-                component={ScaleScreen}
-                options={{
-                    tabBarLabel: 'Scales',
-                    tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>
+                    tabBarLabel: 'Home',
+                    tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>,
+                    tabBarStyle: {marginLeft: "12.5%"}
                 }}
             />
             <Tab.Screen
@@ -81,6 +76,21 @@ export default function Index() {
                     tabBarButton: () => null
                 }}
             />
+            <Tab.Screen
+                name="Scales"
+                component={ScaleScreen}
+                options={{
+                    tabBarLabel: 'Scales',
+                    tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>,
+                }}
+            />
+
+            <Tab.Screen
+                name="RoutineDetails"
+                component={RoutineDetailsScreen as React.ComponentType<any>}
+                options={{
+                tabBarButton: () => null
+            }}/>
         </Tab.Navigator>
     );
 }

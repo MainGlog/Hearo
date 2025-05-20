@@ -1,6 +1,5 @@
 import axios from "axios";
 import ScaleExercise from "@/models/ScaleExercise";
-import Interval from "@/models/Interval";
 
 const apiUrl = "http://10.0.2.2:5028";
 
@@ -93,7 +92,6 @@ export const createScaleExercise = async (
     numberOfOctaves: number | null,
     scaleId: number
 ) => {
-    console.log(scaleExercisesCache!.length);
     await axios
         .post(`${apiUrl}/v1/ScaleExercise/CreateScaleExercise`, {
             scaleExerciseId: scaleExercisesCache ? scaleExercisesCache.length : 0,

@@ -9,10 +9,11 @@ import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import Note from "@/models/Note";
 import DismissKeyboard from "@/components/DismissKeyboard";
 import Key from "@/models/Key";
-import {fetchKeys, fetchNotes} from "@/app/Data";
 import {getIntervalsByScaleId} from "@/services/IntervalService";
 import Interval from "@/models/Interval";
 import ScaleExercise from "@/models/ScaleExercise";
+import {getAllNotes} from "@/services/NoteService";
+import {getAllKeys} from "@/services/KeyService";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
@@ -29,8 +30,8 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         const fetchData = async() => {
             try {
                 const intervalsData = await getIntervalsByScaleId(scale.id);
-                const keysData = await fetchKeys();
-                const notesData = await fetchNotes();
+                const keysData = await getAllKeys();
+                const notesData = await getAllNotes();
 
                 setIntervals(intervalsData);
                 setKeys(keysData);
@@ -80,7 +81,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         'custom': setCustomButtonActive
     }
 
-    const exercise = new Exercise('scale', 'Scale Exercise', null, null, scale);
+    const exercise = new Exercise('scale',  null, null, scale);
     let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
 
     const options = {

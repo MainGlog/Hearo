@@ -5,8 +5,9 @@ import ScaleContainer from "../components/ScaleContainer";
 import Scale from "@/models/Scale";
 import Note from "@/models/Note";
 import Key from "@/models/Key";
-import {fetchNotes, fetchScales} from "@/app/Data"
 import {useEffect, useState} from "react";
+import {getAllNotes} from "@/services/NoteService";
+import {getAllScales} from "@/services/ScaleService";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
 
@@ -19,8 +20,8 @@ export default function ScaleScreen()
         const loadData = async() => {
             try {
                 const [notesData, scalesData] = await Promise.all([
-                    fetchNotes(),
-                    fetchScales()
+                    getAllNotes(),
+                    getAllScales()
                 ]);
 
                 setNotes(notesData);

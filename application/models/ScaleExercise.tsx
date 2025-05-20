@@ -1,4 +1,6 @@
-export default class ScaleExercise {
+import Exercise from "@/models/Exercise";
+
+export default class ScaleExercise extends Exercise {
     id!: number;
     listeningMode!: string;
     timePerNote!: number;
@@ -8,6 +10,7 @@ export default class ScaleExercise {
 
     constructor(id: number, listeningMode: string, timePerNote: number,
                 numberOfNotes: number | null, numberOfOctaves: number | null, scaleId: number) {
+        super("scale"); // Setting the Exercise type to scale
         this.id = id;
         this.listeningMode = listeningMode;
         this.timePerNote = timePerNote;

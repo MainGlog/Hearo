@@ -4,7 +4,6 @@ import Scale from "@/models/Scale";
 
 export default class Exercise {
     type!: string;
-    name!: string;
 
     chord!: Chord | null;
     notes!: Note[] | null;
@@ -23,13 +22,12 @@ export default class Exercise {
         }
     }
 
-    constructor(type: string, name: string,
+    constructor(type: string,
                 chord: Chord | null = null,
                 notes: Note[] | null = null,
                 scale: Scale | null = null,
                 options: any = {}) {
         this.type = type;
-        this.name = name;
 
         switch(type){
             case "chord":

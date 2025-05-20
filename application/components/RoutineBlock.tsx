@@ -3,10 +3,32 @@ import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app";
+import ViewDetailsButton from "@/components/ViewDetailsButton";
 
-type Props = {
-    routine: Routine
+
+export default function RoutineBlock(routine: Routine) {
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.title}>
+                    {routine.name}
+                </Text>
+            </View>
+            <Text style={styles.description}>
+                {routine.description}
+            </Text>
+            <View style={{flexDirection: "row", justifyContent: "center"}}>
+                <ViewDetailsButton
+                    routine={routine}
+                    buttonLabel={"Train"}
+                    navigationRoute={"RoutineDetails"}
+                />
+            </View>
+        </View>
+    )
 }
+
 const styles = StyleSheet.create({
     title: {
         flex: 2,
@@ -17,7 +39,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     description: {
-      textAlign: "center"
+        textAlign: "center"
     },
     container: {
         width: 120,
@@ -34,31 +56,4 @@ const styles = StyleSheet.create({
         minWidth: "60%"
     }
 
-})
-
-export default function RoutineBlock({routine}: Props) {
-    const navigation = useNavigation<NativeStackScreenProps<RootStackParamList, 'Home'>['navigation']>();
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>
-                    {routine.name}
-                </Text>
-            </View>
-            <Text style={styles.description}>
-                {routine.description}
-            </Text>
-            <View style={{flexDirection: "row", justifyContent: "center"}}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => {
-                        navigation.navigate("RoutineDetails", {...routine});
-                    }}
-                >
-                    <Text>Train</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
-}
+});

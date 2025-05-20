@@ -5,17 +5,17 @@ import {MultiSelect} from "react-native-element-dropdown";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app";
 import {useEffect, useState} from "react";
-import {fetchRoutines} from "@/app/Data";
 import Chord from "@/models/Chord";
 import ScaleExercise from "@/models/ScaleExercise";
-import {createSERoutine} from "@/services/SERoutineService";
+import {createSERoutine, getAllSERoutines} from "@/services/SERoutineService";
+import SERoutine from "@/models/SERoutine";
+import {getAllRoutines} from "@/services/RoutineService";
+import {getAllScaleExercises} from "@/services/ScaleExerciseService";
 
 // @ts-ignore
 
 
-let routinesAsJSONArray: any[] = [];
 
-let selectedRoutines: Routine[] = [];
 
 
 interface ModalProps extends NativeStackScreenProps<RootStackParamList, "Modal">{}
@@ -24,30 +24,38 @@ interface ModalProps extends NativeStackScreenProps<RootStackParamList, "Modal">
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
 type Props = {
     scaleExercise: ScaleExercise | null,
-    chord: Chord | null,
     buttonSize: string
 }
 
 export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
     const [routines, setRoutines] = useState<Routine[] | void>([]);
+    const [scaleExercises, setScaleExercises] = useState<ScaleExercise[] | void>([]);
+    const [SERoutines, setSERoutines] = useState<SERoutine[] | void>([]);
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [routinesAsJSONArray, setRoutinesAsJSONArray] = useState<Array<{id: string, name: string}>>([]);
+    const [selectedRoutines, setSelectedRoutines] = useState<Routine[]>([]);
 
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const routinesData = await fetchRoutines();
+                const routinesData = await getAllRoutines();
+                const scaleExercisesData = await getAllScaleExercises();
+                const SERoutineData = await getAllSERoutines();
 
                 setRoutines(routinesData);
-            }
-            catch (error) {
-                console.error("Error retrieving data: " + error);
-            }
-            finally {
-                if (routines) {
-                    routinesAsJSONArray = routines!.map((routine) => ({
+                setScaleExercises(scaleExercisesData);
+                setSERoutines(SERoutineData);
+
+                if (routinesData) {
+                    const routinesJSON = routinesData.map((routine) => ({
                         id: routine.id.toString(),
                         name: routine.name,
                     }));
+                    setRoutinesAsJSONArray(routinesJSON)
                 }
+            }
+            catch (error) {
+                console.error("Error retrieving data: " + error);
             }
         }
         fetchData();
@@ -72,15 +80,23 @@ export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
             )}
             visibleSelectedItem={false}
             placeholder={''}
+            value={selectedItems}
             style={buttonSize === 'mini' ? styles.mini : styles.large}
             containerStyle={styles.container}
             mode={'modal'}
-            onChange={(selectedItems: string[]) => {
+            selectedStyle={{borderColor: '#FFF000', borderWidth: 5}}
+            selectedTextStyle={{color: "#00FFFF"}}
+            onChange={item => {
+
                 // Add routine to the running array based on the names of the selected items
+                setSelectedItems(item);
+
                 selectedItems.map((item) => {
                     if(item.includes("Create New Routine")) {
                         // TODO Create New Routine Logic
+                        //  Will likely not be in V1
                     }
+
 
                     const routine = routines!.find((routine) => routine.name === item);
                     if (routine) {
@@ -88,7 +104,8 @@ export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
                             // Prevents duplicate entries
                             return;
                         }
-                        selectedRoutines.push(routine)
+                        setSelectedRoutines([...selectedRoutines, routine]);
+                        console.log(selectedRoutines.length);
                     }
                 })
 
@@ -104,8 +121,17 @@ export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
                             .catch((error) => {
                                 console.log("Error creating SERoutine: " + error);
                             })
-
                     }
+
+                    // Add all scale exercises to a given routine based on their bridge table
+                    // TODO whenever chords and note exercises are added, do the same for them
+                    SERoutines!.map((SERoutine, index) => {
+                        const routine = routines!.find((r) => r.id === SERoutine.routineId);
+                        console.log(`Routines[${index}]: ` + routine);
+                        const exercise = scaleExercises?.find((se) => se.id === SERoutine.exerciseId);
+                        console.log(`Exercises[${index}]: ` + exercise);
+                        if (exercise && routine) routine?.exercises.push(exercise);
+                    })
                 }
             }}
             renderLeftIcon={() => (

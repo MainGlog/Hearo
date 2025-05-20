@@ -1,9 +1,9 @@
 export default class SERoutine {
-    scaleExerciseId!: number;
+    exerciseId!: number;
     routineId!: number;
 
     constructor(scaleExerciseId: number, routineId: number) {
-        this.scaleExerciseId = scaleExerciseId;
+        this.exerciseId = scaleExerciseId;
         this.routineId = routineId;
     }
 }

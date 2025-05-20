@@ -6,6 +6,7 @@ export default class Routine {
     exerciseCount!: number;
     timeToGuess!: number;
     description!: string;
+    exercises!: Exercise[];
 
     constructor(id: number, name: string, exerciseCount: number,
             timeToGuess: number, description: string) {

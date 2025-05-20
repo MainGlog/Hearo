@@ -6,13 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Created some API endpoints for SERoutines, Scale Exercises, and Routines&#10;&#10;Found some issues with the navigation, still need to fix navigating to ScaleDetails, as the params do not pass correctly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Data.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Data.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Data.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Training.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/IntervalService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/IntervalService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Exercise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Exercise.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Routine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Routine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/SERoutine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/SERoutine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/ScaleExercise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/ScaleExercise.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/NoteService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/NoteService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/SERoutineService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/SERoutineService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/ScaleExerciseService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleExerciseService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,25 +77,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Glog/Desktop/School/Year Two/Term 3/Capstone Project/CopyCopy&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.android (1).executor&quot;: &quot;Run&quot;,
-    &quot;npm.android.executor&quot;: &quot;Run&quot;,
-    &quot;npm.ios.executor&quot;: &quot;Run&quot;,
-    &quot;npm.web.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Glog/Desktop/School/Year Two/Term 3/Capstone Project/CopyCopy",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.android (1).executor": "Run",
+    "npm.android.executor": "Run",
+    "npm.ios.executor": "Run",
+    "npm.web.executor": "Run",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "ts.external.directory.path": "C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -169,7 +181,8 @@
       <workItem from="1747266254969" duration="2468000" />
       <workItem from="1747315025808" duration="6606000" />
       <workItem from="1747322144038" duration="38000" />
-      <workItem from="1747326307205" duration="2998000" />
+      <workItem from="1747326307205" duration="3100000" />
+      <workItem from="1747665255875" duration="12653000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
