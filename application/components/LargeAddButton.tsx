@@ -5,16 +5,18 @@ import {useState} from "react";
 import ScaleExercise from "@/models/ScaleExercise";
 
 type Props = {
-    scaleExercise: ScaleExercise
+    scaleExercise: ScaleExercise,
+    exercise: Exercise
 }
 
 
-export default function LargeAddButton({scaleExercise} : Props){
+export default function LargeAddButton({scaleExercise, exercise} : Props){
     return(
         <View style={styles.container}>
             <Text style={styles.label}>Add to Routine</Text>
             <AddToRoutineModal
                 scaleExercise={scaleExercise}
+                exercise={exercise}
                 chord={null}
                 buttonSize={'large'}
             />

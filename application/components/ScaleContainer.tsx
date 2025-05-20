@@ -25,6 +25,7 @@ export default function ScaleContainer(scale: Scale) {
                     />
                     <AddToRoutineButton
                         isMiniButton={true}
+                        exercise={null}
                         scaleExercise={new ScaleExercise(0, 'ascending', 10, null, null, scale.id)}
                     />
                 </View>

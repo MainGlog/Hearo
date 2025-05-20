@@ -59,11 +59,37 @@ namespace Server.Controllers
 
         [HttpPost("CreateSERoutine")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult CreateSERoutine([Required][FromBody] SERoutine newSERoutine)
         {
+            Routine routine = MUSICContext.Routines.Find(newSERoutine.RoutineId)!;
+            ScaleExercise scaleExercise = MUSICContext.ScaleExercises.Find(newSERoutine.ScaleExerciseId)!;
+
+            // Verify that references exist
+            if (routine == null || scaleExercise == null)
+            {
+                return NotFound("Referenced Routine or ScaleExercise do not exist");
+            }
+            
+            // Check for duplicate entries
+            if (MUSICContext.SERoutines.Any(s =>
+                s.RoutineId == newSERoutine.RoutineId &&
+                s.ScaleExerciseId == newSERoutine.ScaleExerciseId
+            ))
+            {
+                return BadRequest("This Scale Exercise is already in the Routine");
+            }
+
             MUSICContext.SERoutines.Add(newSERoutine);
             MUSICContext.SaveChanges();
-            return CreatedAtAction(nameof(GetSERoutinesByRoutineId), newSERoutine);
+            
+            return CreatedAtAction(
+                nameof(GetSERoutinesByRoutineId),
+                // This segment allows the location header to be properly generated
+                // for getting an SERoutine by Routine id 
+                new { routineId = newSERoutine.RoutineId}, 
+                newSERoutine);
         }
 
         [HttpDelete("DeleteSERoutine")]

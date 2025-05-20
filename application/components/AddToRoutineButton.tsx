@@ -8,14 +8,22 @@ import ScaleExercise from "@/models/ScaleExercise";
 
 type Props = {
     scaleExercise: ScaleExercise
+    exercise: Exercise | null
     isMiniButton: boolean
 }
 
-export default function AddToRoutineButton({isMiniButton, scaleExercise}: Props) {
+export default function AddToRoutineButton({scaleExercise, exercise, isMiniButton}: Props) {
     return (
         <>
-            {isMiniButton ? <MiniAddButton scaleExercise={scaleExercise}/>
-                : <LargeAddButton scaleExercise={scaleExercise}/>}
+            {isMiniButton ?
+                <MiniAddButton
+                    scaleExercise={scaleExercise}
+                />
+                :
+                <LargeAddButton
+                    scaleExercise={scaleExercise}
+                    exercise={exercise!}
+                />}
         </>
     )
 }

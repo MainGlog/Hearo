@@ -8,8 +8,8 @@ namespace Server.Models
         public int RoutineId { get; set; }
 
         [JsonIgnore]
-        public virtual ScaleExercise ScaleExercise { get; set; } = null!;
+        public virtual ScaleExercise? ScaleExercise { get; set; }
         [JsonIgnore]
-        public virtual Routine Routine { get; set; } = null!;
+        public virtual Routine? Routine { get; set; }
     }
 }

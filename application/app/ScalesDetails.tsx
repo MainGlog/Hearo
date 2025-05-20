@@ -81,7 +81,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         'custom': setCustomButtonActive
     }
 
-    const exercise = new Exercise('scale',  null, null, scale);
+    const exercise = new Exercise('scale', 0, null, null, scale);
     let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
 
     const options = {
@@ -260,7 +260,10 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                     </View>
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <AddToRoutineButton scaleExercise={scaleExercise} isMiniButton={false}/>
+                    <AddToRoutineButton
+                        scaleExercise={scaleExercise}
+                        exercise={exercise}
+                        isMiniButton={false}/>
                 </View>
             </View>
         </DismissKeyboard>

@@ -195,13 +195,13 @@ public partial class MUSICContext : DbContext
             entity.HasOne(e => e.ScaleExercise)
                 .WithMany(e => e.SERoutines)
                 .HasForeignKey(e => e.ScaleExerciseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_1");
 
             entity.HasOne(e => e.Routine)
                 .WithMany(e => e.SERoutines)
                 .HasForeignKey(e => e.RoutineId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("SCALE_EXERCISE_ROUTINE_ibfk_2");
         });
 

@@ -38,23 +38,24 @@ namespace Server.Controllers
             return Ok(routine);
         }
 
-        [HttpGet("GetScaleExercisesByRoutineId")]
+        
+
+        [HttpGet("GetRoutinesByScaleExerciseId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IEnumerable<ScaleExercise> GetScaleExercisesByRoutineId(int routineId)
+        public IEnumerable<Routine?> GetRoutinesByScaleExerciseId(int scaleExerciseId)
         {
-            // Return just the intervals
             List<SERoutine> SERoutines = MUSICContext.SERoutines
-                .Where((s) => s.RoutineId == routineId).ToList();
+                .Where((s) => s.ScaleExerciseId == scaleExerciseId).ToList();
 
-            List<ScaleExercise> ScaleExercises = [];
+            List<Routine> Routines = [];
 
             foreach (SERoutine ser in SERoutines)
             {
-                ScaleExercises.Add(ser.ScaleExercise);
+                Routines.Add(ser.Routine);
             }
 
-            return ScaleExercises;
+            return Routines;
         }
 
 

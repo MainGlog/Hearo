@@ -47,7 +47,7 @@ export const getScaleExerciseById = async (id: number): Promise<ScaleExercise | 
         });
 }
 
-export const getScaleExercisesByRoutine = async (id: number): Promise<ScaleExercise[] | void> => {
+export const getScaleExercisesByRoutineId = async (id: number): Promise<ScaleExercise[] | void> => {
     return axios
         .get(`${apiUrl}/v1/ScaleExercise/GetScaleExercisesByRoutineId?routineId=${id}`, {
             headers: {"Content-Type": "application/json"}

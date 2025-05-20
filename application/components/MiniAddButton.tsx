@@ -5,17 +5,16 @@ import {useState} from "react";
 import ScaleExercise from "@/models/ScaleExercise";
 
 type Props = {
-    scaleExercise: ScaleExercise
+    scaleExercise: ScaleExercise,
 }
 
 export default function MiniAddButton({scaleExercise} : Props){
-    const [modalVisible, setModalVisible] = useState(false);
-
     return(
         <View>
             <AddToRoutineModal
                 scaleExercise={scaleExercise}
                 chord={null}
+                exercise={null}
                 buttonSize={'mini'}
             />
         </View>

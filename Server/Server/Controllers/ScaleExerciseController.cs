@@ -38,22 +38,23 @@ namespace Server.Controllers
             return Ok(scaleexercise);
         }
 
-        [HttpGet("GetRoutinesByScaleExerciseId")]
+        [HttpGet("GetScaleExercisesByRoutineId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IEnumerable<Routine?> GetRoutinesByScaleExerciseId(int scaleExerciseId)
+        public IEnumerable<ScaleExercise> GetScaleExercisesByRoutineId(int routineId)
         {
+            // Return just the intervals
             List<SERoutine> SERoutines = MUSICContext.SERoutines
-                .Where((s) => s.ScaleExerciseId == scaleExerciseId).ToList();
+                .Where((s) => s.RoutineId == routineId).ToList();
 
-            List<Routine> Routines = [];
+            List<ScaleExercise> ScaleExercises = [];
 
             foreach (SERoutine ser in SERoutines)
             {
-                Routines.Add(ser.Routine);
+                ScaleExercises.Add(ser.ScaleExercise);
             }
 
-            return Routines;
+            return ScaleExercises;
         }
 
         [HttpPut("UpdateScaleExercise")]
@@ -81,7 +82,7 @@ namespace Server.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult CreateScaleExercise([Required][FromBody] ScaleExercise newScaleExercise)
         {
-            newScaleExercise.ScaleExerciseId = MUSICContext.ScaleExercises.Max(k => k.ScaleExerciseId) + 1;
+            newScaleExercise.ScaleExerciseId = MUSICContext.ScaleExercises.Count() > 0 ? MUSICContext.ScaleExercises.Max(k => k.ScaleExerciseId) + 1 : 0;
             MUSICContext.ScaleExercises.Add(newScaleExercise);
             MUSICContext.SaveChanges();
             return CreatedAtAction(nameof(GetScaleExerciseById), new { id = newScaleExercise.ScaleExerciseId }, newScaleExercise);

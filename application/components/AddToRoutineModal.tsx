@@ -11,27 +11,23 @@ import {createSERoutine, getAllSERoutines} from "@/services/SERoutineService";
 import SERoutine from "@/models/SERoutine";
 import {getAllRoutines} from "@/services/RoutineService";
 import {getAllScaleExercises} from "@/services/ScaleExerciseService";
-
-// @ts-ignore
-
-
-
-
-
-interface ModalProps extends NativeStackScreenProps<RootStackParamList, "Modal">{}
-
+import Exercise from "@/models/Exercise";
 
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
 type Props = {
     scaleExercise: ScaleExercise | null,
+    exercise: Exercise | null,
+    chord: Chord | null,
     buttonSize: string
 }
 
-export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
+export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} : Props) {
     const [routines, setRoutines] = useState<Routine[] | void>([]);
     const [scaleExercises, setScaleExercises] = useState<ScaleExercise[] | void>([]);
     const [SERoutines, setSERoutines] = useState<SERoutine[] | void>([]);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [previousItems, setPreviousItems] = useState<string[]>([]);
+    const [newestItem, setNewestItem] = useState<string>('');
     const [routinesAsJSONArray, setRoutinesAsJSONArray] = useState<Array<{id: string, name: string}>>([]);
     const [selectedRoutines, setSelectedRoutines] = useState<Routine[]>([]);
 
@@ -42,9 +38,18 @@ export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
                 const scaleExercisesData = await getAllScaleExercises();
                 const SERoutineData = await getAllSERoutines();
 
+
                 setRoutines(routinesData);
                 setScaleExercises(scaleExercisesData);
                 setSERoutines(SERoutineData);
+
+                // AddToRoutineModal is used in ScalesDetails, where the scaleExercise is being created
+                // In that page, the amount of scaleExercises is not known, so the object created has an ID of 0
+                // To avoid a redundant API call, the true id is set here as there's already a call to get all scaleExercises
+                if (scaleExercise && exercise) {
+                    scaleExercise.id = scaleExercisesData.length;
+                    exercise.id = scaleExercise.id;
+                }
 
                 if (routinesData) {
                     const routinesJSON = routinesData.map((routine) => ({
@@ -68,7 +73,7 @@ export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
             valueField={'id'}
             // TODO conditional styling based on whether an item has been selected, get the icon to change as well
             renderItem={(item: any, selected?: boolean) => (
-                // This SHOULD set the top and bottom items in the container to their appropriate styles if they exist
+                // This sets the top and bottom items in the container to their appropriate styles if they exist
                 // A boolean followed by && will apply the style if the boolean is true
                 <View style={[styles.routineContainer,
                     selectedRoutines[0] === item && styles.selectedItemTop,
@@ -84,12 +89,23 @@ export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
             style={buttonSize === 'mini' ? styles.mini : styles.large}
             containerStyle={styles.container}
             mode={'modal'}
-            selectedStyle={{borderColor: '#FFF000', borderWidth: 5}}
-            selectedTextStyle={{color: "#00FFFF"}}
+            selectedStyle={{borderColor: '#FFF000', borderWidth: 5}} // TODO adjust styles to set the first and last items with the proper border
+            selectedTextStyle={{color: "#00FFFF"}} // TODO set the first and last items to
             onChange={item => {
-
                 // Add routine to the running array based on the names of the selected items
+
+                // TODO figure out how to extract the latest item from the array
+                //  This will be used when creating the routine in the selectedItems.map block
+
                 setSelectedItems(item);
+
+                const newRoutinesArray = item.map(id => routines![Number(id)]).filter(routine => routine != null);
+                setSelectedRoutines(newRoutinesArray);
+
+
+                // TODO figure out how to handle the fact that you can toggle items to be selected
+                const newItem = item.find(i => !previousItems.includes(i))
+                if (newItem) setNewestItem(newItem);
 
                 selectedItems.map((item) => {
                     if(item.includes("Create New Routine")) {
@@ -97,47 +113,47 @@ export default function AddToRoutineModal({scaleExercise, buttonSize} : Props) {
                         //  Will likely not be in V1
                     }
 
+                    // Item corresponds to the indices in the list of routines
+                    // TODO fix the index after extracting latest index
+                    const routine = routines![Number(newestItem)];
 
-                    const routine = routines!.find((routine) => routine.name === item);
-                    if (routine) {
-                        if (selectedRoutines.includes(routine)){
-                            // Prevents duplicate entries
-                            return;
-                        }
+                    // Prevent duplicate entries
+                    if (routine && !selectedRoutines.includes(routine)) {
                         setSelectedRoutines([...selectedRoutines, routine]);
-                        console.log(selectedRoutines.length);
                     }
                 })
 
-                // Add the exercise to the exercise arrays in the selected routines
-                if (selectedRoutines && scaleExercise) {
-                    for (let routine of selectedRoutines) {
-                        // TODO Check if the routine already has the exercise
+                if (scaleExercise) {
+                    newRoutinesArray.forEach((routine) => {
+                        // Ensure no duplicates
+                        const existingExercise = SERoutines!.find(ser =>
+                            ser.exerciseId === scaleExercise.id &&
+                            ser.routineId === routine.id
+                        );
 
-                        createSERoutine(scaleExercise.id, routine.id)
-                            .then(() => {
-                                console.log("SERoutine successfully created.");
-                            })
-                            .catch((error) => {
-                                console.log("Error creating SERoutine: " + error);
-                            })
-                    }
+                        if (!existingExercise) {
+                            const seRoutine = new SERoutine(scaleExercise.id, routine.id);
+                            setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
 
-                    // Add all scale exercises to a given routine based on their bridge table
-                    // TODO whenever chords and note exercises are added, do the same for them
-                    SERoutines!.map((SERoutine, index) => {
-                        const routine = routines!.find((r) => r.id === SERoutine.routineId);
-                        console.log(`Routines[${index}]: ` + routine);
-                        const exercise = scaleExercises?.find((se) => se.id === SERoutine.exerciseId);
-                        console.log(`Exercises[${index}]: ` + exercise);
-                        if (exercise && routine) routine?.exercises.push(exercise);
+                            // Add to database
+                            createSERoutine(scaleExercise.id, routine.id)
+                                .catch(error => {
+                                    console.log("Error creating SERoutine: " + error);
+                                });
+
+                            // Add exercise to routine's exercise array if not already present
+                            if (!routine.exercises) routine.exercises = [scaleExercise];
+                            else if (!routine.exercises.some(ex => ex.id === scaleExercise.id)) {
+                                routine.exercises.push(scaleExercise);
+                            }
+                        }
                     })
+
                 }
             }}
             renderLeftIcon={() => (
                 <FontAwesome style={styles.icon} name={"plus"} size={15} color="grey" />
-                )
-            }
+            )}
             renderRightIcon={() => null}
             flatListProps={{
 

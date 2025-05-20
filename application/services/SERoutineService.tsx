@@ -32,8 +32,8 @@ export const createSERoutine = async(
 ) => {
     await axios
         .post(`${apiUrl}/v1/SERoutine/CreateSERoutine`, {
-            routineId: routineId,
-            scaleExerciseId: scaleExerciseId
+            scaleExerciseId: scaleExerciseId,
+            routineId: routineId
         }, {
             headers: { 'Content-Type': 'application/json'}
         })
