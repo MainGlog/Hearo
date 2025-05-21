@@ -5,20 +5,42 @@ import {useEffect, useState} from "react";
 import Routine from "@/models/Routine";
 import {getAllRoutines} from "@/services/RoutineService";
 import RoutineBlock from "@/components/RoutineBlock";
+import {getAllSERoutines} from "@/services/SERoutineService";
+import Exercise from "@/models/Exercise";
+import {getAllScaleExercises} from "@/services/ScaleExerciseService";
 type HomeScreenProps = BottomTabScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) => {
     const [routines, setRoutines] = useState<Routine[]>([]);
+
     useEffect(() => {
-        const fetchData = async() => {
-            try {
-                const routinesData = await getAllRoutines();
-                setRoutines(routinesData);
-            }
-            catch (error) {
-                console.error("Error retrieving routines: " + error);
-            }
-        }
+       const fetchData = async() => {
+           try {
+               const routinesData = await getAllRoutines();
+               const scaleExercisesData = await getAllScaleExercises();
+               const seRoutinesData = await getAllSERoutines();
+
+
+               // Sets exercises array of each routine
+               for (const routine of routinesData) {
+                   routine.exercises = seRoutinesData
+                       .filter(ser => ser.routineId === routine.id)
+                       .map(ser => {
+                           const scaleExercise = scaleExercisesData.find(se => se.id === ser.exerciseId)!;
+                           return new Exercise(
+                               'scale', ser.exerciseId, null, null, null,
+                               scaleExercise.listeningMode, scaleExercise.timePerNote,
+                               scaleExercise.numberOfNotes, scaleExercise.numberOfOctaves
+                           );
+                       });
+               }
+
+               setRoutines(routinesData);
+           }
+           catch (error) {
+               console.error("Error retrieving routines:", error);
+           }
+       }
         fetchData();
     }, [])
 

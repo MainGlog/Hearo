@@ -1,13 +1,9 @@
 import Routine from "@/models/Routine";
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {RootStackParamList} from "@/app";
+import {StyleSheet, View, Text} from "react-native";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
 
 
 export default function RoutineBlock(routine: Routine) {
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>

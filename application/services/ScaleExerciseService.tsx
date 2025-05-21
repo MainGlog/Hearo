@@ -13,14 +13,14 @@ export const getAllScaleExercises = async (): Promise<ScaleExercise[]> => {
             responseType: "json"
         })
         .then(async (response) => {
-            let scaleExercises: ScaleExercise[] = [];
+            let scaleExercises: ScaleExercise[];
 
             scaleExercises = response.data.$values.map((scaleExercise: any) => ({
                 id: scaleExercise.scaleExerciseId,
-                listeningMode: scaleExercise.scaleExerciselisteningMode,
-                timePerNote: scaleExercise.scaleExerciseTimePerNote,
-                numberOfNotes: scaleExercise.scaleExerciseNumberOfNotes,
-                numberOfOctaves: scaleExercise.scaleExerciseNumberOfOctaves,
+                listeningMode: scaleExercise.listeningMode,
+                timePerNote: scaleExercise.timePerNote,
+                numberOfNotes: scaleExercise.numberOfNotes,
+                numberOfOctaves: scaleExercise.numberOfOctaves,
                 scaleId: scaleExercise.scaleId
             }));
 
@@ -53,7 +53,7 @@ export const getScaleExercisesByRoutineId = async (id: number): Promise<ScaleExe
             headers: {"Content-Type": "application/json"}
         })
         .then(async (response) => {
-            let scaleExercises: ScaleExercise[] = [];
+            let scaleExercises: ScaleExercise[];
 
             scaleExercises = response.data.$values.map((scaleExercise: any) => ({
                 id: scaleExercise.scaleExerciseId,
@@ -85,7 +85,6 @@ export const updateScaleExercise = async (scaleExercise: ScaleExercise) => {
 }
 
 export const createScaleExercise = async (
-    name: string,
     listeningMode: string,
     timePerNote: number,
     numberOfNotes: number | null,
@@ -95,11 +94,10 @@ export const createScaleExercise = async (
     await axios
         .post(`${apiUrl}/v1/ScaleExercise/CreateScaleExercise`, {
             scaleExerciseId: scaleExercisesCache ? scaleExercisesCache.length : 0,
-            scaleExerciseName: name,
-            scaleExerciseListeningMode: listeningMode,
-            scaleExerciseTimePerNote: timePerNote,
-            scaleExerciseNumberOfNotes: numberOfNotes,
-            scaleExerciseNumberOfOctaves: numberOfOctaves,
+            listeningMode: listeningMode,
+            timePerNote: timePerNote,
+            numberOfNotes: numberOfNotes,
+            numberOfOctaves: numberOfOctaves,
             scaleId: scaleId
         }, {
             headers: { 'Content-Type': 'application/json' }

@@ -1,6 +1,5 @@
 import axios from "axios";
 import SERoutine from "@/models/SERoutine";
-import ScaleExercise from "@/models/ScaleExercise";
 
 const apiUrl = "http://10.0.2.2:5028"
 
@@ -12,10 +11,10 @@ export const getAllSERoutines = async(): Promise<SERoutine[]> => {
             responseType: "json"
         })
         .then(async (response) => {
-            let SERoutines: SERoutine[] = [];
+            let SERoutines: SERoutine[];
 
             SERoutines = response.data.$values.map((SERoutine: any) => ({
-                exerciseId: SERoutine.exerciseId,
+                exerciseId: SERoutine.scaleExerciseId,
                 routineId: SERoutine.routineId
             }));
 

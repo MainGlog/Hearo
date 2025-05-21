@@ -13,7 +13,6 @@ import NotesScreen from "@/app/Notes";
 import RoutineBuilderScreen from "@/app/RoutineBuilder";
 import TrainingScreen from "@/app/Training";
 import Routine from "@/models/Routine";
-import RoutineDetails from "@/app/RoutineDetails";
 import RoutineDetailsScreen from "@/app/RoutineDetails";
 
 export type RootStackParamList = {
@@ -26,7 +25,7 @@ export type RootStackParamList = {
     Modal: [Exercise | null, string];
     NavBar: undefined;
     RoutineBuilder: undefined;
-    Training: undefined;
+    Training: Routine;
     RoutineDetails: Routine;
 }
 
@@ -89,8 +88,17 @@ export default function Index() {
                 name="RoutineDetails"
                 component={RoutineDetailsScreen as React.ComponentType<any>}
                 options={{
-                tabBarButton: () => null
-            }}/>
+                    tabBarButton: () => null
+                }}
+            />
+
+            <Tab.Screen
+                name="Training"
+                component={TrainingScreen as React.ComponentType<any>}
+                options={{
+                    tabBarButton: () => null
+                }}
+            />
         </Tab.Navigator>
     );
 }

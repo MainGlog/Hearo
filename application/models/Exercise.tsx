@@ -10,39 +10,42 @@ export default class Exercise {
     notes!: Note[] | null;
     scale!: Scale | null;
 
-    options: any = {
-        listeningMode: 'ascending', // ascending & descending, random, custom
-        timePerNote: 0, // seconds
-        randomOptions: {
-            numberOfNotes: 0,
-            numberOfOctaves: 0,
-        },
-        customOptions: {
-            notesToInclude: [],
-            order: ''
-        }
-    }
+    listeningMode!: string | null; // ascending & descending, random, custom
+    timePerNote!: number | null; // seconds
+    numberOfNotes!: number | null;
+    numberOfOctaves!: number | null;
+
+    // TODO customNotes, order
+
+
 
     constructor(type: string,
                 id: number,
                 chord: Chord | null = null,
                 notes: Note[] | null = null,
                 scale: Scale | null = null,
-                options: any = {}) {
+                listeningMode: string | null = null,
+                timePerNote: number | null = null,
+                numberOfNotes: number | null = null,
+                numberOfOctaves: number | null = null
+    ) {
         this.type = type;
         this.id = id;
 
-        switch(type){
+        switch(type) {
             case "chord":
                 this.chord = chord;
                 break;
             case "scale":
                 this.scale = scale;
+                this.listeningMode = listeningMode;
+                this.timePerNote = timePerNote;
+                this.numberOfNotes = numberOfNotes;
+                this.numberOfOctaves = numberOfOctaves;
                 break;
             case "notes":
                 this.notes = notes;
                 break;
         }
-        this.options = options;
     }
 }

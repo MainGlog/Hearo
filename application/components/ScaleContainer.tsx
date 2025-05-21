@@ -14,20 +14,23 @@ export default function ScaleContainer(scale: Scale) {
                     <Text style={styles.title}>
                         {scale.name} Scale
                     </Text>
-                    <FontAwesome name={"volume-up"} size={24} style={{marginRight: 20}}/>
                 </View>
+{/*
                 <Image style={styles.image} source={scale.imageFilePath}></Image>
+*/}
                 <View style={styles.buttonWrapper}>
                     <ViewDetailsButton
                         scale={scale}
                         buttonLabel={"View Details"}
                         navigationRoute={"ScaleDetails"}
                     />
-                    <AddToRoutineButton
+                    <FontAwesome name={"volume-up"} size={24} style={{marginTop: 13, marginHorizontal: 5}}/>
+
+                    {/*<AddToRoutineButton
                         isMiniButton={true}
                         exercise={null}
                         scaleExercise={new ScaleExercise(0, 'ascending', 10, null, null, scale.id)}
-                    />
+                    />*/}
                 </View>
             </View>
         </>
@@ -36,7 +39,7 @@ export default function ScaleContainer(scale: Scale) {
 
 const styles = StyleSheet.create({
     title: {
-        marginLeft: 35,
+        textAlign: "center",
         flex: 2
     },
     header: {

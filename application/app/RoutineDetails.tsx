@@ -1,8 +1,10 @@
 import Routine from "@/models/Routine";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {useNavigation} from "@react-navigation/native";
+import Exercise from "@/models/Exercise";
+import ScaleExercise from "@/models/ScaleExercise";
 
 interface RoutineDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'RoutineDetails'> {}
 
@@ -13,7 +15,7 @@ export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps
     let routine = new Routine(route.params.id ?? 0, route.params.name ?? 'My Routine',
         route.params.exerciseCount ?? 10, route.params.timeToGuess ?? 25, route.params.description ?? 'Description');
 
-
+    routine.exercises = route.params.exercises;
     // TODO fetch exercises for the routine and display them
 
     return (
@@ -28,7 +30,7 @@ export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps
                         // TODO popup to update the setting
                     }}
                 >
-                    <Text style={styles.buttonText}>{routine.exerciseCount}</Text>
+                    <Text style={styles.buttonText}> Exercise Count: {routine.exerciseCount}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
@@ -36,16 +38,59 @@ export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps
                         // TODO popup to update the setting
                     }}
                 >
-                    <Text style={styles.buttonText}>{routine.timeToGuess}</Text>
+                    <Text style={styles.buttonText}>Time to Guess: {routine.timeToGuess}</Text>
                 </TouchableOpacity>
             </View>
+
+            {routine.exercises ?
+                <>
+                    <View>
+                       <Text style={{textAlign: 'center', fontSize: 16}}>Exercises</Text>
+                    </View>
+                    <FlatList
+                        data={routine.exercises}
+                        renderItem={({item}: { item: Exercise}) => (
+                            <View style={{marginHorizontal: 10}}>
+                                {item.type === "scale" ?
+                                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                                        <View>
+                                            <Text>Listening Mode</Text>
+                                            <Text>{(item as ScaleExercise).listeningMode}</Text>
+                                        </View>
+                                        <View>
+                                            <Text>Time per Note</Text>
+                                            <Text>{(item as ScaleExercise).timePerNote}</Text>
+                                        </View>
+                                        {(item as ScaleExercise).listeningMode === 'random' ?
+                                            <>
+                                                <View>
+                                                    <Text>Number of Notes</Text>
+                                                    <Text>{(item as ScaleExercise).numberOfNotes}</Text>
+                                                </View>
+                                                <View>
+                                                    <Text>Number of Octaves</Text>
+                                                    <Text>{(item as ScaleExercise).numberOfOctaves}</Text>
+                                                </View>
+                                            </>
+                                            : null
+                                        }
+                                        {/* TODO custom selection */}
+
+                                    </View>
+                                    : null
+                                }
+                            </View>)
+                        }
+                    />
+                </> : null
+            }
 
 
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        navigation.navigate("Training");
+                        navigation.navigate("Training", routine);
                     }}
                 >
                     <Text style={styles.buttonText}>Train</Text>

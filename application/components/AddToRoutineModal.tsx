@@ -10,7 +10,7 @@ import ScaleExercise from "@/models/ScaleExercise";
 import {createSERoutine, getAllSERoutines} from "@/services/SERoutineService";
 import SERoutine from "@/models/SERoutine";
 import {getAllRoutines} from "@/services/RoutineService";
-import {getAllScaleExercises} from "@/services/ScaleExerciseService";
+import {createScaleExercise, getAllScaleExercises} from "@/services/ScaleExerciseService";
 import Exercise from "@/models/Exercise";
 
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
@@ -32,12 +32,15 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
     const [selectedRoutines, setSelectedRoutines] = useState<Routine[]>([]);
 
     useEffect(() => {
+        if (scaleExercise) createScaleExercise(
+            scaleExercise.listeningMode!, scaleExercise.timePerNote!, scaleExercise.numberOfNotes,
+            scaleExercise.numberOfOctaves, scaleExercise.scaleId
+        );
         const fetchData = async() => {
             try {
                 const routinesData = await getAllRoutines();
                 const scaleExercisesData = await getAllScaleExercises();
                 const SERoutineData = await getAllSERoutines();
-
 
                 setRoutines(routinesData);
                 setScaleExercises(scaleExercisesData);
@@ -92,7 +95,6 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
             selectedStyle={{borderColor: '#FFF000', borderWidth: 5}} // TODO adjust styles to set the first and last items with the proper border
             selectedTextStyle={{color: "#00FFFF"}} // TODO set the first and last items to
             onChange={item => {
-                // Add routine to the running array based on the names of the selected items
 
                 // TODO figure out how to extract the latest item from the array
                 //  This will be used when creating the routine in the selectedItems.map block
@@ -132,8 +134,10 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                         );
 
                         if (!existingExercise) {
+                            // TODO set this to only activate after the user has clicked a confirm button
                             const seRoutine = new SERoutine(scaleExercise.id, routine.id);
                             setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
+
 
                             // Add to database
                             createSERoutine(scaleExercise.id, routine.id)
