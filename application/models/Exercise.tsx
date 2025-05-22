@@ -1,6 +1,7 @@
 import Chord from "@/models/Chord";
 import Note from "@/models/Note";
 import Scale from "@/models/Scale";
+import {getScaleById} from "@/services/ScaleService";
 
 export default class Exercise {
     type!: string;
@@ -17,13 +18,11 @@ export default class Exercise {
 
     // TODO customNotes, order
 
-
-
     constructor(type: string,
                 id: number,
                 chord: Chord | null = null,
                 notes: Note[] | null = null,
-                scale: Scale | null = null,
+                scaleId: number | null = null,
                 listeningMode: string | null = null,
                 timePerNote: number | null = null,
                 numberOfNotes: number | null = null,
@@ -37,7 +36,11 @@ export default class Exercise {
                 this.chord = chord;
                 break;
             case "scale":
-                this.scale = scale;
+                const fetchScale = async() => {
+                    const scaleData = await getScaleById(scaleId!);
+                    this.scale = scaleData!;
+                }
+                if (scaleId) fetchScale();
                 this.listeningMode = listeningMode;
                 this.timePerNote = timePerNote;
                 this.numberOfNotes = numberOfNotes;

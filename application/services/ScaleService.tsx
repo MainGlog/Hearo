@@ -30,12 +30,16 @@ export const getAllScales = async (): Promise<Scale[]> => {
 
 export const getScaleById = async (id: number): Promise<Scale | void> => {
     return axios
-        .get(`${apiUrl}/v1/Scale/GetScaleById?=${id}`, {
+        .get(`${apiUrl}/v1/Scale/GetScaleById?id=${id}`, {
             headers: {"Content-Type": "application/json"}
         })
         .then(async (response) => {
             const scale = await response.data;
-            return scale as Scale;
+            const scaleObj = new Scale(
+                scale.scaleId, scale.scaleName, scale.scaleQuality,
+                scale.scaleRoot, scale.keyId, '');
+            console.log(scaleObj);
+            return scaleObj;
         })
         .catch((error) => {
             console.error(error);

@@ -5,18 +5,19 @@ import {View, Text, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import Exercise from "@/models/Exercise";
 import ScaleExercise from "@/models/ScaleExercise";
+import {useEffect, useState} from "react";
+import Scale from "@/models/Scale";
+import {getAllScales} from "@/services/ScaleService";
 
 interface RoutineDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'RoutineDetails'> {}
 
 export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps) {
     const navigation = useNavigation<NativeStackScreenProps<RootStackParamList, 'RoutineDetails'>['navigation']>();
 
-
     let routine = new Routine(route.params.id ?? 0, route.params.name ?? 'My Routine',
         route.params.exerciseCount ?? 10, route.params.timeToGuess ?? 25, route.params.description ?? 'Description');
 
     routine.exercises = route.params.exercises;
-    // TODO fetch exercises for the routine and display them
 
     return (
         <View>
@@ -52,31 +53,9 @@ export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps
                         renderItem={({item}: { item: Exercise}) => (
                             <View style={{marginHorizontal: 10}}>
                                 {item.type === "scale" ?
-                                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                                        <View>
-                                            <Text>Listening Mode</Text>
-                                            <Text>{(item as ScaleExercise).listeningMode}</Text>
-                                        </View>
-                                        <View>
-                                            <Text>Time per Note</Text>
-                                            <Text>{(item as ScaleExercise).timePerNote}</Text>
-                                        </View>
-                                        {(item as ScaleExercise).listeningMode === 'random' ?
-                                            <>
-                                                <View>
-                                                    <Text>Number of Notes</Text>
-                                                    <Text>{(item as ScaleExercise).numberOfNotes}</Text>
-                                                </View>
-                                                <View>
-                                                    <Text>Number of Octaves</Text>
-                                                    <Text>{(item as ScaleExercise).numberOfOctaves}</Text>
-                                                </View>
-                                            </>
-                                            : null
-                                        }
-                                        {/* TODO custom selection */}
-
-                                    </View>
+                                    <ScaleExerciseDetails
+                                        {...item as ScaleExercise}
+                                    />
                                     : null
                                 }
                             </View>)
@@ -96,6 +75,50 @@ export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps
                     <Text style={styles.buttonText}>Train</Text>
                 </TouchableOpacity>
             </View>
+        </View>
+    )
+}
+
+function ScaleExerciseDetails(exercise: ScaleExercise) {
+
+    let scale: Scale;
+
+    if (exercise.scale) {
+        scale = new Scale(exercise.scale!.id, exercise.scale!.name,
+            exercise.scale!.quality, exercise.scale!.rootId, exercise.scale!.keyId, exercise.scale!.imageFilePath);
+    }
+
+
+
+    return (
+        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+            <View>
+                <Text>Scale</Text>
+                <Text>{scale! ? scale!.name : ''}</Text>
+            </View>
+            <View>
+                <Text>Listening Mode</Text>
+                <Text>{exercise.listeningMode}</Text>
+            </View>
+            <View>
+                <Text>Time per Note</Text>
+                <Text>{exercise.timePerNote}</Text>
+            </View>
+            {exercise.listeningMode === 'random' ?
+                <>
+                    <View>
+                        <Text>Number of Notes</Text>
+                        <Text>{exercise.numberOfNotes}</Text>
+                    </View>
+                    <View>
+                        <Text>Number of Octaves</Text>
+                        <Text>{exercise.numberOfOctaves}</Text>
+                    </View>
+                </>
+                : null
+            }
+            {/* TODO custom selection */}
+
         </View>
     )
 }

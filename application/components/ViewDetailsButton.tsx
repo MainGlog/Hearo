@@ -19,8 +19,6 @@ export default function ViewDetailsButton({scale, routine, buttonLabel, navigati
         <TouchableOpacity
             style={styles.container}
             onPress={() => {
-                console.log("Routine Details Button");
-                console.log(routine);
                 if (navigationRoute === "ScaleDetails" && scale) navigation.navigate(navigationRoute, scale);
                 else if (navigationRoute === "RoutineDetails" && routine) navigation.navigate(navigationRoute, routine);
             }}

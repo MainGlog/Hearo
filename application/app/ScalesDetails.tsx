@@ -81,21 +81,10 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         'custom': setCustomButtonActive
     }
 
-    const exercise = new Exercise('scale', 0, null, null, scale);
+    const exercise = new Exercise('scale', 0, null, null, scale.id);
     let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
 
-    const options = {
-        listeningMode: 'ascending',
-        timePerNote: 2,
-        randomOptions: {
-            numberOfNotes: 5,
-            numberOfOctaves: 2,
-        },
-        customOptions: {
-            notesToInclude: [Note],
-            order: 'ascending',
-        }
-    }
+    console.log(scale.id);
 
     return (
         <DismissKeyboard>
@@ -224,10 +213,10 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                                     // Clear the list first
                                     // TODO create EXERCISE_NOTES entity
                                     //  Increment the note order by 1
-                                    options.customOptions.notesToInclude.splice(0, 1);
+                                    // options.customOptions.notesToInclude.splice(0, 1);
 
                                     // Add selected notes to the list
-                                    options.customOptions.notesToInclude.push(item);
+                                    // options.customOptions.notesToInclude.push(item);
                                 }}
                                 labelField={'value'}
                                 valueField={'key'}

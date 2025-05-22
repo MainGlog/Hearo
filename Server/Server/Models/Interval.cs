@@ -26,8 +26,7 @@ public partial class Interval
     public virtual Note RootNote { get; set; } = null!;
     [JsonIgnore]
     public virtual ICollection<Chord> Chords { get; set; } = new List<Chord>();
-    [JsonIgnore]
-    public virtual ICollection<Scale> Scales { get; set; } = new List<Scale>();
+
     [JsonIgnore]
     public virtual ICollection<ScaleNote> ScaleNotes { get; set; } = new HashSet<ScaleNote>();
 }

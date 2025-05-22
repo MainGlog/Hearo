@@ -28,7 +28,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
                        .map(ser => {
                            const scaleExercise = scaleExercisesData.find(se => se.id === ser.exerciseId)!;
                            return new Exercise(
-                               'scale', ser.exerciseId, null, null, null,
+                               'scale', ser.exerciseId, null, null, scaleExercise.scaleId,
                                scaleExercise.listeningMode, scaleExercise.timePerNote,
                                scaleExercise.numberOfNotes, scaleExercise.numberOfOctaves
                            );

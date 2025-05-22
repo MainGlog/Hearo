@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Server.Models;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,6 +32,14 @@ namespace Server.Controllers
         public Scale? GetScaleById(int id)
         {
             return MUSICContext.Scales
+                .Select(s => new Scale
+                {
+                    ScaleId = s.ScaleId,
+                    ScaleName = s.ScaleName,
+                    ScaleQuality = s.ScaleQuality,
+                    ScaleRoot = s.ScaleRoot,
+                    KeyId = s.KeyId
+                })
                 .FirstOrDefault(s => s.ScaleId == id);
         }
 

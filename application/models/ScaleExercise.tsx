@@ -6,7 +6,7 @@ export default class ScaleExercise extends Exercise {
 
     constructor(exerciseId: number, listeningMode: string, timePerNote: number,
                 numberOfNotes: number | null, numberOfOctaves: number | null, scaleId: number) {
-        super("scale", exerciseId, null, null, null, listeningMode, timePerNote, numberOfNotes, numberOfOctaves);
+        super("scale", exerciseId, null, null, scaleId, listeningMode, timePerNote, numberOfNotes, numberOfOctaves);
         this.listeningMode = listeningMode;
         this.timePerNote = timePerNote;
         this.numberOfNotes = numberOfNotes;

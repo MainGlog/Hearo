@@ -41,9 +41,9 @@ export default function TrainingScreen({route}: TrainingScreenProps){
 
     return (
         <View>
-            <View style={styles.topBar}> </View>
+            <View style={styles.topBar}></View>
 
-            <Text> </Text>
+            <Text></Text>
         </View>
     );
 

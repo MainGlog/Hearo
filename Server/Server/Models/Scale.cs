@@ -18,12 +18,13 @@ public partial class Scale
 
     public int? KeyId { get; set; }
 
+    [JsonIgnore]
+    
     public virtual Key? Key { get; set; }
-    [JsonIgnore]
-    public virtual ICollection<ScaleExercise> ScaleExercises { get; set; } = new List<ScaleExercise>();
-    [JsonIgnore]
-    public virtual ICollection<Interval> Intervals { get; set; } = new List<Interval>();
 
     [JsonIgnore]
-    public virtual ICollection<ScaleNote> ScaleNotes { get; set; } = new HashSet<ScaleNote>();
+    public virtual ICollection<ScaleExercise> ScaleExercises { get; set; } = new List<ScaleExercise>();
+
+    [JsonIgnore]
+    public virtual ICollection<ScaleNote> ScaleNotes { get; set; } = new List<ScaleNote>();
 }
