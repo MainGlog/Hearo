@@ -23,6 +23,8 @@
     "axios": "^1.9.0",
     "eas-cli": "^16.4.1",
     "expo": "~52.0.46",
+    "expo-audio": "~0.3.5",
+    "expo-av": "~15.0.2",
     "expo-blur": "~14.0.3",
     "expo-constants": "~17.0.8",
     "expo-dev-client": "~5.0.20",

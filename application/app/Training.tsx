@@ -5,8 +5,9 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
 import ChordExercise from "@/models/ChordExercise";
 import NotesExercise from "@/models/NotesExercise";
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {StatusBar} from "expo-status-bar";
+import {useAudioPlayer} from 'expo-audio';
 interface TrainingScreenProps extends NativeStackScreenProps<RootStackParamList, 'Training'> {}
 
 export default function TrainingScreen({route}: TrainingScreenProps){
@@ -26,6 +27,9 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     // Timer
     // Guess entry
 
+
+    const audioSource = require('@/assets/audio/c1.wav');
+    const player = useAudioPlayer();
 
     // TODO determine which type of exercise is returned by getRandomExercise
     //  Develop visual components
@@ -55,6 +59,8 @@ export default function TrainingScreen({route}: TrainingScreenProps){
 
             <Button title={"Increment Step"} onPress={() => setExercisesPlayed(exercisesPlayed + 1)}/>
             <Button title={"Reset Step"} onPress={() => setExercisesPlayed(0)}/>
+
+            <Button title={"Play Audio"} onPress={() => {player.play()}}></Button>
             <TextInput
                 style={styles.guessInput}
                 value={guess}

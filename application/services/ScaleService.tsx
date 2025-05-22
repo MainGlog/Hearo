@@ -1,6 +1,5 @@
 import axios from "axios";
 import Scale from "@/models/Scale";
-import Interval from "@/models/Interval";
 
 const apiUrl = "http://10.0.2.2:5028"
 
@@ -35,11 +34,9 @@ export const getScaleById = async (id: number): Promise<Scale | void> => {
         })
         .then(async (response) => {
             const scale = await response.data;
-            const scaleObj = new Scale(
+            return new Scale(
                 scale.scaleId, scale.scaleName, scale.scaleQuality,
                 scale.scaleRoot, scale.keyId, '');
-            console.log(scaleObj);
-            return scaleObj;
         })
         .catch((error) => {
             console.error(error);
