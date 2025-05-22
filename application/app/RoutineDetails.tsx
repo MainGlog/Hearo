@@ -88,8 +88,6 @@ function ScaleExerciseDetails(exercise: ScaleExercise) {
             exercise.scale!.quality, exercise.scale!.rootId, exercise.scale!.keyId, exercise.scale!.imageFilePath);
     }
 
-
-
     return (
         <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
             <View>

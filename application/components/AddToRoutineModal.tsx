@@ -143,7 +143,9 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                             createSERoutine(scaleExercise.id, routine.id)
                                 .catch(error => {
                                     console.log("Error creating SERoutine: " + error);
+                                    // TODO when trying to add to Blarg (routineId: 5), a 400 code was thrown
                                 });
+
 
                             // Add exercise to routine's exercise array if not already present
                             if (!routine.exercises) routine.exercises = [scaleExercise];
