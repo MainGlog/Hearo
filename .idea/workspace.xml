@@ -4,13 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Removed the default index header&#10;&#10;Began developing progress bar&#10;Thanks https://www.youtube.com/watch?v=J95MC2Koymc&#10;&#10;Developed a countdown timer">
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Began introducing audio to the program">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/java/com/glogbro/application/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/java/com/glogbro/application/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/settings.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Training.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/application/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/ScaleService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/assets/audio/a1.wav" beforeDir="false" afterPath="$PROJECT_DIR$/application/assets/audio/A1.wav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +188,7 @@
       <workItem from="1747326307205" duration="3100000" />
       <workItem from="1747665255875" duration="23569000" />
       <workItem from="1747836841334" duration="11511000" />
-      <workItem from="1747867394878" duration="23358000" />
+      <workItem from="1747867394878" duration="26321000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -351,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747933458896</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Began introducing audio to the program">
+      <option name="closed" value="true" />
+      <created>1747942112352</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1747942112352</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,7 +414,8 @@
     <MESSAGE value="Fixed the getScaleById API Endpoint&#10;&#10;Added a list of exercises included in a routine to the RoutineDetails page" />
     <MESSAGE value="Removed the default index header&#10;&#10;Began developing progress bar&#10;Thanks https://www.youtube.com/watch?v=J95MC2Koymc" />
     <MESSAGE value="Removed the default index header&#10;&#10;Began developing progress bar&#10;Thanks https://www.youtube.com/watch?v=J95MC2Koymc&#10;&#10;Developed a countdown timer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed the default index header&#10;&#10;Began developing progress bar&#10;Thanks https://www.youtube.com/watch?v=J95MC2Koymc&#10;&#10;Developed a countdown timer" />
+    <MESSAGE value="Began introducing audio to the program" />
+    <option name="LAST_COMMIT_MESSAGE" value="Began introducing audio to the program" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

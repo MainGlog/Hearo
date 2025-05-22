@@ -7,7 +7,7 @@ import ChordExercise from "@/models/ChordExercise";
 import NotesExercise from "@/models/NotesExercise";
 import React, {useEffect, useRef, useState} from "react";
 import {StatusBar} from "expo-status-bar";
-import {useAudioPlayer} from 'expo-audio';
+import {Sound} from "expo-av/build/Audio/Sound";
 interface TrainingScreenProps extends NativeStackScreenProps<RootStackParamList, 'Training'> {}
 
 export default function TrainingScreen({route}: TrainingScreenProps){
@@ -27,9 +27,27 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     // Timer
     // Guess entry
 
+    const [sound, setSound] = useState<Sound>();
 
-    const audioSource = require('@/assets/audio/c1.wav');
-    const player = useAudioPlayer();
+    async function playSound() {
+        console.log('Loading Sound');
+        const { sound } = await Sound.createAsync(require('@/assets/audio/C1.wav'));
+        setSound(sound);
+
+        console.log('Playing Sound');
+        await sound.playAsync();
+
+    }
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                console.log('Unloading Sound');
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound]);
+
 
     // TODO determine which type of exercise is returned by getRandomExercise
     //  Develop visual components
@@ -60,7 +78,7 @@ export default function TrainingScreen({route}: TrainingScreenProps){
             <Button title={"Increment Step"} onPress={() => setExercisesPlayed(exercisesPlayed + 1)}/>
             <Button title={"Reset Step"} onPress={() => setExercisesPlayed(0)}/>
 
-            <Button title={"Play Audio"} onPress={() => {player.play()}}></Button>
+            <Button title={"Play Audio"} onPress={() => {playSound()}}></Button>
             <TextInput
                 style={styles.guessInput}
                 value={guess}
