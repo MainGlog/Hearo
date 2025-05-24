@@ -26,8 +26,8 @@ export const getAllSERoutines = async(): Promise<SERoutine[]> => {
         })
 }
 export const createSERoutine = async(
-    routineId: number,
-    scaleExerciseId: number
+    scaleExerciseId: number,
+    routineId: number
 ) => {
     await axios
         .post(`${apiUrl}/v1/SERoutine/CreateSERoutine`, {

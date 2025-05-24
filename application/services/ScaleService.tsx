@@ -34,7 +34,6 @@ export const getScaleById = async (id: number): Promise<Scale | void> => {
         })
         .then(async (response) => {
             const scale = await response.data;
-            console.log(scale);
             return new Scale(
                 scale.scaleId, scale.scaleName, scale.scaleQuality,
                 scale.scaleRootNoteId, scale.keyId, '');

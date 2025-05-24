@@ -25,6 +25,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     const [intervals, setIntervals] = useState<Interval[] | void>([]);
     let scaleNotes: Note[] = [];
     const [scaleNotesAsKeyValue, setScaleNotesAsKeyValue] = useState<any[]>([]);
+    // TODO Something in here is throwing a 500 error
 
     useEffect(() => {
         const fetchData = async() => {
@@ -83,8 +84,6 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
 
     const exercise = new Exercise('scale', 0, null, null, scale.id);
     let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
-
-    console.log(scale.id);
 
     return (
         <DismissKeyboard>

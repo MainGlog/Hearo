@@ -90,6 +90,10 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
             style={buttonSize === 'mini' ? styles.mini : styles.large}
             containerStyle={styles.container}
             mode={'modal'}
+            onBlur={() => {
+                setSelectedItems([]);
+                setSelectedRoutines([]);
+            }}
             selectedStyle={{borderColor: '#FFF000', borderWidth: 5}} // TODO adjust styles to set the first and last items with the proper border
             selectedTextStyle={{color: "#00FFFF"}} // TODO set the first and last items to
             onChange={item => {
@@ -131,10 +135,14 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                             ser.routineId === routine.id
                         );
 
+                        console.log(scaleExercise);
+                        console.log(routine);
+
                         if (!existingExercise) {
                             // TODO set this to only activate after the user has clicked a confirm button
                             const seRoutine = new SERoutine(scaleExercise.id, routine.id);
                             setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
+
 
 
                             // Add to database

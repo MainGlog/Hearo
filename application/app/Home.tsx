@@ -1,48 +1,69 @@
 import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {RootStackParamList} from "@/app/index";
 import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Routine from "@/models/Routine";
 import {getAllRoutines} from "@/services/RoutineService";
 import RoutineBlock from "@/components/RoutineBlock";
 import {getAllSERoutines} from "@/services/SERoutineService";
 import Exercise from "@/models/Exercise";
 import {getAllScaleExercises} from "@/services/ScaleExerciseService";
+import {useFocusEffect} from '@react-navigation/native';
+
 type HomeScreenProps = BottomTabScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) => {
     const [routines, setRoutines] = useState<Routine[]>([]);
 
-    useEffect(() => {
-       const fetchData = async() => {
-           try {
-               const routinesData = await getAllRoutines();
-               const scaleExercisesData = await getAllScaleExercises();
-               const seRoutinesData = await getAllSERoutines();
+    const fetchData = useCallback(async() => {
+        try {
+            const routinesData = await getAllRoutines();
+            const scaleExercisesData = await getAllScaleExercises();
+            const seRoutinesData = await getAllSERoutines();
 
+            console.log(routinesData);
 
-               // Sets exercises array of each routine
-               for (const routine of routinesData) {
+            // Sets exercises array of each routine
+            for (const routine of routinesData) {
                    routine.exercises = seRoutinesData
-                       .filter(ser => ser.routineId === routine.id)
-                       .map(ser => {
-                           const scaleExercise = scaleExercisesData.find(se => se.id === ser.exerciseId)!;
-                           return new Exercise(
-                               'scale', ser.exerciseId, null, null, scaleExercise.scaleId,
-                               scaleExercise.listeningMode, scaleExercise.timePerNote,
-                               scaleExercise.numberOfNotes, scaleExercise.numberOfOctaves
-                           );
-                       });
-               }
+                        .filter(ser => ser.routineId === routine.id)
+                        .map(ser => {
+                            const scaleExercise = scaleExercisesData.find(se => se.id === ser.exerciseId)!;
+                            return new Exercise(
+                                'scale', ser.exerciseId, null, null, scaleExercise.scaleId,
+                                scaleExercise.listeningMode, scaleExercise.timePerNote,
+                                scaleExercise.numberOfNotes, scaleExercise.numberOfOctaves
+                            );
+                        });
+            }
 
-               setRoutines(routinesData);
-           }
-           catch (error) {
-               console.error("Error retrieving routines:", error);
-           }
-       }
-        fetchData();
-    }, [])
+            setRoutines(routinesData);
+        }
+        catch (error) {
+            console.error("Error retrieving routines:", error);
+        }
+    }, [setRoutines]);
+    // Routines are the only thing we need to track
+    // Additionally, setRoutines is from useState, meaning it will never change
+    // This ensures that fetchData will maintain the same reference throughout the component's lifecycle
+    // Using useCallback memoizes the function, meaning it caches the creation of the function
+    // This prevents unnecessary re-renders of child components receiving these functions
+    // as well as saving resources
+
+    // This will be called anytime the page is focused, such as being navigated to
+    useFocusEffect(
+        useCallback(() => {
+            console.log('Screen focused');
+            fetchData();
+
+            // Cleanup function, called when the screen loses focus or the component unmounts
+            // Prevents memory leaks and runs before the next focus effect is executed
+            return () => {
+                console.log('Screen unfocused');
+            };
+        }, [fetchData])
+        // fetchData will never change, ensuring this callback doesn't re-create a focus effect on re-renders
+    );
 
     return (
         <View>

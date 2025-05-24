@@ -307,6 +307,13 @@ public partial class MUSICContext : DbContext
                 .HasMaxLength(32)
                 .HasColumnName("SCALE_QUALITY");
             entity.Property(e => e.ScaleRootNoteId).HasColumnName("SCALE_ROOT_NOTE_ID");
+            
+            entity.HasOne(d => d.ScaleRootNote)
+                .WithMany()
+                .HasForeignKey(d => d.ScaleRootNoteId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("SCALE_ibfk_2");
+
         });
 
         modelBuilder.Entity<ScaleExercise>(entity =>

@@ -6,26 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Began introducing audio to the program">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/java/com/glogbro/application/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/java/com/glogbro/application/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/application/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Server/Models/Interval.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/Interval.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Training.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/assets/audio/a1.wav" beforeDir="false" afterPath="$PROJECT_DIR$/application/assets/audio/A1.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Sound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Sound.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/SERoutineService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/SERoutineService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/ScaleService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,25 +67,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Glog/Desktop/School/Year Two/Term 3/Capstone Project/EarTrainingApp/application/assets/audio",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.android (1).executor": "Run",
-    "npm.android.executor": "Run",
-    "npm.ios.executor": "Run",
-    "npm.web.executor": "Run",
-    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
-    "ts.external.directory.path": "C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Glog/Desktop/School/Year Two/Term 3/Capstone Project/EarTrainingApp/application/assets/audio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.android (1).executor&quot;: &quot;Run&quot;,
+    &quot;npm.android.executor&quot;: &quot;Run&quot;,
+    &quot;npm.ios.executor&quot;: &quot;Run&quot;,
+    &quot;npm.web.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Glog\\Desktop\\School\\Year Two\\Term 3\\Capstone Project\\EarTrainingApp\\application\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>

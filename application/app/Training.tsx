@@ -44,60 +44,61 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     }, [])
 
     // Once the active scale is set, this will get the necessary information to play it
-    useEffect(() => {
-        const fetchData = async() => {
-            const intervalsData = await getIntervalsByScaleId(activeScale!.id)!;
+    const fetchData = async() => {
+        const intervalsData = await getIntervalsByScaleId(activeScale!.id);
 
-            let notesArray: Note[] = [];
+        let notesArray: Note[] = [];
 
-            // Add Root Note
-            notesArray.push(notes.find(n => n.id === rootNoteId)!);
+        // Add Root Note
+        notesArray.push(notes.find(n => n.id === activeScale!.rootId)!);
 
-            console.log(notes.find(n => n.id === rootNoteId)!);
+        // Add Other Notes
+        intervalsData!.map((interval: Interval) => {
+            notesArray.push(notes.find(n => n.id === interval.intervalNoteId)!);
+        });
 
-            // Add Other Notes
-            intervalsData!.map((interval: Interval) => {
-                notesArray.push(notes.find(n => n.id === interval.intervalNoteId)!);
-            });
+        setActiveScaleNotes(notesArray);
 
-            console.log(notesArray);
-            setActiveScaleNotes(notesArray);
 
-            let soundsArray: SoundModel[] = [];
+        const rootNoteId = notesArray[0].id;
+        const CId = 3; // ID of the note C
 
-            const rootNoteId = notesArray[0].id;
-            const CId = 3; // ID of the note C
+        // Starting octave will be 3, that of middle C (C3)
+        // unless the root note is closer to the octave below (C2)
+        let octave = 0
 
-            // Starting octave will be 3, that of middle C (C3), unless the root note is closer to the octave below (C2)
-            let octave = 0
+        const max = Math.max(rootNoteId, CId);
+        const min = Math.min(rootNoteId, CId);
+        if (max - min > 4 || rootNoteId < 3) octave = 2;
+        else octave = 3;
 
-            const max = Math.max(rootNoteId, CId);
-            const min = Math.min(rootNoteId, CId);
-            if (max - min > 4 || rootNoteId < 3) octave = 2;
-            else octave = 3;
+        let soundsArray: SoundModel[] = [];
 
-            for (const note of notesArray) {
-                soundsArray.push(sounds.find(s => s.noteId === note.id
-                                   && s.octave === octave)!);
-            }
-
-            setActiveSounds(soundsArray);
+        // Adds the sound for each note to an array
+        for (const note of notesArray) {
+            // TODO make every note beyond B increase by one octave
+            soundsArray.push(sounds.find(s => s.noteId === note.id
+                && s.octave === octave)!);
         }
+
+
+        // TODO When the page initially loads,
+
+        setActiveSounds(soundsArray);
+    }
+
+    // TODO when first running the page, activeScale does not get set quickly enough for the information to be set
+    useEffect(() => {
         fetchData();
     }, [activeScale]);
 
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     // What do you need here?
-    // Routine
-    // Score tracker - use routine.exerciseCount
     // A way of handling the options for each exercise
     // Boolean for whether the user answered correctly, this will be used to render the results screen
-
-    // Visual Components
-    // Progress bar
-    // Score tracker
-    // Timer
-    // Guess entry
 
     const [sound, setSound] = useState<Sound>();
     const [soundIndex, setSoundIndex] = useState<number>(0);
@@ -105,11 +106,12 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     async function playSound() {
         console.log('Loading Sound');
 
+        console.log(activeSounds);
+        console.log(soundIndex)
+
         // @ts-ignore - used for the selectSound method.
         // It gets mad but the function returns a require statement for the audio file
         const file = selectSound(activeSounds[soundIndex].filePath);
-        console.log(file);
-        console.log(soundIndex);
 
         const { sound } = await Sound.createAsync(file);
         setSound(sound);
@@ -152,6 +154,7 @@ export default function TrainingScreen({route}: TrainingScreenProps){
             // Notes exercise
         }
     };
+
     const [exercisesPlayed, setExercisesPlayed] = useState<number>(0);
     const [guess, setGuess] = useState<string>('');
     // TODO for each exercise, increment exercisesPlayed by one
