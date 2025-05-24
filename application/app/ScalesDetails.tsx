@@ -44,7 +44,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                 // TODO update database to replace scaleRoot (String representation of the root note)
                 //  with rootId (foreign key for note). This will require going into population script :(
 
-                scaleNotes.push(notesData.find((n) => n.name === scale.rootId)!);
+                scaleNotes.push(notesData.find((n) => n.id === scale.rootId)!);
 
                 intervalsData!.map((i: Interval) => {
                     const note = notesData.find((n) => n.id === i.intervalNoteId)!;

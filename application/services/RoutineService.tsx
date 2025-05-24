@@ -19,8 +19,8 @@ export const getAllRoutines = async (): Promise<Routine[]> => {
             routines = response.data.$values.map((routine: any) => ({
                 id: routine.routineId,
                 name: routine.routineName,
-                exerciseCount: routine.exerciseCount,
-                timeToGuess: routine.timeToGuess,
+                exerciseCount: routine.routineExerciseCount,
+                timeToGuess: routine.routineTimeToGuess,
                 description: routine.routineDescription
             }));
 

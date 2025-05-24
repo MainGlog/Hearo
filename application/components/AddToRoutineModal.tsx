@@ -2,8 +2,6 @@ import {View, StyleSheet, Text,} from "react-native";
 import Routine from "@/models/Routine";
 import {FontAwesome} from "@expo/vector-icons";
 import {MultiSelect} from "react-native-element-dropdown";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {RootStackParamList} from "@/app";
 import {useEffect, useState} from "react";
 import Chord from "@/models/Chord";
 import ScaleExercise from "@/models/ScaleExercise";

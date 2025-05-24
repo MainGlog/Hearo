@@ -14,17 +14,18 @@ public partial class Scale
 
     public string ScaleQuality { get; set; } = null!;
 
-    public string ScaleRoot { get; set; } = null!;
-
     public int? KeyId { get; set; }
 
-    [JsonIgnore]
-    
-    public virtual Key? Key { get; set; }
+    public int ScaleRootNoteId { get; set; }
 
+    [JsonIgnore]
+    public virtual Key? Key { get; set; }
     [JsonIgnore]
     public virtual ICollection<ScaleExercise> ScaleExercises { get; set; } = new List<ScaleExercise>();
-
+    [JsonIgnore]
+    public virtual Note ScaleRootNote { get; set; } = null!;
     [JsonIgnore]
     public virtual ICollection<ScaleNote> ScaleNotes { get; set; } = new List<ScaleNote>();
+    [JsonIgnore]
+    public virtual ICollection<Interval> Intervals { get; set; } = new List<Interval>();
 }

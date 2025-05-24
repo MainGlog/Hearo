@@ -30,10 +30,10 @@ public partial class MUSICContext : DbContext
     public virtual DbSet<Scale> Scales { get; set; }
 
     public virtual DbSet<ScaleExercise> ScaleExercises { get; set; }
-
-    public virtual DbSet<Sound> Sounds { get; set; }
     public virtual DbSet<ScaleNote> ScaleNotes { get; set; }
     public virtual DbSet<SERoutine> SERoutines { get; set; }
+
+    public virtual DbSet<Sound> Sounds { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -294,6 +294,8 @@ public partial class MUSICContext : DbContext
 
             entity.HasIndex(e => e.KeyId, "KEY_ID");
 
+            entity.HasIndex(e => e.ScaleRootNoteId, "SCALE_ROOT_NOTE_ID");
+
             entity.Property(e => e.ScaleId)
                 .ValueGeneratedNever()
                 .HasColumnName("SCALE_ID");
@@ -304,13 +306,7 @@ public partial class MUSICContext : DbContext
             entity.Property(e => e.ScaleQuality)
                 .HasMaxLength(32)
                 .HasColumnName("SCALE_QUALITY");
-            entity.Property(e => e.ScaleRoot)
-                .HasMaxLength(4)
-                .HasColumnName("SCALE_ROOT");
-
-            entity.HasOne(d => d.Key).WithMany(p => p.Scales)
-                .HasForeignKey(d => d.KeyId)
-                .HasConstraintName("SCALE_ibfk_1");
+            entity.Property(e => e.ScaleRootNoteId).HasColumnName("SCALE_ROOT_NOTE_ID");
         });
 
         modelBuilder.Entity<ScaleExercise>(entity =>

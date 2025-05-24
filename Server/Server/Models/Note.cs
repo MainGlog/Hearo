@@ -17,6 +17,7 @@ public partial class Note
     public virtual ICollection<Interval> IntervalIntervalNotes { get; set; } = new List<Interval>();
     [JsonIgnore]
     public virtual ICollection<Interval> IntervalRootNotes { get; set; } = new List<Interval>();
+    
     [JsonIgnore]
     public virtual ICollection<Sound> Sounds { get; set; } = new List<Sound>();
     [JsonIgnore]

@@ -37,7 +37,7 @@ namespace Server.Controllers
                     ScaleId = s.ScaleId,
                     ScaleName = s.ScaleName,
                     ScaleQuality = s.ScaleQuality,
-                    ScaleRoot = s.ScaleRoot,
+                    ScaleRootNoteId = s.ScaleRootNoteId,
                     KeyId = s.KeyId
                 })
                 .FirstOrDefault(s => s.ScaleId == id);
@@ -56,7 +56,7 @@ namespace Server.Controllers
             }
             existingScale.ScaleName = updatedScale.ScaleName;
             existingScale.ScaleQuality = updatedScale.ScaleQuality;
-            existingScale.ScaleRoot = updatedScale.ScaleRoot;
+            existingScale.ScaleRootNoteId = updatedScale.ScaleRootNoteId;
             existingScale.Key = updatedScale.Key;
 
             MUSICContext.SaveChanges();

@@ -16,7 +16,7 @@ export const getAllScales = async (): Promise<Scale[]> => {
                 id: scale.scaleId,
                 name: scale.scaleName,
                 quality: scale.scaleQuality,
-                rootId: scale.scaleRoot,
+                rootId: scale.scaleRootNoteId,
                 keyId: scale.keyId
             }));
             return scales as Scale[];
@@ -34,9 +34,10 @@ export const getScaleById = async (id: number): Promise<Scale | void> => {
         })
         .then(async (response) => {
             const scale = await response.data;
+            console.log(scale);
             return new Scale(
                 scale.scaleId, scale.scaleName, scale.scaleQuality,
-                scale.scaleRoot, scale.keyId, '');
+                scale.scaleRootNoteId, scale.keyId, '');
         })
         .catch((error) => {
             console.error(error);

@@ -19,14 +19,12 @@ public partial class Interval
     public int RootNoteId { get; set; }
 
     public int IntervalNoteId { get; set; }
-
     [JsonIgnore]
     public virtual Note IntervalNote { get; set; } = null!;
     [JsonIgnore]
     public virtual Note RootNote { get; set; } = null!;
     [JsonIgnore]
     public virtual ICollection<Chord> Chords { get; set; } = new List<Chord>();
-
     [JsonIgnore]
-    public virtual ICollection<ScaleNote> ScaleNotes { get; set; } = new HashSet<ScaleNote>();
+    public virtual ICollection<ScaleNote> ScaleNotes { get; set; } = new List<ScaleNote>();
 }
