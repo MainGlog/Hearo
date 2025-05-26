@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Began introducing audio to the program">
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Models/Interval.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/Interval.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Models/MUSICContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Training.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Sound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Sound.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/SERoutineService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/SERoutineService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/ScaleService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -363,7 +356,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747942112352</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Fixed my screw-up from last night where I did another EF Core Reverse Engineer and it removed like all of my models&#10;&#10;Fixed an error where going into the scales page and adding a scale to a routine would not update said routine when navigating back to the home page&#10;&#10;Fixed a bug where,after selecting routines, re-opening the Add To Routine Modal would keep said routines selected.&#10;&#10;GOT AUDIO TO WORK! Albeit crunchy as hell&#10;&#10;Modified the .wav to .mp3 in the Sound model, considering dropping the FilePath column and passing in (`${note.noteName}${sound.octave}`) to the selectSound function or removing the file extension from the FilePath records">
+      <option name="closed" value="true" />
+      <created>1748106675507</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1748106675508</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -404,7 +405,9 @@
     <MESSAGE value="Removed the default index header&#10;&#10;Began developing progress bar&#10;Thanks https://www.youtube.com/watch?v=J95MC2Koymc" />
     <MESSAGE value="Removed the default index header&#10;&#10;Began developing progress bar&#10;Thanks https://www.youtube.com/watch?v=J95MC2Koymc&#10;&#10;Developed a countdown timer" />
     <MESSAGE value="Began introducing audio to the program" />
-    <option name="LAST_COMMIT_MESSAGE" value="Began introducing audio to the program" />
+    <MESSAGE value="Fixed my screw-up from last night where I did another EF Core Reverse Engineer and it removed like all of my models&#10;&#10;Fixed an error where going into the scales page and adding a scale to a routine would not update said routine when navigating back to the home page&#10;&#10;Fixed a bug where,after selecting routines, re-opening the Add To Routine Modal would keep said routines selected.&#10;&#10;GOT AUDIO TO WORK! Albeit crunchy as hell&#10;&#10;Modified the .wav to .mp3 in the Sound model, considering dropping the FilePath column and passing in (`${note.noteName}${sound.octave}`) to the selectSound function or removing the file extension from the FilePath records" />
+    <MESSAGE value="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise" />
+    <option name="LAST_COMMIT_MESSAGE" value="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

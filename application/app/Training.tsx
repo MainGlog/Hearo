@@ -16,19 +16,23 @@ import {getIntervalsByScaleId} from "@/services/IntervalService";
 import Note from "@/models/Note";
 import Interval from "@/models/Interval";
 import {getAllNotes} from "@/services/NoteService";
+import Exercise from "@/models/Exercise";
 
 interface TrainingScreenProps extends NativeStackScreenProps<RootStackParamList, 'Training'> {}
 
 export default function TrainingScreen({route}: TrainingScreenProps){
     let routine = new Routine(route.params.id ?? 0, route.params.name ?? 'My Routine',
         route.params.exerciseCount ?? 10, route.params.timeToGuess ?? 25, route.params.description ?? 'Description');
+
+    // Exercises is not in the routine constructor due to the way the data is fetched from the database, so they are set here
     routine.exercises = route.params.exercises;
+
     const [sounds, setSounds] = useState<SoundModel[]>([]);
     const [scales, setScales] = useState<Scale[]>([]);
     const [notes, setNotes] = useState<Note[]>([]);
-    const [activeScale, setActiveScale] = useState<Scale | null>(null);
-    const [activeScaleNotes, setActiveScaleNotes] = useState<Note[]>([]);
     const [activeSounds, setActiveSounds] = useState<SoundModel[]>([]);
+    const [timerActive, setTimerActive] = useState<boolean>(false);
+    const [resetTimer, setResetTimer] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async() => {
@@ -44,108 +48,112 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     }, [])
 
     // Once the active scale is set, this will get the necessary information to play it
-    const fetchData = async() => {
-        const intervalsData = await getIntervalsByScaleId(activeScale!.id);
-
+    const fetchData = async(scale: Scale, listeningMode: string) => {
+        const intervalsData = await getIntervalsByScaleId(scale.id);
         let notesArray: Note[] = [];
 
-        // Add Root Note
-        notesArray.push(notes.find(n => n.id === activeScale!.rootId)!);
+        const rootNote = notes.find(n => n.id === scale.rootId)!;
 
-        // Add Other Notes
-        intervalsData!.map((interval: Interval) => {
-            notesArray.push(notes.find(n => n.id === interval.intervalNoteId)!);
-        });
+        switch(listeningMode) {
+            case ('ascending'):
+                // Add Root Note
+                notesArray.push(rootNote);
 
-        setActiveScaleNotes(notesArray);
+                // Add Other Notes
+                intervalsData!.map((interval: Interval) => {
+                    notesArray.push(notes.find(n => n.id === interval.intervalNoteId)!);
+                });
+                break;
+            case ('random'):
+                break;
+            default:
+                break;
+        }
 
-
-        const rootNoteId = notesArray[0].id;
         const CId = 3; // ID of the note C
 
         // Starting octave will be 3, that of middle C (C3)
         // unless the root note is closer to the octave below (C2)
         let octave = 0
 
-        const max = Math.max(rootNoteId, CId);
-        const min = Math.min(rootNoteId, CId);
-        if (max - min > 4 || rootNoteId < 3) octave = 2;
+        const max = Math.max(rootNote.id, CId);
+        const min = Math.min(rootNote.id, CId);
+        if (max - min > 4 || rootNote.id < 3) octave = 2;
         else octave = 3;
 
         let soundsArray: SoundModel[] = [];
+        let octavesArray: number[] = [];
 
         // Adds the sound for each note to an array
         for (const note of notesArray) {
-            // TODO make every note beyond B increase by one octave
             soundsArray.push(sounds.find(s => s.noteId === note.id
                 && s.octave === octave)!);
+
+            // Stores the octave for the note to be used when the notes are added in descending order
+            if (listeningMode === 'ascending') octavesArray.push(octave);
+
+            // Increments the octave if C is passed
+            if (note.id + 1 % 12 >= 3 && note.id < 3) octave++
         }
 
+        if (listeningMode === 'ascending') {
+            // Adds root note to the top
+            soundsArray.push(sounds.find(s => s.noteId === rootNote.id! && s.octave === octave)!);
 
-        // TODO When the page initially loads,
+            // Adds notes in descending order
+            for (let i = notesArray.length - 1; i >= 0; i--) {
+                soundsArray.push(sounds.find(s => s.noteId === notesArray[i]!.id!
+                    && s.octave === octavesArray[i])!);
+            }
+        }
 
         setActiveSounds(soundsArray);
     }
-
-    // TODO when first running the page, activeScale does not get set quickly enough for the information to be set
-    useEffect(() => {
-        fetchData();
-    }, [activeScale]);
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     // What do you need here?
     // A way of handling the options for each exercise
     // Boolean for whether the user answered correctly, this will be used to render the results screen
 
     const [sound, setSound] = useState<Sound>();
-    const [soundIndex, setSoundIndex] = useState<number>(0);
 
-    async function playSound() {
-        console.log('Loading Sound');
-
-        console.log(activeSounds);
-        console.log(soundIndex)
+    async function playSound(filePath: string) {
+        // console.log('Loading Sound');
 
         // @ts-ignore - used for the selectSound method.
         // It gets mad but the function returns a require statement for the audio file
-        const file = selectSound(activeSounds[soundIndex].filePath);
+        const file = selectSound(filePath);
 
         const { sound } = await Sound.createAsync(file);
         setSound(sound);
 
-        console.log('Playing Sound');
+        // console.log('Playing Sound');
         await sound.playAsync();
     }
 
+    // Unload Sound
     useEffect(() => {
         return sound
             ? () => {
-                console.log('Unloading Sound');
+                // console.log('Unloading Sound');
                 sound.unloadAsync();
             }
             : undefined;
     }, [sound]);
 
-
-    // TODO determine which type of exercise is returned by getRandomExercise
-    //  Develop visual components
-    //  Make it play the sound!
-
-    const [exercise, setExercise] = useState<ScaleExercise | ChordExercise | NotesExercise>();
-
     useEffect(() => {
         getNextExercise();
-    }, []);
+    }, [sounds, scales, notes]);
 
+
+    // Selects a random exercise from the routine's list
+    const [exercise, setExercise] = useState<ScaleExercise | ChordExercise | NotesExercise>();
     const getNextExercise = () => {
         const newExercise = getRandomExercise(routine);
         setExercise(newExercise);
 
         if (newExercise instanceof ScaleExercise) {
-            setActiveScale(scales.find(s => s.id === newExercise.scaleId)!);
+            fetchData(scales.find(s => s.id === newExercise.scaleId)!,
+                (newExercise as ScaleExercise).listeningMode!);
         }
         else if (newExercise instanceof ChordExercise) {
             // Chord exercise
@@ -155,9 +163,35 @@ export default function TrainingScreen({route}: TrainingScreenProps){
         }
     };
 
+    // Whenever the active sounds updates, which will only happen when an exercise changes
+    // This method will play said sounds in their intended sequence with a 1 second delay
+    useEffect(() => {
+        const playExercise = async() => {
+
+            for (let i = 0; i < activeSounds.length!; i++) {
+                // TODO find a way to stop playback when the user guesses
+                if (userGuessed) return;
+
+                // Creating a promise with the await keyword ensures that the timeout playing the sound will complete before the next
+                await new Promise(resolve => {
+                    setTimeout(async () => {
+                        await playSound(activeSounds[i].filePath!);
+                        if (i === activeSounds.length - 1) {
+                            setTimerActive(true); // Activates the timer after all sounds have been played
+                        }
+                        resolve(null); // Signals that the promise has completed
+                    }, 800);
+                });
+            }
+        }
+        playExercise();
+    }, [activeSounds])
+
     const [exercisesPlayed, setExercisesPlayed] = useState<number>(0);
     const [guess, setGuess] = useState<string>('');
-    // TODO for each exercise, increment exercisesPlayed by one
+    const [userGuessed, setUserGuessed] = useState<boolean>(false);
+    const [correct, setCorrect] = useState<boolean>(false);
+    const [timerDuration, setTimerDuration] = useState<number>(routine.timeToGuess);
 
     return (
         <View style={styles.container}>
@@ -165,26 +199,65 @@ export default function TrainingScreen({route}: TrainingScreenProps){
             <Progress step={exercisesPlayed} steps={routine.exerciseCount} height={20}/>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={styles.topBarText}>{exercisesPlayed} / {routine.exerciseCount}</Text>
-                <Timer duration={routine.timeToGuess}/>
+                <Timer duration={timerDuration} active={timerActive} reset={resetTimer}/>
             </View>
 
-            <Button title={"Increment Step"} onPress={() => setExercisesPlayed(exercisesPlayed + 1)}/>
-            <Button title={"Reset Step"} onPress={() => setExercisesPlayed(0)}/>
-
-            <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-                <Button title={"Play Audio"} onPress={() => {playSound()}}></Button>
-                <Button title={"Next Note"} onPress={() => {setSoundIndex((prev) => prev + 1)}}></Button>
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <TextInput
+                    style={styles.guessInput}
+                    value={guess}
+                    onChangeText={(text) => {
+                        setGuess(text);
+                    }}
+                    placeholder={'Enter your Guess'}
+                />
+                <Button
+                    title='Submit Guess'
+                    /* TODO Ensure that the user cannot press this button before the exercise is set */
+                    onPress={() => {
+                        setCorrect(checkGuess(guess, exercise!));
+                        setUserGuessed(true);
+                        setTimerActive(false);
+                    }}
+                />
             </View>
-            <TextInput
-                style={styles.guessInput}
-                value={guess}
-                onChangeText={(text) => {
-                    setGuess(text);
-                }}
-                placeholder={'Enter your Guess'}
-            />
+
+            {userGuessed ?
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Text>{correct ? "Yippee!" : ":("}</Text>
+                <Button
+                    title='Next Exercise'
+                    onPress={() => {
+                        // Resets state variables to defaults
+                        // TODO The timer only resets after the first time the next exercise is clicked
+                        setExercisesPlayed(exercisesPlayed + 1);
+                        setTimerDuration(routine.timeToGuess);
+                        setResetTimer(true);
+                        setTimerActive(false);
+                        setUserGuessed(false);
+                        setCorrect(false);
+                        setGuess('');
+                        setActiveSounds([]);
+                        getNextExercise();
+                    }}
+                />
+            </View> : null}
         </View>
     );
+}
+
+function checkGuess(guess: string, exercise: ScaleExercise | ChordExercise | NotesExercise): boolean {
+    if (exercise instanceof ScaleExercise) {
+        return guess.toUpperCase() === (exercise as ScaleExercise).scale?.name.toUpperCase();
+    }
+    else if (exercise instanceof ChordExercise) {
+        // Chord exercise
+    }
+    else {
+        // Notes exercise
+    }
+
+    return true;
 }
 
 function getRandomExercise(routine: Routine): ScaleExercise | ChordExercise | NotesExercise  {
@@ -239,7 +312,7 @@ const Progress = ({step, steps, height}: {step: number; steps: number; height: n
                     height,
                     width: '100%',
                     borderRadius: height,
-                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    backgroundColor: 'rgba(20,90,170,0.8)',
                     transform: [{
                         translateX: animatedValue
                     }]
@@ -249,14 +322,23 @@ const Progress = ({step, steps, height}: {step: number; steps: number; height: n
     )
 }
 
-const Timer = ({duration}: {duration: number}) => {
+const Timer = ({duration, active, reset}: {duration: number, active: boolean, reset: boolean}) => {
     const [seconds, setSeconds] = useState<number>(duration);
     const [minutes, setMinutes] = useState<number>(Math.floor(duration / 60));
 
     // Sets a reference for an interval timeout to be used when clearing the interval
     const intervalRef = useRef<NodeJS.Timeout>();
 
+
+
     useEffect(() => {
+        // When the timer is re-activated after the first exercise, it should be reset to the original duration
+        setSeconds(duration);
+    }, [reset])
+
+    useEffect(() => {
+        if (!active) return;
+
         intervalRef.current = setInterval(() => {
             setSeconds(prev => {
                 // Stops the interval when seconds reaches 0
@@ -272,7 +354,7 @@ const Timer = ({duration}: {duration: number}) => {
         }, 1000);
 
         return () => clearInterval(intervalRef.current);
-    }, [seconds]);
+    }, [seconds, active]);
 
     return(
         <Text style={styles.topBarText}>{addZero(minutes)}:{addZero(seconds % 60)}</Text>

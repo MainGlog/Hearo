@@ -21,8 +21,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
             const scaleExercisesData = await getAllScaleExercises();
             const seRoutinesData = await getAllSERoutines();
 
-            console.log(routinesData);
-
             // Sets exercises array of each routine
             for (const routine of routinesData) {
                    routine.exercises = seRoutinesData
