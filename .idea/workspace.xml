@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Training.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -364,7 +363,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748106675508</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise">
+      <option name="closed" value="true" />
+      <created>1748227475075</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1748227475076</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Animated, Button, TextInput} from "react-native";
+import {Animated, Button, StyleSheet, Text, TextInput, View} from "react-native";
 import Routine from "@/models/Routine";
 import ScaleExercise from "@/models/ScaleExercise";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
@@ -16,7 +16,6 @@ import {getIntervalsByScaleId} from "@/services/IntervalService";
 import Note from "@/models/Note";
 import Interval from "@/models/Interval";
 import {getAllNotes} from "@/services/NoteService";
-import Exercise from "@/models/Exercise";
 
 interface TrainingScreenProps extends NativeStackScreenProps<RootStackParamList, 'Training'> {}
 
@@ -147,13 +146,16 @@ export default function TrainingScreen({route}: TrainingScreenProps){
 
     // Selects a random exercise from the routine's list
     const [exercise, setExercise] = useState<ScaleExercise | ChordExercise | NotesExercise>();
+    const [correctAnswer, setCorrectAnswer] = useState<string>('');
     const getNextExercise = () => {
         const newExercise = getRandomExercise(routine);
         setExercise(newExercise);
 
         if (newExercise instanceof ScaleExercise) {
-            fetchData(scales.find(s => s.id === newExercise.scaleId)!,
-                (newExercise as ScaleExercise).listeningMode!);
+            const scale = scales.find(s => s.id === newExercise.scaleId)!
+            setCorrectAnswer(scale?.name);
+            fetchData(scale, (newExercise as ScaleExercise).listeningMode!);
+
         }
         else if (newExercise instanceof ChordExercise) {
             // Chord exercise
@@ -167,7 +169,8 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     // This method will play said sounds in their intended sequence with a 1 second delay
     useEffect(() => {
         const playExercise = async() => {
-
+            setResetTimer(false);
+            
             for (let i = 0; i < activeSounds.length!; i++) {
                 // TODO find a way to stop playback when the user guesses
                 if (userGuessed) return;
@@ -192,16 +195,25 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     const [userGuessed, setUserGuessed] = useState<boolean>(false);
     const [correct, setCorrect] = useState<boolean>(false);
     const [timerDuration, setTimerDuration] = useState<number>(routine.timeToGuess);
+    const [correctGuesses, setCorrectGuesses] = useState<number>(0);
 
     return (
         <View style={styles.container}>
             <StatusBar hidden/>
             <Progress step={exercisesPlayed} steps={routine.exerciseCount} height={20}/>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={styles.topBarText}>{exercisesPlayed} / {routine.exerciseCount}</Text>
-                <Timer duration={timerDuration} active={timerActive} reset={resetTimer}/>
+                <Text style={styles.topBarText}>{correctGuesses} / {routine.exerciseCount}</Text>
+                <Timer duration={timerDuration}
+                       active={timerActive}
+                       reset={resetTimer}
+                       onTimerUpdate={(seconds) => {
+                           // console.log(seconds);
+                           setTimerDuration(seconds);
+                       }}
+                />
             </View>
 
+            {!userGuessed && timerDuration > 0 ?
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <TextInput
                     style={styles.guessInput}
@@ -215,49 +227,48 @@ export default function TrainingScreen({route}: TrainingScreenProps){
                     title='Submit Guess'
                     /* TODO Ensure that the user cannot press this button before the exercise is set */
                     onPress={() => {
-                        setCorrect(checkGuess(guess, exercise!));
+                        const answerIsCorrect = checkGuess(guess, correctAnswer);
+                        setCorrect(answerIsCorrect);
+                        setCorrectGuesses(prev => answerIsCorrect ? prev + 1 : prev);
                         setUserGuessed(true);
                         setTimerActive(false);
                     }}
                 />
-            </View>
+            </View> : null}
 
-            {userGuessed ?
-            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                <Text>{correct ? "Yippee!" : ":("}</Text>
-                <Button
-                    title='Next Exercise'
-                    onPress={() => {
-                        // Resets state variables to defaults
-                        // TODO The timer only resets after the first time the next exercise is clicked
-                        setExercisesPlayed(exercisesPlayed + 1);
-                        setTimerDuration(routine.timeToGuess);
-                        setResetTimer(true);
-                        setTimerActive(false);
-                        setUserGuessed(false);
-                        setCorrect(false);
-                        setGuess('');
-                        setActiveSounds([]);
-                        getNextExercise();
-                    }}
-                />
+            {userGuessed || timerDuration === 0 ?
+            <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+                {timerDuration === 0 ?
+                    <Text style={{textAlign: 'center'}}>Out of Time! The correct answer was {correctAnswer}</Text> :
+                    <Text>{correct ? "Great job!" : `Not quite, the correct answer was ${correctAnswer}. You guessed ${guess}`}</Text>
+                }
+
+                {exercisesPlayed <= routine.exerciseCount ?
+                    <Button
+                        title='Next Exercise'
+                        onPress={() => {
+                            // Resets state variables to defaults
+                            setExercisesPlayed(exercisesPlayed + 1);
+                            setTimerDuration(routine.timeToGuess);
+                            setResetTimer(true);
+                            setTimerActive(false);
+                            setUserGuessed(false);
+                            setCorrect(false);
+                            setGuess('');
+                            setActiveSounds([]);
+                            getNextExercise();
+                        }}
+                    />
+                : null}
             </View> : null}
         </View>
     );
+
+
 }
 
-function checkGuess(guess: string, exercise: ScaleExercise | ChordExercise | NotesExercise): boolean {
-    if (exercise instanceof ScaleExercise) {
-        return guess.toUpperCase() === (exercise as ScaleExercise).scale?.name.toUpperCase();
-    }
-    else if (exercise instanceof ChordExercise) {
-        // Chord exercise
-    }
-    else {
-        // Notes exercise
-    }
-
-    return true;
+function checkGuess(guess: string, answer: string): boolean {
+    return guess.toUpperCase() === answer.toUpperCase();
 }
 
 function getRandomExercise(routine: Routine): ScaleExercise | ChordExercise | NotesExercise  {
@@ -322,14 +333,17 @@ const Progress = ({step, steps, height}: {step: number; steps: number; height: n
     )
 }
 
-const Timer = ({duration, active, reset}: {duration: number, active: boolean, reset: boolean}) => {
+const Timer = ({duration, active, reset, onTimerUpdate}: {
+    duration: number,
+    active: boolean,
+    reset: boolean,
+    onTimerUpdate: (seconds: number) => void}
+    ) => {
     const [seconds, setSeconds] = useState<number>(duration);
     const [minutes, setMinutes] = useState<number>(Math.floor(duration / 60));
 
     // Sets a reference for an interval timeout to be used when clearing the interval
     const intervalRef = useRef<NodeJS.Timeout>();
-
-
 
     useEffect(() => {
         // When the timer is re-activated after the first exercise, it should be reset to the original duration
@@ -355,6 +369,10 @@ const Timer = ({duration, active, reset}: {duration: number, active: boolean, re
 
         return () => clearInterval(intervalRef.current);
     }, [seconds, active]);
+
+    useEffect(() => {
+        onTimerUpdate(seconds);
+    }, [seconds]);
 
     return(
         <Text style={styles.topBarText}>{addZero(minutes)}:{addZero(seconds % 60)}</Text>
