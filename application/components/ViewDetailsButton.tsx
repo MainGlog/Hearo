@@ -31,7 +31,7 @@ export default function ViewDetailsButton({scale, routine, buttonLabel, navigati
 const styles = StyleSheet.create({
     container: {
         borderRadius: 20,
-        borderWidth: 1,
+        backgroundColor: '#d1cfd9',
         marginVertical: 15,
         paddingHorizontal: 10,
         marginLeft: 5

@@ -10,71 +10,98 @@ import Note from "@/models/Note";
 import DismissKeyboard from "@/components/DismissKeyboard";
 import Key from "@/models/Key";
 import {getIntervalsByScaleId} from "@/services/IntervalService";
-import Interval from "@/models/Interval";
 import ScaleExercise from "@/models/ScaleExercise";
 import {getAllNotes} from "@/services/NoteService";
 import {getAllKeys} from "@/services/KeyService";
+import {getAllScales} from "@/services/ScaleService";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     let scale = new Scale(route.params.id, route.params.name, route.params.quality,
         route.params.rootId, route.params.keyId, route.params.imageFilePath);
 
+    let exercise = new Exercise('scale', 0, null, null, scale.id);
+    let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
+
     const [notes, setNotes] = useState<Note[]>([]);
     const [keys, setKeys] = useState<Key[]>([]);
-    const [intervals, setIntervals] = useState<Interval[] | void>([]);
+    const [scales, setScales] = useState<Scale[]>([]);
     let scaleNotes: Note[] = [];
     const [scaleNotesAsKeyValue, setScaleNotesAsKeyValue] = useState<any[]>([]);
-    // TODO Something in here is throwing a 500 error
+    const [notesAsKeyValue, setNotesAsKeyValue] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const intervalsData = await getIntervalsByScaleId(scale.id);
                 const keysData = await getAllKeys();
                 const notesData = await getAllNotes();
+                const scalesData = await getAllScales();
 
-                setIntervals(intervalsData);
                 setKeys(keysData);
                 setNotes(notesData);
+                setScales(scalesData);
 
                 // For some reason, the response gives A the id of 11 despite the API response giving it 0
                 const A = notesData.find((n) => n.name === "A");
                 A!.id = 0;
 
-                // TODO update database to replace scaleRoot (String representation of the root note)
-                //  with rootId (foreign key for note). This will require going into population script :(
-
-                scaleNotes.push(notesData.find((n) => n.id === scale.rootId)!);
-
-                intervalsData!.map((i: Interval) => {
-                    const note = notesData.find((n) => n.id === i.intervalNoteId)!;
-                    scaleNotes.push(note);
-                });
-
-                setScaleNotesAsKeyValue(scaleNotes.map((note, index) => ({
+                setNotesAsKeyValue(notesData.map((note, index) => ({
                     key: index.toString(),
                     value: note.name
                 })));
-
             }
             catch (error) {
                 console.error("Error retrieving data: " + error);
             }
         }
         fetchData();
-    }, [scale.id]);
+    }, [])
 
-    let notesAsKeyValue: any[] = notes.map((note, index) => ({
-        key: index.toString(),
-        value: note.name
-    }));
+    const fetchData = async(newKey: Key | null = null) => {
+        try {
+            if (newKey) {
+                const scaleNamePrefix = notes.find(n => n.id === scale.rootId)?.name!;
+                const scaleName = exercise.scale!.name.split(scaleNamePrefix)[1];
+
+                scale = scales.find(s => s.name.includes(scaleName) && s.keyId === newKey.id)!;
+
+                exercise.scale = scale;
+                scaleExercise.scaleId = scale.id;
+            }
+
+            // Resets the scale notes after each time the data is fetched
+            scaleNotes = [];
+
+            const intervalsData = await getIntervalsByScaleId(scale.id);
+
+            const rootNote = notes.find((n) => n.id === scale.rootId);
+            if (rootNote) scaleNotes.push(rootNote);
+
+            console.log('');
+            for (const interval of intervalsData!) {
+                const note = notes.find((n) => n.id === interval.intervalNoteId)!;
+                if (note) scaleNotes.push(note);
+            }
+
+            if (scaleNotes) setScaleNotesAsKeyValue(scaleNotes.map((note, index) => ({
+                key: index.toString(),
+                value: note.name
+            })));
+        }
+        catch (error) {
+            console.error("Error retrieving data: " + error);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [notes]);
+
 
     const [ascendingButtonActive, setAscendingButtonActive] = useState(false);
     const [randomButtonActive, setRandomButtonActive] = useState(false);
     const [customButtonActive, setCustomButtonActive] = useState(false);
     const [timePerNoteText, setTimePerNoteText] = useState('');
-
 
     const listeningModeButtonStates = {
         'ascending': setAscendingButtonActive,
@@ -82,8 +109,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         'custom': setCustomButtonActive
     }
 
-    const exercise = new Exercise('scale', 0, null, null, scale.id);
-    let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
+    const defaultBackground = "#e3e1e7";
 
     return (
         <DismissKeyboard>
@@ -105,12 +131,20 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                         placeholderStyle={styles.optionLabel}
                         labelField={'value'}
                         valueField={'key'}
-                        value={'C'}
                         onChange={(note) => {
-                            if (exercise.scale) {
-                                exercise.scale.keyId = keys
+                            if (exercise.scale && keys) {
+                                const key = keys
                                     .find((k) => k.quality === exercise.scale!.quality
-                                        && k.name.includes(note.name))?.id!
+                                        && k.name === note.value)!;
+
+                                // TODO Gb Minor throws an error
+
+                                exercise.scale.keyId = key.id!
+                                scaleExercise.scaleId = scale.id;
+                                scaleExercise.scale = scale;
+
+                                console.log(scaleExercise);
+                                fetchData(key);
                                 // TODO whenever this changes, the API needs to refresh with new notes data to reflect the new key
                             }
                         }}
@@ -130,7 +164,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                     <Text style={styles.heading}>Listening Modes</Text>
                     <View style={styles.modeSelectionContainer}>
                         <TouchableOpacity
-                            style={[styles.modeContainer, {backgroundColor: ascendingButtonActive ? 'lightblue' : 'transparent'}]}
+                            style={[styles.modeContainer, {backgroundColor: ascendingButtonActive ? 'lightblue' : defaultBackground}]}
                             onPress={() => {
                                 setButtonActivity('ascending');
                                 scaleExercise.listeningMode = 'ascending';
@@ -140,7 +174,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            style={[styles.modeContainer, {backgroundColor: randomButtonActive ? 'lightblue' : 'transparent'}]}
+                            style={[styles.modeContainer, {backgroundColor: randomButtonActive ? 'lightblue' : defaultBackground}]}
                             onPress={() => {
                                 setButtonActivity('random');
                                 scaleExercise.listeningMode = 'random';
@@ -150,7 +184,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            style={[styles.modeContainer, {backgroundColor: customButtonActive ? 'lightblue' : 'transparent'}]}
+                            style={[styles.modeContainer, {backgroundColor: customButtonActive ? 'lightblue' : defaultBackground}]}
                             onPress={() => {
                                 setButtonActivity('custom');
                                 scaleExercise.listeningMode = 'custom';
@@ -312,7 +346,6 @@ const styles = StyleSheet.create({
     },
     modeContainer: {
         borderRadius: 20,
-        borderWidth: 1,
         width: '26%',
         paddingHorizontal: 10,
         paddingVertical: 5,
@@ -331,7 +364,7 @@ const styles = StyleSheet.create({
     },
     optionButton: {
         borderRadius: 20,
-        borderWidth: 1,
+        backgroundColor: '#e3e1e7',
         paddingHorizontal: 10,
         marginBottom: 20,
         minWidth: '20%',

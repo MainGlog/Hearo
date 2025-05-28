@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     },
     container: {
         maxWidth: "40%",
-        borderWidth: 1,
+        backgroundColor: '#e3e1e7',
         borderRadius: 20,
         borderColor: "black",
         maxHeight: 150

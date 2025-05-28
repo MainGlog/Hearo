@@ -27,7 +27,7 @@ export default function LargeAddButton({scaleExercise, exercise} : Props){
 const styles = StyleSheet.create({
     container: {
         borderRadius: 20,
-        borderWidth: 1,
+        backgroundColor: '#e3e1e7',
         marginTop: 10,
         paddingHorizontal: 10,
         maxWidth: "40%",

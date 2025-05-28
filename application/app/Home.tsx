@@ -164,12 +164,11 @@ const styles = StyleSheet.create({
     },
     container: {
         borderRadius: 20,
-        borderWidth: 1,
+        backgroundColor: '#e3e1e7',
         minWidth: "30%",
         maxWidth: "32%"
     },
     containerTitle: {
-        borderBottomWidth: 1,
         textAlign: 'center',
         fontSize: 20
     },
@@ -185,8 +184,8 @@ const styles = StyleSheet.create({
     containerButton: {
         minHeight: '10%',
         minWidth: "70%",
+        backgroundColor: '#d1cfd9',
         borderRadius: 20,
-        borderWidth: 1,
         paddingHorizontal: 2
     },
     buttonText: {

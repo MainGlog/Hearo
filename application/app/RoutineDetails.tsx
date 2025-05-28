@@ -89,19 +89,20 @@ function ScaleExerciseDetails(exercise: ScaleExercise) {
     }
 
     return (
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 5}}>
+            {/* TODO Add options for editing / removing exercises */}
             <View>
                 <Text>Scale</Text>
                 <Text>{scale! ? scale!.name : ''}</Text>
             </View>
             <View>
                 <Text>Listening Mode</Text>
-                <Text>{exercise.listeningMode}</Text>
+                <Text>{exercise.listeningMode?.slice(0, 1).toUpperCase()}{exercise.listeningMode?.slice(1, exercise.listeningMode?.length)}</Text>
             </View>
-            <View>
+            {/*<View>
                 <Text>Time per Note</Text>
                 <Text>{exercise.timePerNote}</Text>
-            </View>
+            </View>*/}
             {exercise.listeningMode === 'random' ?
                 <>
                     <View>
@@ -146,8 +147,8 @@ const styles = StyleSheet.create({
     },
     button: {
         borderRadius: 20,
-        borderWidth: 1,
         paddingHorizontal: 10,
+        backgroundColor: '#d1cfd9',
         marginBottom: 20,
         minWidth: '20%',
         maxWidth: '40%',

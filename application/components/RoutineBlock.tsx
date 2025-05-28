@@ -39,17 +39,8 @@ const styles = StyleSheet.create({
     },
     container: {
         width: 120,
-        borderWidth: 1,
         borderRadius: 20,
-        borderColor: "black",
+        backgroundColor: '#e3e1e7',
         maxHeight: 200
-    },
-    button: {
-        borderRadius: 20,
-        borderWidth: 1,
-        marginVertical: 10,
-        paddingHorizontal: 10,
-        minWidth: "60%"
     }
-
 });

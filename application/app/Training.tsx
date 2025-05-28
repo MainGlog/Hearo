@@ -88,6 +88,8 @@ export default function TrainingScreen({route}: TrainingScreenProps){
             soundsArray.push(sounds.find(s => s.noteId === note.id
                 && s.octave === octave)!);
 
+            // TODO C minor's top note did not add the correct octave
+
             // Stores the octave for the note to be used when the notes are added in descending order
             if (listeningMode === 'ascending') octavesArray.push(octave);
 
@@ -166,7 +168,7 @@ export default function TrainingScreen({route}: TrainingScreenProps){
     };
 
     // Whenever the active sounds updates, which will only happen when an exercise changes
-    // This method will play said sounds in their intended sequence with a 1 second delay
+    // This method will play said sounds in their intended sequence with a one-second delay
     useEffect(() => {
         const playExercise = async() => {
             setResetTimer(false);

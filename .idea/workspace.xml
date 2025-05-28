@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise">
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Adjusted the styling of the routine details page&#10;&#10;Modified the scale details page to allow the users to add scales of multiple keys">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Training.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,6 +178,8 @@
       <workItem from="1747665255875" duration="23569000" />
       <workItem from="1747836841334" duration="11511000" />
       <workItem from="1747867394878" duration="26321000" />
+      <workItem from="1748355922955" duration="4962000" />
+      <workItem from="1748365134259" duration="3939000" />
     </task>
     <task id="LOCAL-00001" summary="testing copy push">
       <option name="closed" value="true" />
@@ -371,7 +381,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748227475076</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fixed a bug where the timer would only reset back to the original duration once&#10;&#10;Changed the way the checkGuess function worked so that the program doesn't have to check the type of the exercise passed in, as this is already being performed in getNextExercise(). Instead, I created a new state variable, correctAnswer, and set this inside of getNextExercise().&#10;&#10;Updated the UI to hide the Submit button after the timer has run out&#10;&#10;Updated the UI to have better feedback than &quot;Yippee!&quot; and &quot;:(&quot;. This includes displaying the correct answer to the user in the event that they get the answer wrong.&#10;&#10;Updated the UI to display the amount of CORRECT guesses out of the total exercises played as opposed to the current number of exercises played">
+      <option name="closed" value="true" />
+      <created>1748302761071</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1748302761071</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,7 +407,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="testing copy push" />
     <MESSAGE value="- Changed the large Add To Routine button to the smaller one on the scales page to make room for a View Details button" />
     <MESSAGE value="- Got navigation between the main page and details page working&#10;- Got dynamic image rendering to work&#10;- Fixed styling issues in the scale container" />
     <MESSAGE value="- Created layout for scale details page&#10;- Random notes options are working" />
@@ -414,7 +431,8 @@
     <MESSAGE value="Began introducing audio to the program" />
     <MESSAGE value="Fixed my screw-up from last night where I did another EF Core Reverse Engineer and it removed like all of my models&#10;&#10;Fixed an error where going into the scales page and adding a scale to a routine would not update said routine when navigating back to the home page&#10;&#10;Fixed a bug where,after selecting routines, re-opening the Add To Routine Modal would keep said routines selected.&#10;&#10;GOT AUDIO TO WORK! Albeit crunchy as hell&#10;&#10;Modified the .wav to .mp3 in the Sound model, considering dropping the FilePath column and passing in (`${note.noteName}${sound.octave}`) to the selectSound function or removing the file extension from the FilePath records" />
     <MESSAGE value="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise" />
-    <option name="LAST_COMMIT_MESSAGE" value="Automated the playing of sounds in order&#10;&#10;Adjusted the octaves to increment after C is passed&#10;&#10;Implemented ascending &amp; descending scale listening mode&#10;&#10;Made the timer activate only after all sounds have been played from a given exercise&#10;&#10;Implemented guessing functionality, allowing the user to go to the next exercise after viewing their results from the previous guess&#10;&#10;Made the timer freeze after guessing and reset back to the original duration after going to the next exercise" />
+    <MESSAGE value="Fixed a bug where the timer would only reset back to the original duration once&#10;&#10;Changed the way the checkGuess function worked so that the program doesn't have to check the type of the exercise passed in, as this is already being performed in getNextExercise(). Instead, I created a new state variable, correctAnswer, and set this inside of getNextExercise().&#10;&#10;Updated the UI to hide the Submit button after the timer has run out&#10;&#10;Updated the UI to have better feedback than &quot;Yippee!&quot; and &quot;:(&quot;. This includes displaying the correct answer to the user in the event that they get the answer wrong.&#10;&#10;Updated the UI to display the amount of CORRECT guesses out of the total exercises played as opposed to the current number of exercises played" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug where the timer would only reset back to the original duration once&#10;&#10;Changed the way the checkGuess function worked so that the program doesn't have to check the type of the exercise passed in, as this is already being performed in getNextExercise(). Instead, I created a new state variable, correctAnswer, and set this inside of getNextExercise().&#10;&#10;Updated the UI to hide the Submit button after the timer has run out&#10;&#10;Updated the UI to have better feedback than &quot;Yippee!&quot; and &quot;:(&quot;. This includes displaying the correct answer to the user in the event that they get the answer wrong.&#10;&#10;Updated the UI to display the amount of CORRECT guesses out of the total exercises played as opposed to the current number of exercises played" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

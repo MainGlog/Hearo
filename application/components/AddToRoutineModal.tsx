@@ -106,7 +106,6 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                 const newRoutinesArray = item.map(id => routines![Number(id)]).filter(routine => routine != null);
                 setSelectedRoutines(newRoutinesArray);
 
-
                 // TODO figure out how to handle the fact that you can toggle items to be selected
                 const newItem = item.find(i => !previousItems.includes(i))
                 if (newItem) setNewestItem(newItem);
@@ -144,14 +143,11 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                             setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
 
 
-
                             // Add to database
                             createSERoutine(scaleExercise.id, routine.id)
                                 .catch(error => {
                                     console.log("Error creating SERoutine: " + error);
-                                    // TODO when trying to add to Blarg (routineId: 5), a 400 code was thrown
                                 });
-
 
                             // Add exercise to routine's exercise array if not already present
                             if (!routine.exercises) routine.exercises = [scaleExercise];
@@ -175,9 +171,8 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                 // TODO Find a way to style this dynamically, making the plus sign change based on whether the item is selected
             }
         >
-
         </MultiSelect>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -197,13 +192,14 @@ const styles = StyleSheet.create({
     },
     large: {
         borderRadius: 20,
-        borderWidth: 1,
+        backgroundColor: '#e3e1e7',
         marginTop: 10,
         paddingHorizontal: 10,
         maxWidth: "40%",
     },
     container: {
         borderRadius: 20,
+
         borderWidth: 1,
         marginHorizontal: "auto",
         marginVertical: "auto",
