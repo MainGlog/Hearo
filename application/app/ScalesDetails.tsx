@@ -3,7 +3,6 @@ import Scale from '@/models/Scale';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@/app/index';
 import {useEffect, useState} from 'react';
-import AddToRoutineButton from '@/components/AddToRoutineButton';
 import Exercise from '@/models/Exercise';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import Note from "@/models/Note";
@@ -14,14 +13,20 @@ import ScaleExercise from "@/models/ScaleExercise";
 import {getAllNotes} from "@/services/NoteService";
 import {getAllKeys} from "@/services/KeyService";
 import {getAllScales} from "@/services/ScaleService";
+import AddToRoutineModal from "@/components/AddToRoutineModal";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     let scale = new Scale(route.params.id, route.params.name, route.params.quality,
         route.params.rootId, route.params.keyId, route.params.imageFilePath);
 
-    let exercise = new Exercise('scale', 0, null, null, scale.id);
-    let scaleExercise = new ScaleExercise(0, 'ascending', 10, null, null, scale.id);
+    // ScaleName is used later when changing keys to find the scale of the same type but in a different key
+    const scalePrefixIndex= scale.name.indexOf(' ');
+    const scaleName = scale.name.slice(scalePrefixIndex, scale.name.length);
+
+    const [rootNote, setRootNote] = useState<string>('');
+    const [scaleExercise, setScaleExercise] = useState<ScaleExercise>(new ScaleExercise(0, 'ascending', 10, null, null, scale.id));
+    const [exercise, setExercise] = useState<Exercise>(new Exercise('scale', 0, null, null, scale.id));
 
     const [notes, setNotes] = useState<Note[]>([]);
     const [keys, setKeys] = useState<Key[]>([]);
@@ -60,13 +65,18 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     const fetchData = async(newKey: Key | null = null) => {
         try {
             if (newKey) {
-                const scaleNamePrefix = notes.find(n => n.id === scale.rootId)?.name!;
-                const scaleName = exercise.scale!.name.split(scaleNamePrefix)[1];
+                console.log("Scale before reset: ", scale);
 
                 scale = scales.find(s => s.name.includes(scaleName) && s.keyId === newKey.id)!;
+                setRootNote(notes.find(n => n.id === scale.rootId)?.name!);
 
-                exercise.scale = scale;
-                scaleExercise.scaleId = scale.id;
+                console.log("Scale: ", scale);
+                console.log("ScaleExercise in KeyFetch: ", scaleExercise);
+
+                // exercise.scale = scale;
+                setExercise({...exercise, scale: scale});
+                // scaleExercise.scaleId = scale.id;
+                setScaleExercise({...scaleExercise, scaleId: scale.id, scale: scale});
             }
 
             // Resets the scale notes after each time the data is fetched
@@ -77,7 +87,6 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
             const rootNote = notes.find((n) => n.id === scale.rootId);
             if (rootNote) scaleNotes.push(rootNote);
 
-            console.log('');
             for (const interval of intervalsData!) {
                 const note = notes.find((n) => n.id === interval.intervalNoteId)!;
                 if (note) scaleNotes.push(note);
@@ -93,10 +102,10 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         }
     }
 
+    // Anytime the notes are updated, fetchData is called to refresh the scaleNotes and reflect the new key
     useEffect(() => {
         fetchData();
     }, [notes]);
-
 
     const [ascendingButtonActive, setAscendingButtonActive] = useState(false);
     const [randomButtonActive, setRandomButtonActive] = useState(false);
@@ -121,7 +130,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                             // TODO Navigate to Scales page
                         }}
                     />
-                    <Text style={styles.title}>{scale!.name.split(' ')[1]} Scale</Text>
+                    <Text style={styles.title}>{rootNote}{scaleName} Scale</Text>
                     <Dropdown
                         // Button to select the key or root note for the scale
                         style={{...styles.optionButton, minWidth: "25%"}}
@@ -139,13 +148,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
 
                                 // TODO Gb Minor throws an error
 
-                                exercise.scale.keyId = key.id!
-                                scaleExercise.scaleId = scale.id;
-                                scaleExercise.scale = scale;
-
-                                console.log(scaleExercise);
                                 fetchData(key);
-                                // TODO whenever this changes, the API needs to refresh with new notes data to reflect the new key
                             }
                         }}
                     />
@@ -281,15 +284,16 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                         />
                     </View>
                 </View>
-                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <AddToRoutineButton
-                        scaleExercise={scaleExercise}
-                        exercise={exercise}
-                        isMiniButton={false}/>
-                </View>
+                <AddToRoutineModal
+                    scaleExercise={scaleExercise}
+                    exercise={exercise}
+                    chord={null}
+                    buttonSize={'large'}
+                />
             </View>
         </DismissKeyboard>
     )
+
 
     function setButtonActivity(buttonName: String) {
         listeningModeButtonStates['ascending'](false);
@@ -315,7 +319,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
 
 const styles = StyleSheet.create({
     topBar: {
-      flexDirection: "row",
+        flexDirection: "row",
         justifyContent: "space-around"
     },
     imageContainer: {

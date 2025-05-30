@@ -8,7 +8,11 @@ import ScaleExercise from "@/models/ScaleExercise";
 import {createSERoutine, getAllSERoutines} from "@/services/SERoutineService";
 import SERoutine from "@/models/SERoutine";
 import {getAllRoutines} from "@/services/RoutineService";
-import {createScaleExercise, getAllScaleExercises} from "@/services/ScaleExerciseService";
+import {
+    createScaleExercise, deleteScaleExerciseById,
+    deleteScaleExercisesByIdRange,
+    getAllScaleExercises, getLastScaleExerciseId
+} from "@/services/ScaleExerciseService";
 import Exercise from "@/models/Exercise";
 
 // Used to please TypeScript when passing in the properties from AddToRoutineButton
@@ -29,11 +33,34 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
     const [routinesAsJSONArray, setRoutinesAsJSONArray] = useState<Array<{id: string, name: string}>>([]);
     const [selectedRoutines, setSelectedRoutines] = useState<Routine[]>([]);
 
+
     useEffect(() => {
-        if (scaleExercise) createScaleExercise(
-            scaleExercise.listeningMode!, scaleExercise.timePerNote!, scaleExercise.numberOfNotes,
-            scaleExercise.numberOfOctaves, scaleExercise.scaleId
-        );
+        const handleScaleExercise = async() => {
+            try {
+                if (scaleExercise) {
+                    const lastId = await getLastScaleExerciseId();
+                    if (typeof lastId === 'number' && lastId !== -1) {
+                        await deleteScaleExerciseById(lastId);
+                    }
+
+                    console.log(scaleExercise);
+                    await createScaleExercise(
+                        scaleExercise.listeningMode!,
+                        scaleExercise.timePerNote!,
+                        scaleExercise.numberOfNotes,
+                        scaleExercise.numberOfOctaves,
+                        scaleExercise.scaleId
+                    );
+
+                }
+            } catch (error) {
+                console.error("Error handling scale exercise:", error);
+            }
+        };
+        handleScaleExercise();
+    }, [scaleExercise]);
+
+    useEffect(() => {
         const fetchData = async() => {
             try {
                 const routinesData = await getAllRoutines();
@@ -48,7 +75,7 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                 // In that page, the amount of scaleExercises is not known, so the object created has an ID of 0
                 // To avoid a redundant API call, the true id is set here as there's already a call to get all scaleExercises
                 if (scaleExercise && exercise) {
-                    scaleExercise.id = scaleExercisesData.length;
+                    scaleExercise.id = scaleExercisesData.length > 0 ? scaleExercisesData[scaleExercisesData.length - 1].id + 1 : 0;
                     exercise.id = scaleExercise.id;
                 }
 
@@ -68,110 +95,115 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
     }, [])
 
     return(
-        <MultiSelect
-            data={routinesAsJSONArray}
-            labelField={'name'}
-            valueField={'id'}
-            // TODO conditional styling based on whether an item has been selected, get the icon to change as well
-            renderItem={(item: any, selected?: boolean) => (
-                // This sets the top and bottom items in the container to their appropriate styles if they exist
-                // A boolean followed by && will apply the style if the boolean is true
-                <View style={[styles.routineContainer,
-                    selectedRoutines[0] === item && styles.selectedItemTop,
-                    selectedRoutines[selectedRoutines.length - 1]  === item && styles.selectedItemBottom,
-                    selected && styles.selectedItem]}>
-                    <Text style={styles.routineText}>{item.name}</Text>
-                    <FontAwesome style={{marginRight: 5}} name={"plus"} size={15} color="grey" />
-                </View>
-            )}
-            visibleSelectedItem={false}
-            placeholder={''}
-            value={selectedItems}
-            style={buttonSize === 'mini' ? styles.mini : styles.large}
-            containerStyle={styles.container}
-            mode={'modal'}
-            onBlur={() => {
-                setSelectedItems([]);
-                setSelectedRoutines([]);
-            }}
-            selectedStyle={{borderColor: '#FFF000', borderWidth: 5}} // TODO adjust styles to set the first and last items with the proper border
-            selectedTextStyle={{color: "#00FFFF"}} // TODO set the first and last items to
-            onChange={item => {
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            {buttonSize === 'large' ?
+                <Text>Add to Routine</Text>
+            : null}
+            <MultiSelect
+                data={routinesAsJSONArray}
+                labelField={'name'}
+                valueField={'id'}
+                // TODO conditional styling based on whether an item has been selected, get the icon to change as well
+                renderItem={(item: any, selected?: boolean) => (
+                    // This sets the top and bottom items in the container to their appropriate styles if they exist
+                    // A boolean followed by && will apply the style if the boolean is true
+                    <View style={[styles.routineContainer,
+                        selectedRoutines[0] === item && styles.selectedItemTop,
+                        selectedRoutines[selectedRoutines.length - 1]  === item && styles.selectedItemBottom,
+                        selected && styles.selectedItem]}>
+                        <Text style={styles.routineText}>{item.name}</Text>
+                        <FontAwesome style={{marginRight: 5}} name={"plus"} size={15} color="grey" />
+                    </View>
+                )}
+                visibleSelectedItem={false}
+                placeholder={''}
+                value={selectedItems}
+                style={buttonSize === 'mini' ? styles.mini : styles.large}
+                containerStyle={styles.container}
+                mode={'modal'}
+                onBlur={() => {
+                    setSelectedItems([]);
+                    setSelectedRoutines([]);
+                }}
+                selectedStyle={{borderColor: '#FFF000', borderWidth: 5}} // TODO adjust styles to set the first and last items with the proper border
+                selectedTextStyle={{color: "#00FFFF"}} // TODO set the first and last items to
+                onChange={item => {
 
-                // TODO figure out how to extract the latest item from the array
-                //  This will be used when creating the routine in the selectedItems.map block
+                    // TODO figure out how to extract the latest item from the array
+                    //  This will be used when creating the routine in the selectedItems.map block
 
-                setSelectedItems(item);
+                    setSelectedItems(item);
 
-                const newRoutinesArray = item.map(id => routines![Number(id)]).filter(routine => routine != null);
-                setSelectedRoutines(newRoutinesArray);
+                    const newRoutinesArray = item.map(id => routines![Number(id)]).filter(routine => routine != null);
+                    setSelectedRoutines(newRoutinesArray);
 
-                // TODO figure out how to handle the fact that you can toggle items to be selected
-                const newItem = item.find(i => !previousItems.includes(i))
-                if (newItem) setNewestItem(newItem);
+                    // TODO figure out how to handle the fact that you can toggle items to be selected
+                    const newItem = item.find(i => !previousItems.includes(i))
+                    if (newItem) setNewestItem(newItem);
 
-                selectedItems.map((item) => {
-                    if(item.includes("Create New Routine")) {
-                        // TODO Create New Routine Logic
-                        //  Will likely not be in V1
-                    }
+                    selectedItems.map((item) => {
+                        if(item.includes("Create New Routine")) {
+                            // TODO Create New Routine Logic
+                            //  Will likely not be in V1
+                        }
 
-                    // Item corresponds to the indices in the list of routines
-                    // TODO fix the index after extracting latest index
-                    const routine = routines![Number(newestItem)];
+                        // Item corresponds to the indices in the list of routines
+                        // TODO fix the index after extracting latest index
+                        const routine = routines![Number(newestItem)];
 
-                    // Prevent duplicate entries
-                    if (routine && !selectedRoutines.includes(routine)) {
-                        setSelectedRoutines([...selectedRoutines, routine]);
-                    }
-                })
-
-                if (scaleExercise) {
-                    newRoutinesArray.forEach((routine) => {
-                        // Ensure no duplicates
-                        const existingExercise = SERoutines!.find(ser =>
-                            ser.exerciseId === scaleExercise.id &&
-                            ser.routineId === routine.id
-                        );
-
-                        console.log(scaleExercise);
-                        console.log(routine);
-
-                        if (!existingExercise) {
-                            // TODO set this to only activate after the user has clicked a confirm button
-                            const seRoutine = new SERoutine(scaleExercise.id, routine.id);
-                            setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
-
-
-                            // Add to database
-                            createSERoutine(scaleExercise.id, routine.id)
-                                .catch(error => {
-                                    console.log("Error creating SERoutine: " + error);
-                                });
-
-                            // Add exercise to routine's exercise array if not already present
-                            if (!routine.exercises) routine.exercises = [scaleExercise];
-                            else if (!routine.exercises.some(ex => ex.id === scaleExercise.id)) {
-                                routine.exercises.push(scaleExercise);
-                            }
+                        // Prevent duplicate entries
+                        if (routine && !selectedRoutines.includes(routine)) {
+                            setSelectedRoutines([...selectedRoutines, routine]);
                         }
                     })
 
-                }
-            }}
-            renderLeftIcon={() => (
-                <FontAwesome style={styles.icon} name={"plus"} size={15} color="grey" />
-            )}
-            renderRightIcon={() => null}
-            flatListProps={{
+                    if (scaleExercise) {
+                        newRoutinesArray.forEach((routine) => {
+                            // Ensure no duplicates
+                            const existingExercise = SERoutines!.find(ser =>
+                                ser.exerciseId === scaleExercise.id &&
+                                ser.routineId === routine.id
+                            );
 
-            }}
-            iconStyle={
-                styles.icon
-                // TODO Find a way to style this dynamically, making the plus sign change based on whether the item is selected
-            }
-        >
-        </MultiSelect>
+                            console.log("ScaleExercise from Modal: ", scaleExercise);
+                            console.log("Routine from Modal: ", routine);
+
+                            if (!existingExercise) {
+                                // TODO set this to only activate after the user has clicked a confirm button
+                                const seRoutine = new SERoutine(scaleExercise.id, routine.id);
+                                setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
+
+
+                                // Add to database
+                                createSERoutine(scaleExercise.id, routine.id)
+                                    .catch(error => {
+                                        console.log("Error creating SERoutine: " + error);
+                                    });
+
+                                // Add exercise to routine's exercise array if not already present
+                                if (!routine.exercises) routine.exercises = [scaleExercise];
+                                else if (!routine.exercises.some(ex => ex.id === scaleExercise.id)) {
+                                    routine.exercises.push(scaleExercise);
+                                }
+                            }
+                        })
+
+                    }
+                }}
+                renderLeftIcon={() => (
+                    <FontAwesome style={styles.icon} name={"plus"} size={15} color="grey" />
+                )}
+                renderRightIcon={() => null}
+                flatListProps={{
+
+                }}
+                iconStyle={
+                    styles.icon
+                    // TODO Find a way to style this dynamically, making the plus sign change based on whether the item is selected
+                }
+            >
+            </MultiSelect>
+        </View>
     );
 }
 

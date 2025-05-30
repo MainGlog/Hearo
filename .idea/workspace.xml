@@ -6,15 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Adjusted the styling of the routine details page&#10;&#10;Modified the scale details page to allow the users to add scales of multiple keys">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Server/Controllers/ScaleExerciseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server/Controllers/ScaleExerciseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Training.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Training.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineButton.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/RoutineBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/LargeAddButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/components/MiniAddButton.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ViewDetailsButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/services/ScaleExerciseService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleExerciseService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Fix" />
+        <entry key="$PROJECT_DIR$" value="Key-Patch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

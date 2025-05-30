@@ -24,6 +24,8 @@ namespace Server.Controllers
             return MUSICContext.ScaleExercises.ToList();
         }
 
+
+
         [HttpGet("GetScaleExerciseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -36,6 +38,19 @@ namespace Server.Controllers
                 return NotFound();
             }
             return Ok(scaleexercise);
+        }
+
+        [HttpGet("GetLastScaleExerciseId")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<ScaleExercise?> GetLastScaleExerciseId()
+        {
+            if (!MUSICContext.ScaleExercises.Any())
+            {
+                return Ok(-1);
+            }
+
+            int maxId = MUSICContext.ScaleExercises.Max(s => s.ScaleExerciseId);
+            return Ok(maxId);
         }
 
         [HttpGet("GetScaleExercisesByRoutineId")]
@@ -82,24 +97,48 @@ namespace Server.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult CreateScaleExercise([Required][FromBody] ScaleExercise newScaleExercise)
         {
-            newScaleExercise.ScaleExerciseId = MUSICContext.ScaleExercises.Count() > 0 ? MUSICContext.ScaleExercises.Max(k => k.ScaleExerciseId) + 1 : 0;
+            newScaleExercise.ScaleExerciseId = MUSICContext.ScaleExercises.Any() ? MUSICContext.ScaleExercises.Max(k => k.ScaleExerciseId) + 1 : 0;
             MUSICContext.ScaleExercises.Add(newScaleExercise);
             MUSICContext.SaveChanges();
             return CreatedAtAction(nameof(GetScaleExerciseById), new { id = newScaleExercise.ScaleExerciseId }, newScaleExercise);
         }
 
-        [HttpDelete("DeleteScaleExercise")]
+        [HttpDelete("DeleteScaleExerciseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteScaleExercise([Required][FromBody] ScaleExercise existingScaleExercise)
+        public IActionResult DeleteScaleExerciseById(int scaleExerciseId)
         {
             ScaleExercise? scaleexerciseToDelete = MUSICContext.ScaleExercises
-                .FirstOrDefault(k => k.ScaleExerciseId == existingScaleExercise.ScaleExerciseId);
+                .FirstOrDefault(k => k.ScaleExerciseId == scaleExerciseId);
             if (scaleexerciseToDelete == null)
             {
                 return NotFound();
             }
-            MUSICContext.Remove(scaleexerciseToDelete); 
+            MUSICContext.Remove(scaleexerciseToDelete);
+            MUSICContext.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete("DeleteScaleExercisesByIdRange")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteScaleExercisesByIdRange(int startingIndex, int upperBound)
+        {
+            if (startingIndex < 0 || upperBound < startingIndex)
+            {
+                return Ok();
+            }
+
+            for (int i = startingIndex; i < upperBound; i++)
+            {
+                ScaleExercise? scaleExerciseToDelete = MUSICContext.ScaleExercises
+                    .FirstOrDefault(k => k.ScaleExerciseId == i);
+                if (scaleExerciseToDelete == null)
+                {
+                    return NotFound();
+                }
+                MUSICContext.Remove(scaleExerciseToDelete);
+            }
             MUSICContext.SaveChanges();
             return Ok();
         }

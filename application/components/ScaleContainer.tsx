@@ -1,5 +1,4 @@
 import {View, Text, StyleSheet, Image} from "react-native";
-import AddToRoutineButton from "../components/AddToRoutineButton";
 import {FontAwesome} from "@expo/vector-icons";
 import Scale from "@/models/Scale";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
@@ -25,12 +24,6 @@ export default function ScaleContainer(scale: Scale) {
                         navigationRoute={"ScaleDetails"}
                     />
                     <FontAwesome name={"volume-up"} size={24} style={{marginTop: 13, marginHorizontal: 5}}/>
-
-                    {/*<AddToRoutineButton
-                        isMiniButton={true}
-                        exercise={null}
-                        scaleExercise={new ScaleExercise(0, 'ascending', 10, null, null, scale.id)}
-                    />*/}
                 </View>
             </View>
         </>

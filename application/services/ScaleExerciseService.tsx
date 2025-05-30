@@ -71,6 +71,18 @@ export const getScaleExercisesByRoutineId = async (id: number): Promise<ScaleExe
         })
 }
 
+export const getLastScaleExerciseId = async() => {
+    return axios
+        .get(`${apiUrl}/v1/ScaleExercise/GetLastScaleExerciseId`, {
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(async (response) => {
+            return response.data as number;
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+}
 export const updateScaleExercise = async (scaleExercise: ScaleExercise) => {
     axios
         .get(`${apiUrl}/scaleExercise/UpdateScaleExercise?scaleExercise=${scaleExercise}`)
@@ -108,4 +120,33 @@ export const createScaleExercise = async (
         .catch((error) => {
             console.log("Error creating ScaleExercise: " + error);
         });
+}
+
+export const deleteScaleExerciseById = async(
+    scaleExerciseId: number
+) => {
+    try{
+        await axios
+            .delete(`${apiUrl}/v1/ScaleExercise/DeleteScaleExerciseById?scaleExerciseId=${scaleExerciseId}`, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+    }
+    catch (error) {
+        console.error('Error deleting ScaleExercise: ', error);
+    }
+}
+
+export const deleteScaleExercisesByIdRange = async(
+    startingIndex: number,
+    upperBound: number
+) => {
+    try{
+        await axios
+            .delete(`${apiUrl}/v1/ScaleExercise/DeleteScaleExerciseById?startingIndex=${startingIndex}&upperBound=${upperBound}`, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+    }
+    catch (error) {
+        console.error('Error deleting ScaleExercise: ', error);
+    }
 }
