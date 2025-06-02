@@ -2,7 +2,7 @@ import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, Keyboard} fr
 import Scale from '@/models/Scale';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@/app/index';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import Exercise from '@/models/Exercise';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import Note from "@/models/Note";
@@ -14,11 +14,12 @@ import {getAllNotes} from "@/services/NoteService";
 import {getAllKeys} from "@/services/KeyService";
 import {getAllScales} from "@/services/ScaleService";
 import AddToRoutineModal from "@/components/AddToRoutineModal";
+import {useFocusEffect} from "@react-navigation/native";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
-    let scale = new Scale(route.params.id, route.params.name, route.params.quality,
-        route.params.rootId, route.params.keyId, route.params.imageFilePath);
+    const [scale, setScale] = useState(new Scale(route.params.id, route.params.name, route.params.quality,
+        route.params.rootId, route.params.keyId, route.params.imageFilePath));
 
     // ScaleName is used later when changing keys to find the scale of the same type but in a different key
     const scalePrefixIndex= scale.name.indexOf(' ');
@@ -34,6 +35,8 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     let scaleNotes: Note[] = [];
     const [scaleNotesAsKeyValue, setScaleNotesAsKeyValue] = useState<any[]>([]);
     const [notesAsKeyValue, setNotesAsKeyValue] = useState<any[]>([]);
+
+    // TODO implement the same re-navigation functionality that the home page has into the scale details page
 
     useEffect(() => {
         const fetchData = async() => {
@@ -62,12 +65,12 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         fetchData();
     }, [])
 
-    const fetchData = async(newKey: Key | null = null) => {
+    const fetchData = useCallback(async(newKey: Key | null = null) => {
         try {
             if (newKey) {
                 console.log("Scale before reset: ", scale);
 
-                scale = scales.find(s => s.name.includes(scaleName) && s.keyId === newKey.id)!;
+                setScale(scales.find(s => s.name.includes(scaleName) && s.keyId === newKey.id)!);
                 setRootNote(notes.find(n => n.id === scale.rootId)?.name!);
 
                 console.log("Scale: ", scale);
@@ -100,7 +103,18 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         catch (error) {
             console.error("Error retrieving data: " + error);
         }
-    }
+    }, [scales, notes, scaleExercise, exercise, scale]);
+
+    useFocusEffect(
+        useCallback(() => {
+            console.log('ScaleDetails Screen Focused');
+            fetchData();
+
+            return () => {
+                console.log('ScaleDetails Screen Unfocused');
+            }
+        }, [fetchData])
+    );
 
     // Anytime the notes are updated, fetchData is called to refresh the scaleNotes and reflect the new key
     useEffect(() => {

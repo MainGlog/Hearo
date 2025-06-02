@@ -51,13 +51,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
     // This will be called anytime the page is focused, such as being navigated to
     useFocusEffect(
         useCallback(() => {
-            console.log('Screen focused');
+            console.log('Home Screen Focused');
             fetchData();
 
             // Cleanup function, called when the screen loses focus or the component unmounts
             // Prevents memory leaks and runs before the next focus effect is executed
             return () => {
-                console.log('Screen unfocused');
+                console.log('Home Screen Unfocused');
             };
         }, [fetchData])
         // fetchData will never change, ensuring this callback doesn't re-create a focus effect on re-renders

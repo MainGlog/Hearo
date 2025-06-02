@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Modal} from "react-native";
+import {View, Text, StyleSheet, Modal, FlatList} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
 import ScaleContainer from "../components/ScaleContainer";
@@ -8,6 +8,8 @@ import Key from "@/models/Key";
 import {useEffect, useState} from "react";
 import {getAllNotes} from "@/services/NoteService";
 import {getAllScales} from "@/services/ScaleService";
+import Routine from "@/models/Routine";
+import RoutineBlock from "@/components/RoutineBlock";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
 
@@ -15,6 +17,7 @@ export default function ScaleScreen()
 {
     const [notes, setNotes] = useState<Note[]>([]);
     const [scales, setScales] = useState<Scale[]>([]);
+    const [modes, setModes] = useState<Scale[]>([]);
 
     useEffect(() => {
         const loadData = async() => {
@@ -26,6 +29,18 @@ export default function ScaleScreen()
 
                 setNotes(notesData);
                 setScales(scalesData);
+
+                let modeScales: Scale[] = [];
+
+                modeScales.push(scalesData.find(s => s.name === "D Dorian")!);
+                modeScales.push(scalesData.find(s => s.name === "E Phrygian")!);
+                modeScales.push(scalesData.find(s => s.name === "F Lydian")!);
+                modeScales.push(scalesData.find(s => s.name === "G Mixolydian")!);
+                modeScales.push(scalesData.find(s => s.name === "A Aeolian")!);
+                modeScales.push(scalesData.find(s => s.name === "B Locrian")!);
+
+                setModes(modeScales);
+
             }
             catch (error) {
                 console.error("Error retrieving notes and scales from API:" + error);
@@ -51,15 +66,22 @@ export default function ScaleScreen()
                         && s.name === "C Minor")!}
                     />
                 </View>
-                <Text style={styles.categoryTitle}>Modes</Text>
-                <View style={styles.categoryContainer}>
-                    <ScaleContainer
-                        {...scales.find(s => s.quality === "Major"
-                        && s.name === "D Dorian")!}
-                    />
-                    <ScaleContainer
-                        {...scales.find(s => s.quality === "Minor")!}
-                    />
+                <View>
+                    <Text style={styles.categoryTitle}>Modes</Text>
+                    <View style={{width: "100%"}}>
+                        <FlatList
+                            data={modes}
+                            horizontal={true}
+                            keyExtractor={(item) => item.id.toString()}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({item}: { item: Scale}) => (
+                                <View style={{marginHorizontal: 10, marginTop: 20}}>
+                                    <ScaleContainer
+                                        {...item}
+                                    />
+                                </View>
+                            )}/>
+                    </View>
                 </View>
                 <Text style={styles.categoryTitle}>Exotic Scales</Text>
                 <View style={styles.categoryContainer}>

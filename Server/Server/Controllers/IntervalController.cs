@@ -38,7 +38,7 @@ namespace Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IEnumerable<Interval> GetIntervalsByScaleId(int scaleId)
         {
-            // Return just the intervals
+            // Returns the intervals from the ScaleNotes table
             List<ScaleNote> ScaleNotes = MusicContext.ScaleNotes
                 .Where((s) => s.ScaleId == scaleId).ToList();
 

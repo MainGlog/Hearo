@@ -17,7 +17,7 @@ export default function ScaleContainer(scale: Scale) {
 {/*
                 <Image style={styles.image} source={scale.imageFilePath}></Image>
 */}
-                <View style={styles.buttonWrapper}>
+                <View style={{flexDirection: "row", justifyContent: "center"}}>
                     <ViewDetailsButton
                         scale={scale}
                         buttonLabel={"View Details"}
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     container: {
-        maxWidth: "40%",
+        width: 130,
         backgroundColor: '#e3e1e7',
         borderRadius: 20,
         borderColor: "black",

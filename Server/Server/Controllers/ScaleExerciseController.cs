@@ -96,7 +96,7 @@ namespace Server.Controllers
         [HttpPost("CreateScaleExercise")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult CreateScaleExercise([Required][FromBody] ScaleExercise newScaleExercise)
-        {
+        {   
             newScaleExercise.ScaleExerciseId = MUSICContext.ScaleExercises.Any() ? MUSICContext.ScaleExercises.Max(k => k.ScaleExerciseId) + 1 : 0;
             MUSICContext.ScaleExercises.Add(newScaleExercise);
             MUSICContext.SaveChanges();

@@ -39,12 +39,14 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
             try {
                 if (scaleExercise) {
                     const lastId = await getLastScaleExerciseId();
+
+                    // TODO When navigating back to this page, the requests to delete fail
                     if (typeof lastId === 'number' && lastId !== -1) {
                         await deleteScaleExerciseById(lastId);
                     }
 
                     console.log(scaleExercise);
-                    await createScaleExercise(
+                    createScaleExercise(
                         scaleExercise.listeningMode!,
                         scaleExercise.timePerNote!,
                         scaleExercise.numberOfNotes,
