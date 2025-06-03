@@ -1,15 +1,13 @@
-import {View, Text, StyleSheet, Modal, FlatList} from "react-native";
+import {View, Text, StyleSheet, FlatList} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/app/index";
 import ScaleContainer from "../components/ScaleContainer";
 import Scale from "@/models/Scale";
 import Note from "@/models/Note";
-import Key from "@/models/Key";
+
 import {useEffect, useState} from "react";
 import {getAllNotes} from "@/services/NoteService";
 import {getAllScales} from "@/services/ScaleService";
-import Routine from "@/models/Routine";
-import RoutineBlock from "@/components/RoutineBlock";
 
 interface ScalesScreenProps extends NativeStackScreenProps<RootStackParamList, "Scales">{}
 
@@ -18,26 +16,41 @@ export default function ScaleScreen()
     const [notes, setNotes] = useState<Note[]>([]);
     const [scales, setScales] = useState<Scale[]>([]);
     const [modes, setModes] = useState<Scale[]>([]);
+    const [basicScales, setBasicScales] = useState<Scale[]>([]);
 
     useEffect(() => {
         const loadData = async() => {
             try {
+                // Fetches the data from the API endpoints
                 const [notesData, scalesData] = await Promise.all([
                     getAllNotes(),
                     getAllScales()
                 ]);
 
+                // Sets the stateful variables to the defined data
+                // Anything that must use values from the notes or scales in this block must use notesData or scalesData
+                // The stateful variables may not be assigned yet
                 setNotes(notesData);
                 setScales(scalesData);
 
-                let modeScales: Scale[] = [];
+                // Adds the basic scales to the list that will be rendered to the screen
+                let basics: Scale[] = [];
+                let basicNames: string[] = [
+                    "C Major", "C Minor", "C Harmonic Minor", "C Melodic Minor (Ascending)"
+                ];
+                for (let i = 0; i < basicNames.length; i++) {
+                    basics.push(scalesData.find(s => s.name === basicNames[i])!);
+                }
+                setBasicScales(basics);
 
-                modeScales.push(scalesData.find(s => s.name === "D Dorian")!);
-                modeScales.push(scalesData.find(s => s.name === "E Phrygian")!);
-                modeScales.push(scalesData.find(s => s.name === "F Lydian")!);
-                modeScales.push(scalesData.find(s => s.name === "G Mixolydian")!);
-                modeScales.push(scalesData.find(s => s.name === "A Aeolian")!);
-                modeScales.push(scalesData.find(s => s.name === "B Locrian")!);
+                // Adds the mode scales to the list that will be rendered to the screen
+                let modeScales: Scale[] = [];
+                let modeNames: string[] = [
+                    "D Dorian", "E Phrygian", "F Lydian", "G Mixolydian", "A Aeolian", "B Locrian"
+                ];
+                for (let i = 0; i < modeNames.length; i++) {
+                    modeScales.push(scalesData.find(s => s.name === modeNames[i])!);
+                }
 
                 setModes(modeScales);
 
@@ -55,43 +68,51 @@ export default function ScaleScreen()
                 <Text style={styles.header}>
                     Scales
                 </Text>
+
                 <Text style={styles.categoryTitle}>Basic Scales</Text>
-                <View style={styles.categoryContainer}>
-                    <ScaleContainer
-                        {...scales.find(s => s.quality === "Major"
-                        && s.name === "C Major")!}
-                    />
-                    <ScaleContainer
-                        {...scales.find(s => s.quality === "Minor"
-                        && s.name === "C Minor")!}
-                    />
-                </View>
+                {basicScales ?
                 <View>
-                    <Text style={styles.categoryTitle}>Modes</Text>
-                    <View style={{width: "100%"}}>
+                    <View style={{width: "100%", marginLeft: 15}}>
                         <FlatList
-                            data={modes}
-                            horizontal={true}
-                            keyExtractor={(item) => item.id.toString()}
+                            data={basicScales}
                             showsHorizontalScrollIndicator={false}
+                            numColumns={2}
                             renderItem={({item}: { item: Scale}) => (
-                                <View style={{marginHorizontal: 10, marginTop: 20}}>
+                                <View style={{marginHorizontal: 30, marginTop: 20}}>
                                     <ScaleContainer
                                         {...item}
                                     />
                                 </View>
                             )}/>
                     </View>
-                </View>
-                <Text style={styles.categoryTitle}>Exotic Scales</Text>
+                </View> : null}
+
+                <Text style={styles.categoryTitle}>Modes</Text>
+                {modes ?
+                <View>
+                    <View style={{width: "100%"}}>
+                        <FlatList
+                            data={modes}
+                            showsHorizontalScrollIndicator={false}
+                            numColumns={3}
+                            renderItem={({item}: { item: Scale}) => (
+                                <View style={{marginHorizontal: 3, marginTop: 20}}>
+                                    <ScaleContainer
+                                        {...item}
+                                    />
+                                </View>
+                            )}/>
+                    </View>
+                </View> : null}
+                {/*<Text style={styles.categoryTitle}>Exotic Scales</Text>
                 <View style={styles.categoryContainer}>
-                    {/*<ScaleContainer
+                    <ScaleContainer
                         {...scale}
                     />
                     <ScaleContainer
                         {...scale}
-                    />*/}
-                </View>
+                    />
+                </View>*/}
             </View>
         </>
     )

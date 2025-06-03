@@ -14,7 +14,7 @@ import {getAllNotes} from "@/services/NoteService";
 import {getAllKeys} from "@/services/KeyService";
 import {getAllScales} from "@/services/ScaleService";
 import AddToRoutineModal from "@/components/AddToRoutineModal";
-import {useFocusEffect} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
@@ -38,6 +38,7 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
 
     // TODO implement the same re-navigation functionality that the home page has into the scale details page
 
+    // Fetches all notes, scales, and keys
     useEffect(() => {
         const fetchData = async() => {
             try {
@@ -65,45 +66,63 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
         fetchData();
     }, [])
 
+    // TODO needs to re-fetch the data based on the new scale
     const fetchData = useCallback(async(newKey: Key | null = null) => {
         try {
+            let currentScale = scale;
+
+            // Updates the scale on key changes
             if (newKey) {
-                console.log("Scale before reset: ", scale);
-
-                setScale(scales.find(s => s.name.includes(scaleName) && s.keyId === newKey.id)!);
-                setRootNote(notes.find(n => n.id === scale.rootId)?.name!);
-
-                console.log("Scale: ", scale);
-                console.log("ScaleExercise in KeyFetch: ", scaleExercise);
-
-                // exercise.scale = scale;
-                setExercise({...exercise, scale: scale});
-                // scaleExercise.scaleId = scale.id;
-                setScaleExercise({...scaleExercise, scaleId: scale.id, scale: scale});
+                const newScale = scales.find(s => s.name.includes(scaleName) && s.keyId === newKey.id)!;
+                setScale(newScale);
+                currentScale = newScale;
+            }
+            else if (route.params.id !== scale.id) {
+                // Updates the scale when a new one is passed in
+                const newScale = new Scale(
+                    route.params.id,
+                    route.params.name,
+                    route.params.quality,
+                    route.params.rootId,
+                    route.params.keyId,
+                    route.params.imageFilePath
+                );
+                setScale(newScale);
+                currentScale = newScale;
             }
 
-            // Resets the scale notes after each time the data is fetched
+            setExercise(prev => ({...prev, scale: currentScale}));
+            setScaleExercise(prev => ({...prev, scaleId: currentScale.id, scale: currentScale}));
+
+            // Fetches intervals based on the scale
+            const intervalsData = await getIntervalsByScaleId(currentScale.id);
             scaleNotes = [];
 
-            const intervalsData = await getIntervalsByScaleId(scale.id);
+            // Updates root note and add it to the list of notes for the scale
+            const currentRootNote = notes.find(n => n.id === currentScale.rootId);
+            if (currentRootNote) {
+                setRootNote(currentRootNote.name);
+                scaleNotes.push(currentRootNote);
+            }
 
-            const rootNote = notes.find((n) => n.id === scale.rootId);
-            if (rootNote) scaleNotes.push(rootNote);
-
+            // Adds the rest of the notes for the scale
             for (const interval of intervalsData!) {
                 const note = notes.find((n) => n.id === interval.intervalNoteId)!;
                 if (note) scaleNotes.push(note);
             }
 
-            if (scaleNotes) setScaleNotesAsKeyValue(scaleNotes.map((note, index) => ({
-                key: index.toString(),
-                value: note.name
-            })));
+            // Maps the scale notes into an object usable with the MultiSelect component
+            if (scaleNotes.length > 0) {
+                setScaleNotesAsKeyValue(scaleNotes.map((note, index) => ({
+                    key: index.toString(),
+                    value: note.name
+                })));
+            }
+        } catch (error) {
+            console.error("Error retrieving data:", error);
         }
-        catch (error) {
-            console.error("Error retrieving data: " + error);
-        }
-    }, [scales, notes, scaleExercise, exercise, scale]);
+    }, [scales, notes, route.params, scaleName]);
+
 
     useFocusEffect(
         useCallback(() => {

@@ -32,21 +32,33 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
     const [newestItem, setNewestItem] = useState<string>('');
     const [routinesAsJSONArray, setRoutinesAsJSONArray] = useState<Array<{id: string, name: string}>>([]);
     const [selectedRoutines, setSelectedRoutines] = useState<Routine[]>([]);
-
+    const [previousId, setPreviousId] = useState<number>(1);
 
     useEffect(() => {
         const handleScaleExercise = async() => {
             try {
-                if (scaleExercise) {
+                if (scaleExercise && previousId !== scaleExercise.id) {
+                    // AddToRoutineModal is used in ScalesDetails, where the scaleExercise is being created
+                    // In that page, the amount of scaleExercises is not known, so the object created has an ID of 0
+                    // To avoid a redundant API call, the true id is set here as there's already a call to get all scaleExercises
+
                     const lastId = await getLastScaleExerciseId();
+                    setPreviousId(lastId ? lastId : 0);
+
+                    if (exercise) {
+                        scaleExercise.id = lastId ? lastId : 0;
+                        exercise.id = scaleExercise.id;
+                    }
 
                     // TODO When navigating back to this page, the requests to delete fail
-                    if (typeof lastId === 'number' && lastId !== -1) {
+                    console.log(lastId);
+                    if (typeof lastId === 'number' && lastId !== -1 && lastId !== scaleExercise.id) {
                         await deleteScaleExerciseById(lastId);
                     }
 
-                    console.log(scaleExercise);
+                    console.log("ScaleExercise Before Creation:", scaleExercise);
                     createScaleExercise(
+                        scaleExercise.id,
                         scaleExercise.listeningMode!,
                         scaleExercise.timePerNote!,
                         scaleExercise.numberOfNotes,
@@ -72,14 +84,6 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                 setRoutines(routinesData);
                 setScaleExercises(scaleExercisesData);
                 setSERoutines(SERoutineData);
-
-                // AddToRoutineModal is used in ScalesDetails, where the scaleExercise is being created
-                // In that page, the amount of scaleExercises is not known, so the object created has an ID of 0
-                // To avoid a redundant API call, the true id is set here as there's already a call to get all scaleExercises
-                if (scaleExercise && exercise) {
-                    scaleExercise.id = scaleExercisesData.length > 0 ? scaleExercisesData[scaleExercisesData.length - 1].id + 1 : 0;
-                    exercise.id = scaleExercise.id;
-                }
 
                 if (routinesData) {
                     const routinesJSON = routinesData.map((routine) => ({
@@ -174,7 +178,6 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                                 // TODO set this to only activate after the user has clicked a confirm button
                                 const seRoutine = new SERoutine(scaleExercise.id, routine.id);
                                 setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
-
 
                                 // Add to database
                                 createSERoutine(scaleExercise.id, routine.id)

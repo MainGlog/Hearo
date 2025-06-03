@@ -4,7 +4,6 @@ import ScaleExercise from "@/models/ScaleExercise";
 const apiUrl = "http://10.0.2.2:5028";
 
 // Used to get the last ID of the scaleExercises during scaleExercise creation
-let scaleExercisesCache: ScaleExercise[] | null = null;
 
 export const getAllScaleExercises = async (): Promise<ScaleExercise[]> => {
     return axios
@@ -24,7 +23,6 @@ export const getAllScaleExercises = async (): Promise<ScaleExercise[]> => {
                 scaleId: scaleExercise.scaleId
             }));
 
-            scaleExercisesCache = scaleExercises;
             return scaleExercises as ScaleExercise[];
         })
         .catch((error) => {
@@ -97,6 +95,7 @@ export const updateScaleExercise = async (scaleExercise: ScaleExercise) => {
 }
 
 export const createScaleExercise = async (
+    id: number,
     listeningMode: string,
     timePerNote: number,
     numberOfNotes: number | null,
@@ -105,7 +104,7 @@ export const createScaleExercise = async (
 ) => {
     await axios
         .post(`${apiUrl}/v1/ScaleExercise/CreateScaleExercise`, {
-            scaleExerciseId: scaleExercisesCache ? scaleExercisesCache.length : 0,
+            scaleExerciseId: id,
             listeningMode: listeningMode,
             timePerNote: timePerNote,
             numberOfNotes: numberOfNotes,

@@ -1,7 +1,7 @@
 import {Text, View, StyleSheet, TouchableOpacity, FlatList} from "react-native";
 import {RootStackParamList} from "@/app/index";
 import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import Routine from "@/models/Routine";
 import {getAllRoutines} from "@/services/RoutineService";
 import RoutineBlock from "@/components/RoutineBlock";
@@ -23,16 +23,17 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
 
             // Sets exercises array of each routine
             for (const routine of routinesData) {
-                   routine.exercises = seRoutinesData
-                        .filter(ser => ser.routineId === routine.id)
-                        .map(ser => {
-                            const scaleExercise = scaleExercisesData.find(se => se.id === ser.exerciseId)!;
-                            return new Exercise(
-                                'scale', ser.exerciseId, null, null, scaleExercise.scaleId,
-                                scaleExercise.listeningMode, scaleExercise.timePerNote,
-                                scaleExercise.numberOfNotes, scaleExercise.numberOfOctaves
-                            );
-                        });
+                console.log(routine);
+                routine.exercises = seRoutinesData
+                    .filter(ser => ser.routineId === routine.id)
+                    .map(ser => {
+                        const scaleExercise = scaleExercisesData.find(se => se.id === ser.exerciseId)!;
+                        return new Exercise(
+                            'scale', ser.exerciseId, null, null, scaleExercise.scaleId,
+                            scaleExercise.listeningMode, scaleExercise.timePerNote,
+                            scaleExercise.numberOfNotes, scaleExercise.numberOfOctaves
+                        );
+                    });
             }
 
             setRoutines(routinesData);
@@ -41,7 +42,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
             console.error("Error retrieving routines:", error);
         }
     }, [setRoutines]);
-    // Routines are the only thing we need to track
+    // setRoutines is the only external value used inside the callback that could potentially change
     // Additionally, setRoutines is from useState, meaning it will never change
     // This ensures that fetchData will maintain the same reference throughout the component's lifecycle
     // Using useCallback memoizes the function, meaning it caches the creation of the function
@@ -179,6 +180,7 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         flexDirection: 'row',
         justifyContent: 'center',
+        alignContent: 'center',
         minWidth: "30%"
     },
     containerButton: {

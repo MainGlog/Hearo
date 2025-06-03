@@ -1,7 +1,6 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {BottomTabBarProps, createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import ScaleScreen from "@/app/Scales";
-import NavBar from "@/components/NavBar";
 import {FontAwesome} from "@expo/vector-icons";
 import AddToRoutineModal from "@/components/AddToRoutineModal";
 import Exercise from "@/models/Exercise";
@@ -81,6 +80,14 @@ export default function Index() {
                 options={{
                     tabBarLabel: 'Scales',
                     tabBarIcon: ({color}) => <FontAwesome color={color} name={"bar-chart"} size={24}/>,
+                }}
+            />
+
+            <Tab.Screen
+                name="RoutineBuilder"
+                component={RoutineBuilderScreen as React.ComponentType<any>}
+                    options={{
+                    tabBarButton: () => null
                 }}
             />
 

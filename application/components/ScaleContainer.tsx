@@ -2,8 +2,6 @@ import {View, Text, StyleSheet, Image} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
 import Scale from "@/models/Scale";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
-import ScaleExercise from "@/models/ScaleExercise";
-
 
 export default function ScaleContainer(scale: Scale) {
     return(
