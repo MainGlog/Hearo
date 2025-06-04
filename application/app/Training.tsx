@@ -86,7 +86,7 @@ export default function TrainingScreen({route}: TrainingScreenProps){
         // Adds the sound for each note to an array
         for (let i = 0; i < notesArray.length; i++) {
             const note = notesArray[i];
-            const nextNote = i < notesArray.length - 1 ? notesArray[i + 1] : notesArray[i];
+            const nextNote = i < notesArray.length - 1 ? notesArray[i + 1] : notesArray[0]; // If the next note is undefined, the noteId will be the root
 
             soundsArray.push(sounds.find(s => s.noteId === note.id
                 && s.octave === octave)!);

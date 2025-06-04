@@ -152,19 +152,14 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                 selectedStyle={{borderColor: '#FFF000', borderWidth: 5}} // TODO adjust styles to set the first and last items with the proper border
                 selectedTextStyle={{color: "#00FFFF"}} // TODO set the first and last items to
                 onChange={item => {
-
-                    console.log("Indexes: ", item);
-                    // TODO figure out how to extract the latest item from the array
-                    //  This will be used when creating the routine in the selectedItems.map block
-
+                    // Sets the selected items based on the string array, which contains the routineIds of the available routines
                     setSelectedItems(item);
 
+                    // Sets the selected routines array based on the selected routine Id's
                     const newRoutinesArray = item.map(id => routines!.find(r => r.id === Number(id))!);
-                    console.log("NewRoutinesArray: ", newRoutinesArray);
-
                     setSelectedRoutines(newRoutinesArray ? newRoutinesArray : []);
 
-                    // TODO figure out how to handle the fact that you can toggle items to be selected
+                    // Determines the newest item in the selected list
                     const newItem = item.find(i => !previousItems.includes(i))
                     if (newItem) setNewestItem(newItem);
 
@@ -175,7 +170,6 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                         }
 
                         // Item corresponds to the indices in the list of routines
-                        // TODO fix the index after extracting latest index
                         const routine = routines!.find(r => r.id === Number(newestItem));
 
                         // Prevent duplicate entries
@@ -192,13 +186,13 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                                 ser.routineId === routine.id
                             );
 
-                            console.log("ScaleExercise from Modal: ", scaleExercise);
-                            console.log("Routine from Modal: ", routine);
+                            /*console.log("ScaleExercise from Modal: ", scaleExercise);
+                            console.log("Routine from Modal: ", routine);*/
 
                             if (!existingExercise) {
                                 // TODO set this to only activate after the user has clicked a confirm button
-                                console.log('ScaleExercise after adding to Routine: ', scaleExercise);
-                                console.log('ScaleExerciseId: ', scaleExercise.id, 'RoutineId: ', routine.id);
+                                /*console.log('ScaleExercise after adding to Routine: ', scaleExercise);
+                                console.log('ScaleExerciseId: ', scaleExercise.id, 'RoutineId: ', routine.id);*/
                                 const seRoutine = new SERoutine(scaleExercise.id, routine.id);
                                 setSERoutines(SERoutines ? [...SERoutines, seRoutine] : [seRoutine]);
 
