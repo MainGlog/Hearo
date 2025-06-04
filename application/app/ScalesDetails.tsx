@@ -22,16 +22,14 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     const [scale, setScale] = useState(new Scale(route.params.id, route.params.name, route.params.quality,
         route.params.rootId, route.params.keyId, route.params.imageFilePath));
 
-    console.log(scale);
 
     // ScaleName is used later when changing keys to find the scale of the same type but in a different key
     const scalePrefixIndex= scale.name.indexOf(' ');
     const scaleName = scale.name.slice(scalePrefixIndex, scale.name.length);
-
+    const [initialKey, setInitialKey] = useState<Key>(); // Used to maintain the key quality when switching keys
     const [rootNote, setRootNote] = useState<string>('');
     const [scaleExercise, setScaleExercise] = useState<ScaleExercise>(new ScaleExercise(0, 'ascending', 10, null, null, scale.id));
     const [exercise, setExercise] = useState<Exercise>(new Exercise('scale', 0, null, null, scale.id));
-
     const [notes, setNotes] = useState<Note[]>([]);
     const [keys, setKeys] = useState<Key[]>([]);
     const [scales, setScales] = useState<Scale[]>([]);
@@ -52,6 +50,8 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                 setKeys(keysData);
                 setNotes(notesData);
                 setScales(scalesData);
+
+                setInitialKey(keysData.find(kd => kd.id === scale.keyId));
 
                 // For some reason, the response gives A the id of 11 despite the API response giving it 0
                 const A = notesData.find((n) => n.name === "A");
@@ -180,9 +180,8 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                         onChange={(note) => {
                             if (exercise.scale && keys) {
                                 const key = keys
-                                    .find((k) => k.quality === exercise.scale!.quality
+                                    .find((k) => k.quality === initialKey!.quality
                                         && k.name === note.value)!;
-
                                 // TODO Gb Minor throws an error
 
                                 fetchData(key);

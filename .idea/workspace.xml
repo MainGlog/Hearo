@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="ACTUALLY got the keys to work this time&#10;&#10;Adjusted the names of the scales to be accurate, but only sometimes :( &#10;&#10;Added some extra API endpoints&#10;&#10;Added the rest of the modes into the scales page and rendered them in a FlatList">
+    <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="Fixed the octave logic&#10;&#10;Scales of different keys can properly be added to different routines and be viewed in the routine details page immediately after adding">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -405,7 +401,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748876947175</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Fixed the octave logic&#10;&#10;Scales of different keys can properly be added to different routines and be viewed in the routine details page immediately after adding">
+      <option name="closed" value="true" />
+      <created>1749051452539</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1749051452539</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -423,7 +427,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Created layout for scale details page&#10;- Random notes options are working" />
     <MESSAGE value="Added Root Note selector to Scales Details page&#10;Added structure to Home page" />
     <MESSAGE value="Did a tiny bit of work on the home and routine building page, started trying to work with my APIs" />
     <MESSAGE value="Fixed the app from not working randomly, thanks kc&#10;npx expo start&#10;s" />
@@ -448,7 +451,8 @@
     <MESSAGE value="Fixed a bug where the timer would only reset back to the original duration once&#10;&#10;Changed the way the checkGuess function worked so that the program doesn't have to check the type of the exercise passed in, as this is already being performed in getNextExercise(). Instead, I created a new state variable, correctAnswer, and set this inside of getNextExercise().&#10;&#10;Updated the UI to hide the Submit button after the timer has run out&#10;&#10;Updated the UI to have better feedback than &quot;Yippee!&quot; and &quot;:(&quot;. This includes displaying the correct answer to the user in the event that they get the answer wrong.&#10;&#10;Updated the UI to display the amount of CORRECT guesses out of the total exercises played as opposed to the current number of exercises played" />
     <MESSAGE value="ACTUALLY got the keys to work this time&#10;&#10;Adjusted the names of the scales to be accurate&#10;&#10;Added some extra API endpoints" />
     <MESSAGE value="ACTUALLY got the keys to work this time&#10;&#10;Adjusted the names of the scales to be accurate, but only sometimes :( &#10;&#10;Added some extra API endpoints&#10;&#10;Added the rest of the modes into the scales page and rendered them in a FlatList" />
-    <option name="LAST_COMMIT_MESSAGE" value="ACTUALLY got the keys to work this time&#10;&#10;Adjusted the names of the scales to be accurate, but only sometimes :( &#10;&#10;Added some extra API endpoints&#10;&#10;Added the rest of the modes into the scales page and rendered them in a FlatList" />
+    <MESSAGE value="Fixed the octave logic&#10;&#10;Scales of different keys can properly be added to different routines and be viewed in the routine details page immediately after adding" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed the octave logic&#10;&#10;Scales of different keys can properly be added to different routines and be viewed in the routine details page immediately after adding" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
