@@ -6,13 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="47005add-0776-4667-9bd7-7d0523851297" name="Changes" comment="ACTUALLY got the keys to work this time&#10;&#10;Adjusted the names of the scales to be accurate, but only sometimes :( &#10;&#10;Added some extra API endpoints&#10;&#10;Added the rest of the modes into the scales page and rendered them in a FlatList">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/application/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/Scales.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/Scales.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/RoutineDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/ScalesDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/AddToRoutineModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/components/ScaleContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/services/ScaleExerciseService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/application/services/ScaleExerciseService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

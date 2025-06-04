@@ -15,11 +15,14 @@ import {getAllKeys} from "@/services/KeyService";
 import {getAllScales} from "@/services/ScaleService";
 import AddToRoutineModal from "@/components/AddToRoutineModal";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
+import {getLastScaleExerciseId} from "@/services/ScaleExerciseService";
 interface ScalesDetailsScreenProps extends NativeStackScreenProps<RootStackParamList, 'ScaleDetails'> {}
 
 export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     const [scale, setScale] = useState(new Scale(route.params.id, route.params.name, route.params.quality,
         route.params.rootId, route.params.keyId, route.params.imageFilePath));
+
+    console.log(scale);
 
     // ScaleName is used later when changing keys to find the scale of the same type but in a different key
     const scalePrefixIndex= scale.name.indexOf(' ');
@@ -70,7 +73,6 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
     const fetchData = useCallback(async(newKey: Key | null = null) => {
         try {
             let currentScale = scale;
-
             // Updates the scale on key changes
             if (newKey) {
                 const newScale = scales.find(s => s.name.includes(scaleName) && s.keyId === newKey.id)!;
@@ -91,8 +93,10 @@ export default function ScalesDetailsScreen({route}: ScalesDetailsScreenProps) {
                 currentScale = newScale;
             }
 
+            const lastId = await getLastScaleExerciseId();
+
             setExercise(prev => ({...prev, scale: currentScale}));
-            setScaleExercise(prev => ({...prev, scaleId: currentScale.id, scale: currentScale}));
+            setScaleExercise(prev => ({...prev, id: lastId ? lastId + 1 : prev.id, scaleId: currentScale.id, scale: currentScale}));
 
             // Fetches intervals based on the scale
             const intervalsData = await getIntervalsByScaleId(currentScale.id);

@@ -32,32 +32,51 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
     const [newestItem, setNewestItem] = useState<string>('');
     const [routinesAsJSONArray, setRoutinesAsJSONArray] = useState<Array<{id: string, name: string}>>([]);
     const [selectedRoutines, setSelectedRoutines] = useState<Routine[]>([]);
-    const [previousId, setPreviousId] = useState<number>(1);
+    const [currentScaleExercise, setCurrentScaleExercise] = useState<ScaleExercise | null>(scaleExercise);
+    // const [previousId, setPreviousId] = useState<number>(1);
 
     useEffect(() => {
+        console.log("ScaleExercise in useEffect: ", scaleExercise);
         const handleScaleExercise = async() => {
             try {
-                if (scaleExercise && previousId !== scaleExercise.id) {
+                // TODO Focus on getting the most recently created exercise into the routines
+                //  if you can't figure out deleting the scaleExercises that were created
+                //  in this instance of the scalesDetails page excluding the current one, then move on
+
+                //console.log("Current ScaleExercise: ", currentScaleExercise);
+
+                if (scaleExercise && scaleExercise !== currentScaleExercise) {
                     // AddToRoutineModal is used in ScalesDetails, where the scaleExercise is being created
                     // In that page, the amount of scaleExercises is not known, so the object created has an ID of 0
                     // To avoid a redundant API call, the true id is set here as there's already a call to get all scaleExercises
 
-                    const lastId = await getLastScaleExerciseId();
-                    setPreviousId(lastId ? lastId : 0);
 
-                    if (exercise) {
-                        scaleExercise.id = lastId ? lastId : 0;
+                    // setCurrentScaleExercise(scaleExercise);
+
+                    // setPreviousId(lastId ? lastId : 0);
+
+
+                    /*if (exercise) {
+                        scaleExercise.id = lastId ? lastId: 0;
                         exercise.id = scaleExercise.id;
-                    }
+                    }*/
 
                     // TODO When navigating back to this page, the requests to delete fail
-                    console.log(lastId);
-                    if (typeof lastId === 'number' && lastId !== -1 && lastId !== scaleExercise.id) {
+                    /*if (typeof lastId === 'number' && lastId !== -1 && lastId !== scaleExercise.id) {
                         await deleteScaleExerciseById(lastId);
-                    }
+                    }*/
 
                     console.log("ScaleExercise Before Creation:", scaleExercise);
-                    createScaleExercise(
+
+                    /*const [id, listeningMode, timePerNote, numberOfNotes, numberOfOctaves, scaleId] = currentScaleExercise ?
+                        [currentScaleExercise.id, currentScaleExercise.listeningMode!, currentScaleExercise.timePerNote!, currentScaleExercise.numberOfNotes, currentScaleExercise.numberOfOctaves, currentScaleExercise.scaleId] :
+                        [scaleExercise.id, scaleExercise.listeningMode!, scaleExercise.timePerNote!, scaleExercise.numberOfNotes, scaleExercise.numberOfOctaves, scaleExercise.scaleId];
+
+                    await createScaleExercise(
+                        id, listeningMode, timePerNote, numberOfNotes, numberOfOctaves, scaleId
+                    );*/
+
+                    await createScaleExercise(
                         scaleExercise.id,
                         scaleExercise.listeningMode!,
                         scaleExercise.timePerNote!,
@@ -65,7 +84,6 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                         scaleExercise.numberOfOctaves,
                         scaleExercise.scaleId
                     );
-
                 }
             } catch (error) {
                 console.error("Error handling scale exercise:", error);
@@ -135,13 +153,16 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                 selectedTextStyle={{color: "#00FFFF"}} // TODO set the first and last items to
                 onChange={item => {
 
+                    console.log("Indexes: ", item);
                     // TODO figure out how to extract the latest item from the array
                     //  This will be used when creating the routine in the selectedItems.map block
 
                     setSelectedItems(item);
 
-                    const newRoutinesArray = item.map(id => routines![Number(id)]).filter(routine => routine != null);
-                    setSelectedRoutines(newRoutinesArray);
+                    const newRoutinesArray = item.map(id => routines!.find(r => r.id === Number(id))!);
+                    console.log("NewRoutinesArray: ", newRoutinesArray);
+
+                    setSelectedRoutines(newRoutinesArray ? newRoutinesArray : []);
 
                     // TODO figure out how to handle the fact that you can toggle items to be selected
                     const newItem = item.find(i => !previousItems.includes(i))
@@ -155,16 +176,16 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
 
                         // Item corresponds to the indices in the list of routines
                         // TODO fix the index after extracting latest index
-                        const routine = routines![Number(newestItem)];
+                        const routine = routines!.find(r => r.id === Number(newestItem));
 
                         // Prevent duplicate entries
                         if (routine && !selectedRoutines.includes(routine)) {
                             setSelectedRoutines([...selectedRoutines, routine]);
                         }
-                    })
+                    });
 
-                    if (scaleExercise) {
-                        newRoutinesArray.forEach((routine) => {
+                    newRoutinesArray.forEach((routine) => {
+                        if (scaleExercise && routine) {
                             // Ensure no duplicates
                             const existingExercise = SERoutines!.find(ser =>
                                 ser.exerciseId === scaleExercise.id &&
@@ -176,8 +197,10 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
 
                             if (!existingExercise) {
                                 // TODO set this to only activate after the user has clicked a confirm button
+                                console.log('ScaleExercise after adding to Routine: ', scaleExercise);
+                                console.log('ScaleExerciseId: ', scaleExercise.id, 'RoutineId: ', routine.id);
                                 const seRoutine = new SERoutine(scaleExercise.id, routine.id);
-                                setSERoutines(SERoutines ? [...SERoutines, seRoutine ] : [seRoutine]);
+                                setSERoutines(SERoutines ? [...SERoutines, seRoutine] : [seRoutine]);
 
                                 // Add to database
                                 createSERoutine(scaleExercise.id, routine.id)
@@ -191,9 +214,8 @@ export default function AddToRoutineModal({scaleExercise, exercise, buttonSize} 
                                     routine.exercises.push(scaleExercise);
                                 }
                             }
-                        })
-
-                    }
+                        }}
+                    )
                 }}
                 renderLeftIcon={() => (
                     <FontAwesome style={styles.icon} name={"plus"} size={15} color="grey" />

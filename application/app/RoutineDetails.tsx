@@ -14,6 +14,9 @@ interface RoutineDetailsScreenProps extends NativeStackScreenProps<RootStackPara
 export default function RoutineDetailsScreen({route} : RoutineDetailsScreenProps) {
     const navigation = useNavigation<NativeStackScreenProps<RootStackParamList, 'RoutineDetails'>['navigation']>();
 
+    // TODO Need to get the exercises to refresh when re-navigating to this page
+    //  after adding a new exercise to the routine
+
     let routine = new Routine(route.params.id ?? 0, route.params.name ?? 'My Routine',
         route.params.exerciseCount ?? 10, route.params.timeToGuess ?? 25, route.params.description ?? 'Description');
 

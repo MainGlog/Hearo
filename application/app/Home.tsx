@@ -23,7 +23,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: HomeScreenProps) 
 
             // Sets exercises array of each routine
             for (const routine of routinesData) {
-                console.log(routine);
                 routine.exercises = seRoutinesData
                     .filter(ser => ser.routineId === routine.id)
                     .map(ser => {

@@ -84,17 +84,27 @@ export default function TrainingScreen({route}: TrainingScreenProps){
         let octavesArray: number[] = [];
 
         // Adds the sound for each note to an array
-        for (const note of notesArray) {
+        for (let i = 0; i < notesArray.length; i++) {
+            const note = notesArray[i];
+            const nextNote = i < notesArray.length - 1 ? notesArray[i + 1] : notesArray[i];
+
             soundsArray.push(sounds.find(s => s.noteId === note.id
                 && s.octave === octave)!);
 
             // TODO C minor's top note did not add the correct octave
-
+            //  G minor shifts down an octave at C
             // Stores the octave for the note to be used when the notes are added in descending order
             if (listeningMode === 'ascending') octavesArray.push(octave);
 
-            // Increments the octave if C is passed
-            if (note.id + 1 % 12 >= 3 && note.id < 3) octave++
+            let distanceToNextNote = 0;
+
+            if (note.id >= 10) {
+                distanceToNextNote = (nextNote.id + 12) - note.id;
+            } else {
+                distanceToNextNote = nextNote.id - note.id;
+            }
+
+            if (note.id + distanceToNextNote % 12 >= 3 && note.id < 3) octave++
         }
 
         if (listeningMode === 'ascending') {
