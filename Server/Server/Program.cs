@@ -21,7 +21,7 @@ namespace Server
 
             builder.Services.AddDbContext<MUSICContext>(options =>
             {
-                options.UseMySQL(builder.Configuration.GetConnectionString("Capstone")!);
+                options.UseMySQL(File.ReadAllText("connectionstring.txt"));
                 options.UseLazyLoadingProxies();
 
                 if (builder.Environment.IsDevelopment())
